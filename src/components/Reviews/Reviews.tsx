@@ -29,7 +29,7 @@ const floatB: Transition = { duration: 8, repeat: Infinity, repeatType: "reverse
 
 export default function Reviews() {
   return (
-    <section id="testimonials" className="py-32 px-6 bg-[#0a0a0a] border-t border-white/5">
+    <section id="testimonials" className="py-32 px-6 bg-charcoal border-t border-white/5">
       <div className="max-w-7xl mx-auto flex flex-col relative">
         <div className="mb-20 text-center">
           <span

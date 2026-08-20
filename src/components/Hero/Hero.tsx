@@ -48,10 +48,10 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
       ref={containerRef}
       id="home"
       onMouseMove={handleMouseMove}
-      className="relative h-[250vh] w-full bg-[#0a0a0a]"
+      className="relative h-[250vh] w-full bg-charcoal"
     >
       {/* Sticky container that locks the view while scrolling through the track */}
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden flex flex-col justify-end">
+      <div className="sticky top-0 h-svh w-full overflow-hidden flex flex-col justify-end">
         
         {/* Background Images & Overlay Graphics */}
         <div className="absolute inset-0 w-full h-full">
@@ -87,8 +87,8 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
             {/* Central Alignment Crosshair */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
-              <div className="absolute w-full h-[1px] bg-white/15" />
-              <div className="absolute h-full w-[1px] bg-white/15" />
+              <div className="absolute w-full h-px bg-white/15" />
+              <div className="absolute h-full w-px bg-white/15" />
               <div className="w-2 h-2 rounded-full border border-[#E52E2D]/40" />
             </div>
 
@@ -136,9 +136,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
           {/* Dynamic Vignette & Contrast Overlays */}
           <div className="absolute inset-0 bg-black/10 z-30 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#060606]/30 to-black/80 z-30 pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#060606] via-[#060606]/30 to-black/80 z-30 pointer-events-none" />
           {/* Extra dark gradient at the very top specifically for the navigation bar */}
-          <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-black/90 to-transparent z-30 pointer-events-none" />
+          <div className="absolute top-0 left-0 w-full h-40 bg-linear-to-b from-black/90 to-transparent z-30 pointer-events-none" />
         </div>
 
         {/* Hero Content Overlay */}
@@ -206,7 +206,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
           {/* Scroll Indicator */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-auto">
-            <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
+            <div className="w-px h-12 bg-linear-to-b from-white/30 to-transparent" />
             <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/30">Scroll</span>
           </div>
 

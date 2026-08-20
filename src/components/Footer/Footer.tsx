@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <footer
-      className="py-16 px-6 relative mt-12 border-t bg-[#0a0a0a] border-[#ffffff]/10"
+      className="py-16 px-6 relative mt-12 border-t bg-charcoal border-[#ffffff]/10"
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-12 text-left">
 

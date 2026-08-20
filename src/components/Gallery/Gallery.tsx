@@ -30,7 +30,7 @@ export default function Gallery() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="bg-[#060606] py-24 border-t border-white/[0.05]" id="gallery">
+    <section className="bg-[#060606] py-24 border-t border-white/5" id="gallery">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
 
         {/* Header */}
@@ -53,7 +53,7 @@ export default function Gallery() {
           <div className="hidden md:flex flex-col items-end gap-1">
             <span className="font-mono text-[9px] text-white/20 uppercase tracking-widest">Works</span>
             <span
-              className="text-5xl text-white/[0.06] font-serif leading-none"
+              className="text-5xl text-white/6 font-serif leading-none"
               style={{ fontFamily: 'var(--font-cormorant), serif' }}
             >
               {galleryData.length.toString().padStart(2, '0')}
@@ -95,7 +95,7 @@ export default function Gallery() {
                 />
 
                 {/* Gradient overlay always-on bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
                 {/* Index number — top left corner */}
                 <div className="absolute top-4 left-4 z-20">
@@ -133,7 +133,7 @@ export default function Gallery() {
         </div>
 
         {/* Footer row */}
-        <div className="mt-10 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
           <p className="font-mono text-[10px] text-white/20 uppercase tracking-widest text-center sm:text-left">
             Click any image to expand
           </p>
@@ -156,7 +156,7 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[99999] bg-black/96 backdrop-blur-sm flex items-center justify-center p-6 md:p-12"
+            className="fixed inset-0 z-99999 bg-black/96 backdrop-blur-sm flex items-center justify-center p-6 md:p-12"
             onClick={() => setActiveItem(null)}
           >
             <motion.div
@@ -168,7 +168,7 @@ export default function Gallery() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image panel */}
-              <div className="relative w-full md:w-[62%] aspect-[3/4] md:aspect-auto md:min-h-[75vh] bg-[#0f0f0f]">
+              <div className="relative w-full md:w-[62%] aspect-3/4 md:aspect-auto md:min-h-[75vh] bg-[#0f0f0f]">
                 <Image
                   src={activeItem.src}
                   alt={activeItem.title}
@@ -181,7 +181,7 @@ export default function Gallery() {
               </div>
 
               {/* Info panel */}
-              <div className="w-full md:w-[38%] bg-[#080808] border-l border-white/[0.06] flex flex-col justify-between p-8 md:p-12">
+              <div className="w-full md:w-[38%] bg-[#080808] border-l border-white/6 flex flex-col justify-between p-8 md:p-12">
                 <div>
                   {/* Close */}
                   <button
@@ -209,7 +209,7 @@ export default function Gallery() {
                   </p>
                 </div>
 
-                <div className="border-t border-white/[0.06] pt-8 font-mono text-[9px] text-white/20 uppercase tracking-widest">
+                <div className="border-t border-white/6 pt-8 font-mono text-[9px] text-white/20 uppercase tracking-widest">
                   Valerie Laurent Studio
                 </div>
               </div>

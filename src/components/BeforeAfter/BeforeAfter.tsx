@@ -39,7 +39,7 @@ export default function BeforeAfter() {
   }, []);
 
   return (
-    <section className="py-24 px-6 bg-[#0a0a0a] border-t border-white/10" id="before-after">
+    <section className="py-24 px-6 bg-charcoal border-t border-white/10" id="before-after">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
         {/* Text Content */}
@@ -73,7 +73,7 @@ export default function BeforeAfter() {
         {/* Slider Container */}
         <div
           ref={containerRef}
-          className="lg:w-2/3 w-full aspect-[4/5] sm:aspect-video relative overflow-hidden select-none touch-none cursor-ew-resize"
+          className="lg:w-2/3 w-full aspect-4/5 sm:aspect-video relative overflow-hidden select-none touch-none cursor-ew-resize"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -118,7 +118,7 @@ export default function BeforeAfter() {
             className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-[0_0_12px_rgba(229,46,45,0.9)] will-change-[left] pointer-events-none"
             style={{ left: sliderLeft }}
           >
-            <div className="w-10 h-10 rounded-full border-2 border-[#E52E2D] bg-[#0a0a0a] flex items-center justify-center shadow-2xl shrink-0">
+            <div className="w-10 h-10 rounded-full border-2 border-[#E52E2D] bg-charcoal flex items-center justify-center shadow-2xl shrink-0">
               <div className="flex gap-1">
                 <div className="w-[2px] h-3 bg-white/60 rounded-full" />
                 <div className="w-[2px] h-3 bg-white/60 rounded-full" />

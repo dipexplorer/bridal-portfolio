@@ -6,7 +6,7 @@ export default function Location() {
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("VALERIE Bridal Studio, Nariman Point, Mumbai, Maharashtra, India")}`;
 
   return (
-    <section id="location" className="py-24 px-6 bg-[#0a0a0a]">
+    <section id="location" className="py-24 px-6 bg-charcoal">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
 
         {/* Left Column */}

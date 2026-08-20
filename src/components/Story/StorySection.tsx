@@ -6,7 +6,7 @@ export default function StorySection() {
   return (
     <section
       id="story"
-      className="relative min-h-[100svh] w-full bg-[#0a0a0a] flex items-center overflow-hidden py-32 lg:py-40"
+      className="relative min-h-svh w-full bg-charcoal flex items-center overflow-hidden py-32 lg:py-40"
     >
       {/* Full-bleed editorial portrait */}
       <motion.div 
@@ -25,13 +25,13 @@ export default function StorySection() {
 
       {/* Overlay gradient — left heavy dark, right reveals portrait */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a]/70" />
+        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/80 to-charcoal/10" />
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal/60 via-transparent to-charcoal/70" />
       </div>
 
       {/* Diagonal decorative rule — top right corner mark */}
-      <div className="absolute top-0 right-0 w-px h-32 bg-gradient-to-b from-[#E52E2D] to-transparent opacity-60 hidden md:block" />
-      <div className="absolute top-0 right-0 h-px w-32 bg-gradient-to-l from-[#E52E2D] to-transparent opacity-60 hidden md:block" />
+      <div className="absolute top-0 right-0 w-px h-32 bg-linear-to-b from-[#E52E2D] to-transparent opacity-60 hidden md:block" />
+      <div className="absolute top-0 right-0 h-px w-32 bg-linear-to-l from-[#E52E2D] to-transparent opacity-60 hidden md:block" />
 
       {/* Vertical section number — far left edge */}
       <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-3 z-20">
@@ -96,7 +96,7 @@ export default function StorySection() {
       </motion.div>
 
       {/* Bottom edge treatment */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
     </section>
   );
 }

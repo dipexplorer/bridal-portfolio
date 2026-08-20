@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="antialiased bg-[#0a0a0a] overflow-x-hidden text-white">
+      <body className="antialiased bg-charcoal overflow-x-hidden text-white">
         {children}
       </body>
     </html>

@@ -73,7 +73,7 @@ interface ServicesProps {
 
 export default function Services({ onBookClick }: ServicesProps) {
   return (
-    <section className="bg-[#060606] py-32 border-t border-white/[0.05]" id="services">
+    <section className="bg-[#060606] py-32 border-t border-white/5" id="services">
       <div className="max-w-7xl mx-auto px-6 md:px-16">
 
         {/* Section Header */}
@@ -112,7 +112,7 @@ export default function Services({ onBookClick }: ServicesProps) {
         </div>
 
         {/* Footer note */}
-        <div className="mt-14 pt-8 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="mt-14 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-[11px] text-white/25 font-mono tracking-wide">
             * Pricing is indicative. Final quote provided after consultation.
           </p>
@@ -155,7 +155,7 @@ function ServiceTile({
     >
       {/* Signature top accent bar */}
       {service.isSignature && (
-        <div className="h-[2px] w-full bg-gradient-to-r from-[#E52E2D] via-[#ff6b6b] to-[#E52E2D]" />
+        <div className="h-[2px] w-full bg-linear-to-r from-[#E52E2D] via-[#ff6b6b] to-[#E52E2D]" />
       )}
 
       {/* Inner padding */}
@@ -203,7 +203,7 @@ function ServiceTile({
         </p>
 
         {/* Hairline divider */}
-        <div className={`h-px mb-9 ${service.isSignature ? 'bg-[#E52E2D]/15' : 'bg-white/[0.06]'}`} />
+        <div className={`h-px mb-9 ${service.isSignature ? 'bg-[#E52E2D]/15' : 'bg-white/6'}`} />
 
         {/* Features */}
         <ul className="space-y-3.5 mb-10 flex-1">

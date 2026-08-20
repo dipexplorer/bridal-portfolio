@@ -7,12 +7,12 @@ import { motion } from 'framer-motion';
 export default function About() {
   return (
     <section
-      className="relative bg-[#060606] py-32 lg:py-48 border-t border-white/[0.05] overflow-hidden"
+      className="relative bg-[#060606] py-32 lg:py-48 border-t border-white/5 overflow-hidden"
       id="about"
     >
       {/* Background accents */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E52E2D]/[0.02] blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-[-20%] w-[800px] h-[800px] bg-white/[0.01] blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E52E2D]/2 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-[-20%] w-[800px] h-[800px] bg-white/1 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         
@@ -33,10 +33,10 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative aspect-[3/4] w-full max-w-md mx-auto lg:max-w-none group"
+              className="relative aspect-3/4 w-full max-w-md mx-auto lg:max-w-none group"
             >
               {/* Decorative wireframe border offset */}
-              <div className="absolute -inset-2 md:-inset-4 border border-white/[0.05] transition-transform duration-700 group-hover:-inset-1 md:group-hover:-inset-3 z-0" />
+              <div className="absolute -inset-2 md:-inset-4 border border-white/5 transition-transform duration-700 group-hover:-inset-1 md:group-hover:-inset-3 z-0" />
               
               <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10">
                 <Image
@@ -48,7 +48,7 @@ export default function About() {
                   sizes="(max-width: 768px) 100vw, 40vw"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
                 
                 {/* Signature tag on image */}
                 <div className="absolute bottom-6 left-6 z-20">
@@ -99,7 +99,7 @@ export default function About() {
               </div>
 
               {/* Magazine-style Stats Grid */}
-              <div className="mt-16 pt-12 border-t border-white/[0.05] grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
+              <div className="mt-16 pt-12 border-t border-white/5 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
                 <div className="flex flex-col gap-2">
                   <div className="text-4xl lg:text-5xl font-serif text-[#E52E2D] tracking-tight" style={{ fontFamily: 'var(--font-cormorant), serif' }}>
                     10+

@@ -35,7 +35,7 @@ export default function Home() {
       <LoadingScreen onComplete={() => setIsLoading(false)} />
 
       {!isLoading && (
-        <div className="relative min-h-screen bg-[#0a0a0a] text-white selection:bg-[#E52E2D]/30 selection:text-white">
+        <div className="relative min-h-screen bg-charcoal text-white selection:bg-[#E52E2D]/30 selection:text-white">
           {/* Navigation */}
           <Navigation onBookClick={() => handleOpenBooking()} />
 
