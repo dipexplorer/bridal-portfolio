@@ -1,113 +1,133 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from 'framer-motion';
 
 export default function About() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Pinned reveal animation for editorial fashion layout
-      gsap.fromTo(
-        imageRef.current,
-        { scale: 0.8, clipPath: 'inset(10% 10% 10% 10% round 8px)' },
-        {
-          scale: 1.0,
-          clipPath: 'inset(0% 0% 0% 0% round 0px)',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top bottom',
-            end: 'center center',
-            scrub: 1,
-          }
-        }
-      );
-
-      gsap.fromTo(
-        textRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 70%',
-            end: 'center 40%',
-            scrub: 1.5,
-          }
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center bg-charcoal py-24 overflow-hidden border-b border-white/[0.03]"
+      className="relative bg-[#060606] py-32 lg:py-48 border-t border-white/[0.05] overflow-hidden"
       id="about"
     >
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
-        {/* Left Column: Image scaling and clipping reveal */}
-        <div className="md:col-span-6 flex justify-center relative z-10">
-          <div
-            ref={imageRef}
-            className="relative w-full aspect-[3/4] max-w-md overflow-hidden bg-white/[0.02]"
-            style={{ willChange: 'transform, clip-path' }}
-          >
-            <Image
-              src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800&auto=format&fit=crop"
-              alt="Valerie Studio Editorial Portrait"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
+      {/* Background accents */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E52E2D]/[0.02] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-[-20%] w-[800px] h-[800px] bg-white/[0.01] blur-[150px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        
+        {/* Eyebrow */}
+        <div className="mb-16 md:mb-24">
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] font-bold flex items-center gap-3">
+            <span className="w-5 h-px bg-[#E52E2D]" />
+            The Artist
+          </span>
         </div>
 
-        {/* Right Column: Editorial story text */}
-        <div ref={textRef} className="md:col-span-6 space-y-8 relative z-10 text-left">
-          <span className="font-mono text-[9px] uppercase tracking-widest text-accent font-bold">
-            [ The Artist ]
-          </span>
-          <h2 className="font-serif italic font-light text-4xl sm:text-6xl text-text-primary leading-tight">
-            Valerie Laurent
-          </h2>
-          <p className="font-sans font-light text-text-secondary text-base sm:text-lg leading-relaxed">
-            For over a decade, Valerie has been defining high-fashion bridal and editorial aesthetics. 
-            Blending soft luxury textures with striking structural highlights, her signature style is 
-            focused on clean, radiant elegance. 
-          </p>
-          <p className="font-sans font-light text-text-secondary text-base leading-relaxed">
-            She works closely with each client to sculpt a look that feels uniquely couture. Having worked 
-            behind the scenes on fashion runways and high-end bridal campaigns, Valerie brings a refined 
-            editorial perspective to real-world luxury makeup.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          <div className="pt-4 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-            <div>
-              <div className="text-3xl font-serif text-accent">10+</div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary mt-1">Years Experience</div>
-            </div>
-            <div className="h-px w-12 bg-white/10 hidden sm:block" />
-            <div>
-              <div className="text-3xl font-serif text-accent">200+</div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary mt-1">Brides Showcased</div>
-            </div>
-            <div className="h-px w-12 bg-white/10 hidden sm:block" />
-            <div>
-              <div className="text-3xl font-serif text-accent">3</div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary mt-1">Global Campaigns</div>
-            </div>
+          {/* Left Column: Image with offset frame */}
+          <div className="lg:col-span-5 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative aspect-[3/4] w-full max-w-md mx-auto lg:max-w-none group"
+            >
+              {/* Decorative wireframe border offset */}
+              <div className="absolute -inset-2 md:-inset-4 border border-white/[0.05] transition-transform duration-700 group-hover:-inset-1 md:group-hover:-inset-3 z-0" />
+              
+              <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10">
+                <Image
+                  src="/gallery/behide_the_scene.png"
+                  alt="Valerie Studio Behind the Scenes"
+                  fill
+                  unoptimized
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-100 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                {/* Signature tag on image */}
+                <div className="absolute bottom-6 left-6 z-20">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/50 border border-white/20 px-3 py-1.5 backdrop-blur-sm">
+                    Est. 2014
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Editorial story text & Stats */}
+          <div className="lg:col-span-7 flex flex-col justify-center pt-8 lg:pt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
+              <h2 
+                className="text-[12vw] sm:text-7xl lg:text-[6vw] text-white uppercase leading-[0.9] tracking-tight mb-8"
+                style={{ fontFamily: 'var(--font-cormorant), serif' }}
+              >
+                Valerie<br />
+                <span className="italic font-extralight text-white/40">Laurent</span>
+              </h2>
+
+              <div className="w-12 h-[2px] bg-[#E52E2D] mb-10" />
+
+              <div className="space-y-6 max-w-xl">
+                <p 
+                  className="text-sm md:text-base text-white/60 leading-relaxed font-light"
+                  style={{ fontFamily: 'var(--font-inter)' }}
+                >
+                  <span className="text-white text-xl md:text-2xl font-serif italic mr-2 leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>F</span>
+                  or over a decade, Valerie has been defining high-fashion bridal and editorial aesthetics. 
+                  Blending soft luxury textures with striking structural highlights, her signature style is 
+                  focused on clean, radiant elegance. 
+                </p>
+                <p 
+                  className="text-[13px] md:text-sm text-white/40 leading-[1.8] font-light"
+                  style={{ fontFamily: 'var(--font-inter)' }}
+                >
+                  She works closely with each client to sculpt a look that feels uniquely couture. Having worked 
+                  behind the scenes on fashion runways and high-end bridal campaigns, Valerie brings a refined 
+                  editorial perspective to real-world luxury makeup.
+                </p>
+              </div>
+
+              {/* Magazine-style Stats Grid */}
+              <div className="mt-16 pt-12 border-t border-white/[0.05] grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
+                <div className="flex flex-col gap-2">
+                  <div className="text-4xl lg:text-5xl font-serif text-[#E52E2D] tracking-tight" style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+                    10+
+                  </div>
+                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
+                    Years of Mastery
+                  </div>
+                </div>
+                
+                <div className="flex flex-col gap-2 border-l border-white/5 pl-8 md:pl-4">
+                  <div className="text-4xl lg:text-5xl font-serif text-white" style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+                    200+
+                  </div>
+                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
+                    Couture Brides
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 col-span-2 md:col-span-1 border-t md:border-t-0 md:border-l border-white/5 pt-8 md:pt-0 md:pl-4">
+                  <div className="text-4xl lg:text-5xl font-serif text-white" style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+                    03
+                  </div>
+                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">
+                    Global Campaigns
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

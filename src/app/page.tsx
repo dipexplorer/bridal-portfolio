@@ -27,13 +27,15 @@ export default function Home() {
     setIsBookingOpen(true);
   };
 
+  // GSAP is no longer used for scroll layout in main components, removed refresh hook.
+
   return (
     <>
       {/* Loading screen overlay */}
       <LoadingScreen onComplete={() => setIsLoading(false)} />
 
       {!isLoading && (
-        <div className="relative min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden selection:bg-[#E52E2D]/30 selection:text-white">
+        <div className="relative min-h-screen bg-[#0a0a0a] text-white selection:bg-[#E52E2D]/30 selection:text-white">
           {/* Navigation */}
           <Navigation onBookClick={() => handleOpenBooking()} />
 
