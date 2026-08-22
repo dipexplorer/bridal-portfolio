@@ -20,7 +20,7 @@ export default function Footer() {
               backgroundClip: "text",
             }}
           >
-            VALERIE
+            LUXE
           </h3>
           <p
             className="text-[9px] tracking-[0.45em] uppercase mt-1"
@@ -119,7 +119,7 @@ export default function Footer() {
           className="text-[10px] tracking-widest uppercase text-[#ffffff]/40"
           style={{ fontFamily: "var(--font-inter)" }}
         >
-          &copy; {new Date().getFullYear()} VALERIE LAURENT. All Rights Reserved.
+          &copy; {new Date().getFullYear()} LUXE BRIDAL ARTISTRY. All Rights Reserved.
         </p>
         <p
           className="text-[10px] tracking-widest uppercase text-[#ffffff]/30"

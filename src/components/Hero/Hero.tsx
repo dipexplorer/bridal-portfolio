@@ -125,7 +125,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           >
             <Image
               src="/gallery/frame2.png"
-              alt="Valerie Editorial Makeup"
+              alt="Luxe Editorial Makeup"
               fill
               unoptimized
               className="object-cover object-center"
@@ -160,7 +160,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   className="text-[12vw] sm:text-8xl md:text-[9vw] lg:text-[10vw] leading-[0.85] tracking-tighter uppercase font-serif text-white drop-shadow-xl pointer-events-auto"
                   style={{ fontFamily: "var(--font-cormorant), serif" }}
                 >
-                  VALERIE
+                  LUXE
                 </h1>
                 <div className="w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 bg-[#E52E2D] mt-3 md:mt-4 lg:mt-6 ml-1 lg:ml-2 shadow-[0_0_15px_rgba(229,46,45,0.6)]" />
               </div>

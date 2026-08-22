@@ -41,7 +41,7 @@ export default function About() {
               <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10">
                 <Image
                   src="/gallery/behide_the_scene.png"
-                  alt="Valerie Studio Behind the Scenes"
+                  alt="Luxe Studio Behind the Scenes"
                   fill
                   unoptimized
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-100 group-hover:scale-105"
@@ -72,7 +72,7 @@ export default function About() {
                 className="text-[12vw] sm:text-7xl lg:text-[6vw] text-white uppercase leading-[0.9] tracking-tight mb-8"
                 style={{ fontFamily: 'var(--font-cormorant), serif' }}
               >
-                Valerie<br />
+                Luxe<br />
                 <span className="italic font-extralight text-white/40">Laurent</span>
               </h2>
 
@@ -84,7 +84,7 @@ export default function About() {
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   <span className="text-white text-xl md:text-2xl font-serif italic mr-2 leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>F</span>
-                  or over a decade, Valerie has been defining high-fashion bridal and editorial aesthetics. 
+                  or over a decade, Luxe has been defining high-fashion bridal and editorial aesthetics. 
                   Blending soft luxury textures with striking structural highlights, her signature style is 
                   focused on clean, radiant elegance. 
                 </p>
@@ -93,7 +93,7 @@ export default function About() {
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   She works closely with each client to sculpt a look that feels uniquely couture. Having worked 
-                  behind the scenes on fashion runways and high-end bridal campaigns, Valerie brings a refined 
+                  behind the scenes on fashion runways and high-end bridal campaigns, Luxe brings a refined 
                   editorial perspective to real-world luxury makeup.
                 </p>
               </div>

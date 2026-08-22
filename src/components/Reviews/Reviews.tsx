@@ -6,19 +6,19 @@ import { Star, MessageSquare } from "lucide-react";
 const reviews = [
   {
     quote:
-      "Valerie transformed my bridal look completely. The makeup was weightless, photography-ready, and I received so many compliments. Truly an extraordinary artist.",
+      "Luxe transformed my bridal look completely. The makeup was weightless, photography-ready, and I received so many compliments. Truly an extraordinary artist.",
     author: "Aisha Mehta",
     role: "Couture Bride, Mumbai",
   },
   {
     quote:
-      "Every runway look Valerie created for our fashion week shoot was impeccable. Her editorial eye and high-fashion sensibility are unmatched in the industry.",
+      "Every runway look Luxe created for our fashion week shoot was impeccable. Her editorial eye and high-fashion sensibility are unmatched in the industry.",
     author: "Camille Dubois",
     role: "Creative Director, Paris",
   },
   {
     quote:
-      "I booked Valerie for my anniversary photoshoot. Absolutely stunning results. The airbrush base lasted all day and looked flawless through every shot.",
+      "I booked Luxe for my anniversary photoshoot. Absolutely stunning results. The airbrush base lasted all day and looked flawless through every shot.",
     author: "Sasha Varma",
     role: "Editorial Client, Delhi",
   },

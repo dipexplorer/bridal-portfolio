@@ -26,7 +26,7 @@ export default function BookingModal({ isOpen, onClose, defaultService = '' }: B
     e.preventDefault();
 
     // Hybrid pre-filled WhatsApp details generation
-    const baseText = `Hi Valerie, I'd like to book a makeup session.\n\n`;
+    const baseText = `Hi Luxe, I'd like to book a makeup session.\n\n`;
     const details = `*Name:* ${name}\n*Date:* ${date}\n*Service:* ${service}\n*Notes:* ${notes || 'None'}`;
     const encodedText = encodeURIComponent(baseText + details);
     
@@ -141,7 +141,7 @@ export default function BookingModal({ isOpen, onClose, defaultService = '' }: B
             {/* Footer notice */}
             <div className="pt-8 text-center border-t border-[#ffffff]/5 mt-12">
               <p className="font-sans text-[11px] text-[#ffffff]/50 leading-relaxed">
-                Clicking submit generates a pre-filled secure message that connects you directly to Valerie via WhatsApp.
+                Clicking submit generates a pre-filled secure message that connects you directly to Luxe via WhatsApp.
               </p>
             </div>
           </motion.div>

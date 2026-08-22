@@ -47,7 +47,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
           }}
           data-cursor-text="Home"
         >
-          VALERIE
+          LUXE
         </a>
 
         {/* Desktop Links */}

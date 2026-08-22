@@ -210,7 +210,7 @@ export default function Gallery() {
                 </div>
 
                 <div className="border-t border-white/6 pt-8 font-mono text-[9px] text-white/20 uppercase tracking-widest">
-                  Valerie Laurent Studio
+                  Luxe Bridal Artistry Studio
                 </div>
               </div>
             </motion.div>

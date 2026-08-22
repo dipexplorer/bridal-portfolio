@@ -18,10 +18,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'VALERIE — Luxury Bridal & Editorial Makeup Artistry',
+  title: 'LUXE — Luxury Bridal & Editorial Makeup Artistry',
   description:
-    'Premium bridal and editorial makeup artistry by Valerie Laurent. Serving brides, fashion editorials, and couture campaigns across India.',
-  keywords: ['bridal makeup', 'editorial makeup', 'luxury makeup artist', 'Mumbai', 'VALERIE'],
+    'Premium bridal and editorial makeup artistry by Luxe Bridal Artistry. Serving brides, fashion editorials, and couture campaigns across India.',
+  keywords: ['bridal makeup', 'editorial makeup', 'luxury makeup artist', 'Mumbai', 'LUXE'],
+  openGraph: {
+    title: "LUXE — Luxury Bridal & Editorial Makeup Artistry",
+    description: "Premium bridal and editorial makeup artistry by Luxe Bridal Artistry. Serving brides, fashion editorials, and couture campaigns across India.",
+    type: "website",
+    locale: "en_US",
+    siteName: "LUXE Makeup Artistry",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LUXE — Luxury Bridal & Editorial Makeup Artistry",
+    description: "Premium bridal and editorial makeup artistry by Luxe Bridal Artistry.",
+  }
 };
 
 export default function RootLayout({

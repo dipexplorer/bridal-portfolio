@@ -145,7 +145,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
                       backgroundClip: "text",
                     }}
                   >
-                    VALERIE
+                    LUXE
                   </h1>
                   <p className="text-[9px] tracking-[0.5em] uppercase mt-2 text-[#ffffff]/40" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
                     Bridal &amp; Editorial Artistry

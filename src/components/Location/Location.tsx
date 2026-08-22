@@ -3,7 +3,7 @@
 import { MapPin, Navigation, Clock, Phone } from "lucide-react";
 
 export default function Location() {
-  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("VALERIE Bridal Studio, Nariman Point, Mumbai, Maharashtra, India")}`;
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("LUXE Bridal Studio, Nariman Point, Mumbai, Maharashtra, India")}`;
 
   return (
     <section id="location" className="py-24 px-6 bg-charcoal">
@@ -124,7 +124,7 @@ export default function Location() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="VALERIE Bridal Studio Location Map"
+            title="LUXE Bridal Studio Location Map"
           />
         </div>
       </div>
