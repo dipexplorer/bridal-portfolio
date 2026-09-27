@@ -2,10 +2,15 @@
 
 import React, { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Instantiate smooth scroll with natural physics feel
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -13,6 +18,8 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       gestureOrientation: 'vertical',
       smoothWheel: true,
     });
+
+    lenis.on('scroll', ScrollTrigger.update);
 
     let rafId: number;
     function raf(time: number) {
@@ -30,3 +37,4 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
   return <>{children}</>;
 }
+
