@@ -1,217 +1,209 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useMotionValueEvent, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isGlam, setIsGlam] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const revealRef = useRef<HTMLDivElement>(null);
+  const rafIdRef = useRef<number | null>(null);
 
-  // Mouse cursor tracking for glow effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!revealRef.current || !heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-  const springConfig = { damping: 30, stiffness: 200, mass: 0.6 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
+    if (rafIdRef.current !== null) return;
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const { left, top } = containerRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - left);
-    mouseY.set(e.clientY - top);
+    rafIdRef.current = requestAnimationFrame(() => {
+      if (revealRef.current) {
+        revealRef.current.style.setProperty("--mouse-x", `${x}px`);
+        revealRef.current.style.setProperty("--mouse-y", `${y}px`);
+      }
+      rafIdRef.current = null;
+    });
   };
 
-  // Track scroll progress within this 250vh container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Use a discrete trigger instead of pixel-by-pixel scrubbing
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest > 0.15 && !isGlam) {
-      setIsGlam(true);
-    } 
-    else if (latest <= 0.15 && isGlam) {
-      setIsGlam(false);
+  const handleMouseLeave = () => {
+    if (revealRef.current) {
+      revealRef.current.style.setProperty("--mouse-x", `-500px`);
+      revealRef.current.style.setProperty("--mouse-y", `-500px`);
     }
-  });
+  };
 
-  // Fade out the main text towards the very end of the scroll track
-  const textOpacity = useTransform(scrollYProgress, [0.7, 0.9], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0.7, 0.9], [0, -50]);
+  const wordmarkLetters = ["L", "U", "X", "E"];
 
   return (
     <section
-      ref={containerRef}
+      ref={heroRef}
       id="home"
       onMouseMove={handleMouseMove}
-      className="relative h-[250vh] w-full bg-charcoal"
+      onMouseLeave={handleMouseLeave}
+      className="relative h-svh w-full bg-charcoal overflow-hidden flex flex-col justify-end"
     >
-      {/* Sticky container that locks the view while scrolling through the track */}
-      <div className="sticky top-0 h-svh w-full overflow-hidden flex flex-col justify-end">
+      {/* Background Layer Container */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none select-none">
         
-        {/* Background Images & Overlay Graphics */}
-        <div className="absolute inset-0 w-full h-full">
-          
-          {/* Frame 1: Bare-face (Base) */}
-          <motion.div 
-            className="absolute inset-0 w-full h-full z-0"
-            animate={{ scale: isGlam ? 1.03 : 1 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-          >
-            <Image
-              src="/gallery/frame1.png"
-              alt="Bare Face"
-              fill
-              unoptimized
-              className="object-cover object-center grayscale contrast-125 brightness-90"
-              sizes="100vw"
-              priority
-            />
-          </motion.div>
-
-          {/* Creative Layout Graphics (Visible only in B&W Frame 1) */}
-          <motion.div
-            className="absolute inset-0 z-10 pointer-events-none hidden sm:block"
-            animate={{ opacity: isGlam ? 0 : 1 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-          >
-            {/* Focal Crop Frame Corners */}
-            <div className="absolute top-28 left-8 w-12 h-12 border-t border-l border-white/20" />
-            <div className="absolute top-28 right-8 w-12 h-12 border-t border-r border-white/20" />
-            <div className="absolute bottom-28 left-8 w-12 h-12 border-b border-l border-white/20" />
-            <div className="absolute bottom-28 right-8 w-12 h-12 border-b border-r border-white/20" />
-
-            {/* Central Alignment Crosshair */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
-              <div className="absolute w-full h-px bg-white/15" />
-              <div className="absolute h-full w-px bg-white/15" />
-              <div className="w-2 h-2 rounded-full border border-[#E52E2D]/40" />
-            </div>
-
-            {/* Technical Metadata Indicators */}
-            <div className="absolute top-28 left-24 font-mono text-[9px] text-white/30 tracking-[0.2em] uppercase hidden md:block">
-              SYS_REF: RAW_CANVAS
-            </div>
-            <div className="absolute top-28 right-24 font-mono text-[9px] text-[#E52E2D]/40 tracking-[0.2em] uppercase hidden md:block">
-              FOCAL_PT: 049.2 // B_W
-            </div>
-          </motion.div>
-          
-          {/* Spotlight Cursor Glow (Visible only in B&W Frame 1) */}
-          <motion.div
-            className="absolute rounded-full pointer-events-none z-10 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(229,46,45,0.18)_0%,rgba(229,46,45,0)_70%)] mix-blend-screen"
-            style={{
-              x: cursorX,
-              y: cursorY,
-              translateX: "-50%",
-              translateY: "-50%",
-              opacity: isGlam ? 0 : 1,
-            }}
-            transition={{ opacity: { duration: 0.8 } }}
+        {/* Layer 0: Base Bare-Face (BEFORE) Photo */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Image
+            src="/gallery/frame1.png"
+            alt="Bare Face Base (Before)"
+            fill
+            unoptimized
+            className="object-cover object-center grayscale contrast-125 brightness-90"
+            sizes="100vw"
+            priority
           />
-
-          {/* Frame 2: Glam-makeup - Fades beautifully over Frame 1 */}
-          <motion.div 
-            className="absolute inset-0 w-full h-full z-20"
-            animate={{ 
-              opacity: isGlam ? 1 : 0,
-              scale: isGlam ? 1.03 : 1
-            }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-          >
-            <Image
-              src="/gallery/frame2.png"
-              alt="Luxe Editorial Makeup"
-              fill
-              unoptimized
-              className="object-cover object-center"
-              sizes="100vw"
-              priority
-            />
-          </motion.div>
-
-          {/* Dynamic Vignette & Contrast Overlays */}
-          <div className="absolute inset-0 bg-black/10 z-30 pointer-events-none" />
-          <div className="absolute inset-0 bg-linear-to-t from-[#060606] via-[#060606]/30 to-black/80 z-30 pointer-events-none" />
-          {/* Extra dark gradient at the very top specifically for the navigation bar */}
-          <div className="absolute top-0 left-0 w-full h-40 bg-linear-to-b from-black/90 to-transparent z-30 pointer-events-none" />
         </div>
 
-        {/* Hero Content Overlay */}
-        <motion.div 
-          className="relative z-40 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 pb-16 md:pb-24 pt-32 flex flex-col justify-end h-full pointer-events-none"
-          style={{ opacity: textOpacity, y: textY }}
+        {/* Layer 1: Glam Makeup (AFTER) Photo (Revealed under cursor via soft radial mask) */}
+        <div
+          ref={revealRef}
+          className="absolute inset-0 w-full h-full z-10"
+          style={{
+            maskImage:
+              "radial-gradient(circle 220px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 0%, black 40%, rgba(0,0,0,0.65) 70%, transparent 100%)",
+            WebkitMaskImage:
+              "radial-gradient(circle 220px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 0%, black 40%, rgba(0,0,0,0.65) 70%, transparent 100%)",
+            maskMode: "alpha",
+            WebkitMaskMode: "alpha",
+          } as React.CSSProperties}
         >
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 w-full">
-            
-            {/* Main Typography */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-col"
-            >
-              <div className="flex items-start">
-                <h1
-                  className="text-[12vw] sm:text-8xl md:text-[9vw] lg:text-[10vw] leading-[0.85] tracking-tighter uppercase font-serif text-white drop-shadow-xl pointer-events-auto"
-                  style={{ fontFamily: "var(--font-cormorant), serif" }}
-                >
-                  LUXE
-                </h1>
-                <div className="w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 bg-[#E52E2D] mt-3 md:mt-4 lg:mt-6 ml-1 lg:ml-2 shadow-[0_0_15px_rgba(229,46,45,0.6)]" />
-              </div>
-              
-              <p 
-                className="mt-6 md:mt-8 max-w-sm text-white/70 text-[13px] md:text-sm leading-[1.8] font-light pointer-events-auto"
-                style={{ fontFamily: "var(--font-inter)" }}
+          <Image
+            src="/gallery/frame2.png"
+            alt="Editorial Makeup Overlay (After)"
+            fill
+            unoptimized
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+          />
+        </div>
+
+        {/* Technical Focal Framing Overlay */}
+        <div className="absolute inset-0 z-20 pointer-events-none hidden sm:block">
+          {/* Focal Crop Frame Corners */}
+          <div className="absolute top-28 left-8 w-12 h-12 border-t border-l border-white/20" />
+          <div className="absolute top-28 right-8 w-12 h-12 border-t border-r border-white/20" />
+          <div className="absolute bottom-28 left-8 w-12 h-12 border-b border-l border-white/20" />
+          <div className="absolute bottom-28 right-8 w-12 h-12 border-b border-r border-white/20" />
+
+          {/* Central Alignment Crosshair */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
+            <div className="absolute w-full h-px bg-white/15" />
+            <div className="absolute h-full w-px bg-white/15" />
+            <div className="w-2 h-2 rounded-full border border-[#E52E2D]/40" />
+          </div>
+
+          {/* Technical Metadata Indicators */}
+          <div className="absolute top-28 left-24 font-mono text-[9px] text-white/30 tracking-[0.2em] uppercase hidden md:block">
+            SYS_REF: RAW_CANVAS
+          </div>
+          <div className="absolute top-28 right-24 font-mono text-[9px] text-[#E52E2D]/40 tracking-[0.2em] uppercase hidden md:block">
+            FOCAL_PT: 049.2 // GLAM_REVEAL
+          </div>
+        </div>
+
+        {/* Dynamic Vignette & Contrast Overlays */}
+        <div className="absolute inset-0 bg-black/10 z-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#060606] via-[#060606]/30 to-black/80 z-30 pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-40 bg-linear-to-b from-black/90 to-transparent z-30 pointer-events-none" />
+      </div>
+
+      {/* Hero Content Overlay */}
+      <div className="relative z-40 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 pb-16 md:pb-24 pt-32 flex flex-col justify-end h-full pointer-events-none">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 w-full">
+          {/* Main Typography */}
+          <div className="flex flex-col">
+            <div className="flex items-start overflow-hidden py-1">
+              <h1
+                className="flex text-[12vw] sm:text-8xl md:text-[9vw] lg:text-[10vw] leading-[0.85] tracking-tighter uppercase font-serif text-white drop-shadow-xl pointer-events-auto"
+                style={{ fontFamily: "var(--font-cormorant), serif" }}
               >
-                Mastering the art of high-fashion and editorial bridal artistry. 
-                Elevating natural beauty through a lens of modern luxury.
+                {wordmarkLetters.map((letter, index) => (
+                  <span key={index} className="inline-block overflow-hidden">
+                    <motion.span
+                      className="inline-block"
+                      initial={{ y: "100%" }}
+                      animate={{ y: 0 }}
+                      transition={{
+                        duration: 0.8,
+                        delay: 0.1 + index * 0.04,
+                        ease: [0.215, 0.61, 0.355, 1],
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  </span>
+                ))}
+              </h1>
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+                className="w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 bg-[#E52E2D] mt-3 md:mt-4 lg:mt-6 ml-1 lg:ml-2 shadow-[0_0_15px_rgba(229,46,45,0.6)]"
+              />
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+              className="mt-6 md:mt-8 max-w-sm text-white/70 text-[13px] md:text-sm leading-[1.8] font-light pointer-events-auto"
+              style={{ fontFamily: "var(--font-inter)" }}
+            >
+              Mastering the art of high-fashion and editorial bridal artistry.
+              Elevating natural beauty through a lens of modern luxury.
+            </motion.p>
+          </div>
+
+          {/* Call to Action & Location details */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            className="flex flex-col items-start md:items-end gap-8"
+          >
+            <div className="text-left md:text-right hidden sm:block pointer-events-auto">
+              <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#E52E2D] mb-2 font-bold">
+                Available Worldwide
               </p>
-            </motion.div>
+              <p className="font-mono text-[10px] text-white/50 tracking-widest">
+                Based in Paris &amp; Mumbai
+              </p>
+            </div>
 
-            {/* Call to action & Secondary text */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-col items-start md:items-end gap-8"
+            <button
+              onClick={onBookClick}
+              className="pointer-events-auto group relative flex items-center justify-center px-10 py-5 bg-transparent border border-white/30 text-white overflow-hidden transition-all duration-500 hover:border-[#E52E2D]"
             >
-              <div className="text-left md:text-right hidden sm:block pointer-events-auto">
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#E52E2D] mb-2 font-bold">
-                  Available Worldwide
-                </p>
-                <p className="font-mono text-[10px] text-white/50 tracking-widest">
-                  Based in Paris &amp; Mumbai
-                </p>
-              </div>
+              <span className="relative z-10 font-mono text-[9px] uppercase tracking-[0.35em] group-hover:text-white transition-colors duration-300">
+                Reserve a Session
+              </span>
+              {/* Hover fill effect */}
+              <div className="absolute inset-0 bg-[#E52E2D] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0" />
+            </button>
+          </motion.div>
+        </div>
 
-              <button
-                onClick={onBookClick}
-                className="pointer-events-auto group relative flex items-center justify-center px-10 py-5 bg-transparent border border-white/30 text-white overflow-hidden transition-all duration-500 hover:border-[#E52E2D]"
-              >
-                <span className="relative z-10 font-mono text-[9px] uppercase tracking-[0.35em] group-hover:text-white transition-colors duration-300">
-                  Reserve a Session
-                </span>
-                {/* Hover fill effect */}
-                <div className="absolute inset-0 bg-[#E52E2D] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0" />
-              </button>
-            </motion.div>
-            
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-auto">
-            <div className="w-px h-12 bg-linear-to-b from-white/30 to-transparent" />
-            <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/30">Scroll</span>
-          </div>
-
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-auto"
+        >
+          <div className="w-px h-12 bg-linear-to-b from-white/30 to-transparent" />
+          <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/30">
+            Scroll
+          </span>
         </motion.div>
       </div>
     </section>
   );
 }
+
+
