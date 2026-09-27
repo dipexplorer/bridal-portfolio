@@ -7,6 +7,7 @@ import { Calendar, Phone } from 'lucide-react';
 // ─── Async / heavy components ──────────────────────────────────────────────────
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 import Navigation from '@/components/Navigation/Navigation';
+import SectionDots from '@/components/SectionDots/SectionDots';
 import Hero from '@/components/Hero/Hero';
 import BeforeAfter from '@/components/BeforeAfter/BeforeAfter';
 import About from '@/components/About/About';
@@ -37,6 +38,9 @@ export default function Home() {
         <div className="relative min-h-screen bg-[#060606] text-white selection:bg-[#E52E2D]/30 selection:text-white pb-16 md:pb-0">
           {/* Navigation */}
           <Navigation onBookClick={() => handleOpenBooking()} />
+
+          {/* Desktop Section Wayfinding Dots */}
+          <SectionDots />
 
           {/* ── Page Sections ── */}
           <main>
