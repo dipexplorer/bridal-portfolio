@@ -11,7 +11,7 @@ interface GalleryItem {
   title: string;
   category: 'Editorial' | 'Runway' | 'Campaign' | 'Bridal';
   src: string;
-  span: 'tall' | 'wide' | 'square';
+  aspect: string;
   description: string;
 }
 
@@ -22,70 +22,79 @@ const galleryData: GalleryItem[] = [
     title: 'High-Fashion Couture',
     category: 'Editorial',
     src: '/gallery/newpic1.png',
-    span: 'tall',
+    aspect: 'aspect-[3/4]',
     description: 'Sculpted high-definition editorial features with dramatic contrast and refined finish for Paris Fashion Week.',
   },
   {
     id: '2',
     index: '02',
-    title: 'Monochrome Grace',
-    category: 'Runway',
-    src: '/gallery/newpic2.png',
-    span: 'square',
-    description: 'Minimalist editorial composition highlighting natural skin luminosity and structural highlights.',
+    title: 'Royal Golden Crown',
+    category: 'Bridal',
+    src: '/gallery/bride_hd.png',
+    aspect: 'aspect-[3/4]',
+    description: 'Bespoke traditional bridal styling showcasing handcrafted gold jewelry, regal veil placement, and radiant couture skin.',
   },
   {
     id: '3',
     index: '03',
-    title: 'Vogue Cover Craft',
-    category: 'Editorial',
-    src: '/gallery/newpic3.png',
-    span: 'square',
-    description: 'Front-cover editorial styling crafted for high-end digital cover stories and print features.',
+    title: 'Monochrome Grace',
+    category: 'Runway',
+    src: '/gallery/newpic2.png',
+    aspect: 'aspect-[4/5]',
+    description: 'Minimalist editorial composition highlighting natural skin luminosity and structural highlights.',
   },
   {
     id: '4',
     index: '04',
-    title: 'Sculpted Elegance',
-    category: 'Campaign',
-    src: '/gallery/newpic4.png',
-    span: 'tall',
-    description: 'Bold eye architecture paired with subtle nude lip sculpting for luxury campaign visuals.',
+    title: 'Vogue Cover Craft',
+    category: 'Editorial',
+    src: '/gallery/newpic3.png',
+    aspect: 'aspect-[4/5]',
+    description: 'Front-cover editorial styling crafted for high-end digital cover stories and print features.',
   },
   {
     id: '5',
     index: '05',
-    title: 'Couture Radiance',
-    category: 'Bridal',
-    src: '/gallery/newpic5.png',
-    span: 'wide',
-    description: 'Bespoke bridal glow designed for high-definition photography and long-wearing elegance.',
+    title: 'Sculpted Elegance',
+    category: 'Campaign',
+    src: '/gallery/newpic4.png',
+    aspect: 'aspect-[3/4]',
+    description: 'Bold eye architecture paired with subtle nude lip sculpting for luxury campaign visuals.',
   },
   {
     id: '6',
     index: '06',
-    title: 'Avant-Garde Noir',
-    category: 'Runway',
-    src: '/gallery/newpic6.png',
-    span: 'square',
-    description: 'Striking runway concept with graphic liner and modern structural highlights for Milan shows.',
+    title: 'Couture Radiance',
+    category: 'Bridal',
+    src: '/gallery/newpic5.png',
+    aspect: 'aspect-[16/10]',
+    description: 'Bespoke bridal glow designed for high-definition photography and long-wearing elegance.',
   },
   {
     id: '7',
     index: '07',
-    title: 'Prada Campaign Look',
-    category: 'Editorial',
-    src: '/gallery/prada_editorial_campaign_v2.png',
-    span: 'square',
-    description: 'Editorial campaign look blending soft matte textures with editorial lash architecture.',
+    title: 'Avant-Garde Noir',
+    category: 'Runway',
+    src: '/gallery/newpic6.png',
+    aspect: 'aspect-square',
+    description: 'Striking runway concept with graphic liner and modern structural highlights for Milan shows.',
   },
   {
     id: '8',
     index: '08',
+    title: 'Prada Campaign Look',
+    category: 'Editorial',
+    src: '/gallery/prada_editorial_campaign_v2.png',
+    aspect: 'aspect-square',
+    description: 'Editorial campaign look blending soft matte textures with editorial lash architecture.',
+  },
+  {
+    id: '9',
+    index: '09',
     title: 'Terracotta Tonal',
     category: 'Campaign',
     src: '/gallery/tonal terracottarust01.png',
-    span: 'square',
+    aspect: 'aspect-[4/5]',
     description: 'Warm terracotta tones sculpted across cheekbones for glowing editorial warmth.',
   },
 ];
@@ -160,26 +169,21 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Magazine Bento Grid */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[280px] md:auto-rows-[320px] gap-4">
+        {/* Dynamic Aspect-Ratio Editorial Masonry Layout */}
+        <motion.div layout className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5 space-y-5">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, i) => {
-              const spanClass =
-                item.span === 'tall'
-                  ? 'sm:col-span-1 sm:row-span-2'
-                  : item.span === 'wide'
-                  ? 'sm:col-span-2 sm:row-span-1'
-                  : 'col-span-1 row-span-1';
-
-              return (
-                <motion.div
-                  layout
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className={`relative overflow-hidden group cursor-pointer bg-[#0f0f0f] border border-white/10 hover:border-[#E52E2D]/50 transition-all duration-500 rounded-xs ${spanClass}`}
+            {filteredItems.map((item, i) => (
+              <motion.div
+                layout
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="break-inside-avoid block"
+              >
+                <div
+                  className={`relative w-full ${item.aspect} overflow-hidden group cursor-pointer bg-[#0f0f0f] border border-white/10 hover:border-[#E52E2D]/50 transition-all duration-500 rounded-xs`}
                   onClick={() => setActiveItemIndex(i)}
                   onMouseEnter={() => setHoveredId(item.id)}
                   onMouseLeave={() => setHoveredId(null)}
@@ -210,7 +214,7 @@ export default function Gallery() {
                   </div>
 
                   {/* Bottom title & arrow hint */}
-                  <div className="absolute bottom-0 left-0 right-0 z-20 p-6 flex items-end justify-between translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="absolute bottom-0 left-0 right-0 z-20 p-5 flex items-end justify-between translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
                     <div>
                       <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] block mb-1 font-bold">
                         Editorial Look
@@ -223,13 +227,13 @@ export default function Gallery() {
                       </h3>
                     </div>
 
-                    <div className="w-9 h-9 border border-white/20 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white/70 group-hover:border-[#E52E2D] group-hover:bg-[#E52E2D] group-hover:text-white transition-all duration-300 shrink-0">
-                      <ArrowUpRight size={16} />
+                    <div className="w-8 h-8 border border-white/20 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white/70 group-hover:border-[#E52E2D] group-hover:bg-[#E52E2D] group-hover:text-white transition-all duration-300 shrink-0">
+                      <ArrowUpRight size={15} />
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </motion.div>
+            ))}
           </AnimatePresence>
         </motion.div>
 
@@ -264,7 +268,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative max-w-5xl w-full bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row gap-0 overflow-hidden rounded-xs shadow-[0_0_60px_rgba(0,0,0,0.9)]"
+              className="relative max-w-5xl w-full bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row gap-0 overflow-hidden rounded-xs shadow-[0_0_60px_rgba(0,0,0,0.9)] max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image panel with Navigation Arrows */}
@@ -274,7 +278,7 @@ export default function Gallery() {
                   alt={activeItem.title}
                   fill
                   unoptimized
-                  className="object-contain p-2"
+                  className="object-contain p-4"
                   sizes="80vw"
                   priority
                 />
