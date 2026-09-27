@@ -113,7 +113,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
-                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-xs border border-transparent hover:border-white/10 hover:bg-white/[0.02] text-2xl tracking-[0.15em] text-white/80 hover:text-white uppercase font-serif transition-all"
+                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-xs border border-transparent hover:border-white/10 hover:bg-white/2 text-2xl tracking-[0.15em] text-white/80 hover:text-white uppercase font-serif transition-all"
                   style={{ fontFamily: "var(--font-cormorant), serif" }}
                 >
                   <span className="flex items-center gap-3">
@@ -143,7 +143,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
               <a
                 href="tel:+919833322110"
                 onClick={() => setIsOpen(false)}
-                className="w-full py-3.5 rounded-xs bg-white/[0.03] border border-white/10 text-white/80 font-mono text-[9px] uppercase tracking-[0.25em] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xs bg-white/3 border border-white/10 text-white/80 font-mono text-[9px] uppercase tracking-[0.25em] flex items-center justify-center gap-2"
               >
                 <Phone size={13} className="text-[#E52E2D]" /> Direct Concierge (+91 98333 22110)
               </a>

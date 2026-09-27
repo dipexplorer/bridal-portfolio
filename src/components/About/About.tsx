@@ -210,7 +210,7 @@ export default function About() {
                 {couturePillars.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 border border-white/10 bg-white/[0.03] px-4 py-2 rounded-full hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300 shrink-0"
+                    className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 border border-white/10 bg-white/3 px-4 py-2 rounded-full hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300 shrink-0"
                   >
                     {tag}
                   </span>
@@ -218,7 +218,7 @@ export default function About() {
               </div>
 
               {/* High-Fashion Editorial Pull Quote Block */}
-              <div className="relative border-l-2 border-[#E52E2D] pl-5 my-6 py-1 bg-white/[0.015]">
+              <div className="relative border-l-2 border-[#E52E2D] pl-5 my-6 py-1 bg-white/1.5">
                 <p
                   className="text-base sm:text-xl lg:text-2xl text-white/95 font-serif italic leading-relaxed"
                   style={{ fontFamily: 'var(--font-cormorant), serif' }}
@@ -252,7 +252,7 @@ export default function About() {
 
               {/* Glassmorphism Metric Cards */}
               <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-3 gap-3 sm:gap-6">
-                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-xs">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-[#E52E2D] tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
@@ -264,7 +264,7 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
@@ -276,7 +276,7 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}

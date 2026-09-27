@@ -82,7 +82,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <a
                 href="tel:+919833322110"
-                className="w-10 h-10 rounded-full border border-white/20 bg-white/[0.03] text-white flex items-center justify-center shrink-0"
+                className="w-10 h-10 rounded-full border border-white/20 bg-white/3 text-white flex items-center justify-center shrink-0"
                 aria-label="Call Studio"
               >
                 <Phone size={14} className="text-[#E52E2D]" />

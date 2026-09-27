@@ -135,7 +135,7 @@ export default function Services({ onBookClick }: ServicesProps) {
               className={`font-mono text-[9px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
                 activeCategory === tab.id
                   ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
-                  : 'bg-white/[0.02] text-white/60 border-white/10 hover:border-white/30 hover:text-white'
+                  : 'bg-white/2 text-white/60 border-white/10 hover:border-white/30 hover:text-white'
               }`}
             >
               {tab.label}
@@ -147,7 +147,7 @@ export default function Services({ onBookClick }: ServicesProps) {
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 no-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 mb-10 lg:mb-20 -mx-5 px-5 md:mx-0 md:px-0">
           <AnimatePresence mode="popLayout">
             {filteredServices.map((service, i) => (
-              <div key={service.id} className="w-[88vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink-1 flex flex-col">
+              <div key={service.id} className="w-[88vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink flex flex-col">
                 <ServiceTile
                   service={service}
                   index={i}
@@ -176,7 +176,7 @@ export default function Services({ onBookClick }: ServicesProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="p-6 md:p-10 bg-white/[0.015] border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+          className="p-6 md:p-10 bg-white/1.5 border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
         >
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-full bg-[#E52E2D]/10 border border-[#E52E2D]/30 flex items-center justify-center shrink-0 mt-1">
@@ -225,7 +225,7 @@ function ServiceTile({
       className={`group relative flex flex-col border transition-all duration-500 rounded-xs overflow-hidden h-full ${
         service.isSignature
           ? 'border-[#E52E2D]/50 bg-[#0d0d0d] shadow-[0_0_30px_rgba(229,46,45,0.15)] hover:border-[#E52E2D]'
-          : 'border-white/10 bg-[#0a0a0a] hover:border-white/25 hover:bg-[#0e0e0e]'
+          : 'border-white/10 bg-[#060606] hover:border-white/25 hover:bg-[#0e0e0e]'
       }`}
     >
       {/* Signature top accent bar & ribbon */}
@@ -277,7 +277,7 @@ function ServiceTile({
         </p>
 
         {/* Pricing Block */}
-        <div className="mb-6 p-4 bg-white/[0.02] border border-white/5 flex items-baseline justify-between rounded-xs">
+        <div className="mb-6 p-4 bg-white/2 border border-white/5 flex items-baseline justify-between rounded-xs">
           <div>
             <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/40 block mb-0.5">
               Investment
@@ -301,7 +301,7 @@ function ServiceTile({
           {service.highlights.map((h, idx) => (
             <span
               key={idx}
-              className="font-mono text-[8px] uppercase tracking-wider px-2.5 py-1 bg-white/[0.03] border border-white/10 text-white/70 rounded-full"
+              className="font-mono text-[8px] uppercase tracking-wider px-2.5 py-1 bg-white/3 border border-white/10 text-white/70 rounded-full"
             >
               {h}
             </span>

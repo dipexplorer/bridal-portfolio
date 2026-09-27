@@ -27,7 +27,7 @@ export default function Location() {
 
             <div className="flex flex-col gap-6 mt-6">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xs mt-1 bg-white/[0.03] border border-white/10 shrink-0">
+                <div className="p-2.5 rounded-xs mt-1 bg-white/3 border border-white/10 shrink-0">
                   <MapPin size={18} className="text-[#E52E2D]" />
                 </div>
                 <div>
@@ -48,7 +48,7 @@ export default function Location() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xs mt-1 bg-white/[0.03] border border-white/10 shrink-0">
+                <div className="p-2.5 rounded-xs mt-1 bg-white/3 border border-white/10 shrink-0">
                   <Clock size={18} className="text-[#E52E2D]" />
                 </div>
                 <div>
@@ -69,7 +69,7 @@ export default function Location() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xs mt-1 bg-white/[0.03] border border-white/10 shrink-0">
+                <div className="p-2.5 rounded-xs mt-1 bg-white/3 border border-white/10 shrink-0">
                   <Phone size={18} className="text-[#E52E2D]" />
                 </div>
                 <div>

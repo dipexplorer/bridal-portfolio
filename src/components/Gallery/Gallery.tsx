@@ -160,7 +160,7 @@ export default function Gallery() {
                 className={`font-mono text-[9px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
                   activeCategory === cat
                     ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
-                    : 'bg-white/[0.02] text-white/50 border-white/10 hover:border-white/30 hover:text-white'
+                    : 'bg-white/2 text-white/50 border-white/10 hover:border-white/30 hover:text-white'
                 }`}
               >
                 {cat}
@@ -373,7 +373,7 @@ export default function Gallery() {
                 </div>
 
                 <div className="space-y-3 mt-4">
-                  <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xs flex items-center justify-between font-mono text-[9px]">
+                  <div className="p-3 bg-white/2 border border-white/5 rounded-xs flex items-center justify-between font-mono text-[9px]">
                     <span className="text-white/40 uppercase tracking-widest">
                       Studio Location
                     </span>
