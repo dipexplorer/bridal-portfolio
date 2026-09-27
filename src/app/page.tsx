@@ -60,7 +60,7 @@ export default function Home() {
             <Services onBookClick={handleOpenBooking} />
 
             {/* 7. Client Reviews */}
-            <Reviews />
+            <Reviews onBookClick={() => handleOpenBooking()} />
 
             {/* 8. Studio Location */}
             <Location />
