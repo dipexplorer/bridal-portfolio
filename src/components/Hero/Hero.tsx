@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { Play, Sparkles, Award, X, Volume2, VolumeX } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,6 +14,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
   const scrollRevealRef = useRef<HTMLDivElement>(null);
   const bgPhotoRef = useRef<HTMLDivElement>(null);
   const textContentRef = useRef<HTMLDivElement>(null);
+
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const rafIdRef = useRef<number | null>(null);
   const isScrolledRef = useRef<boolean>(false);
@@ -232,6 +235,15 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           <div className="absolute inset-0 bg-linear-to-t from-[#060606] via-[#060606]/40 to-black/70 z-30 pointer-events-none" />
         </div>
 
+        {/* Top-Right Interactive Glassmorphism Lens Indicator Tag */}
+        <div className="absolute top-28 right-6 md:right-16 lg:right-24 z-40 hidden sm:flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-[9px] uppercase tracking-[0.25em] text-white/80 pointer-events-auto">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E52E2D] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E52E2D]"></span>
+          </span>
+          <span>Hover to reveal editorial makeup</span>
+        </div>
+
         {/* Hero Content Overlay */}
         <div
           ref={textContentRef}
@@ -254,7 +266,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 </span>
               </motion.div>
 
-              {/* TIER 2: LUXE Wordmark (unchanged size) */}
+              {/* TIER 2: LUXE Wordmark */}
               <div className="flex items-start overflow-hidden py-1">
                 <h1
                   className="flex text-7xl sm:text-8xl md:text-[9vw] lg:text-[10vw] leading-[0.85] tracking-tighter uppercase font-serif text-white drop-shadow-xl pointer-events-auto"
@@ -285,7 +297,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 />
               </div>
 
-              {/* TIER 3: Secondary Tagline (Prominent tier: 20-26px, clear vertical spacing) */}
+              {/* TIER 3: Secondary Tagline */}
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -306,7 +318,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 Mastering the art of high-fashion and editorial bridal artistry. Elevating natural beauty through a lens of modern luxury.
               </motion.p>
 
-              {/* DUAL CTA (Under body copy with clear vertical breathing room) */}
+              {/* DUAL CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -322,9 +334,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 </button>
 
                 {/* Secondary CTA: Watch Our Story */}
-                <a
-                  href="#story"
-                  className="flex items-center gap-3 group min-h-[48px] px-1"
+                <button
+                  onClick={() => setIsVideoOpen(true)}
+                  className="flex items-center gap-3 group min-h-[48px] px-1 cursor-pointer"
                   aria-label="Watch Our Story"
                 >
                   <span className="w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/30 flex items-center justify-center text-white/80 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] group-hover:shadow-[0_0_14px_rgba(229,46,45,0.4)] transition-all duration-300 shrink-0">
@@ -333,21 +345,32 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/60 group-hover:text-white/90 transition-colors duration-300">
                     Watch Our Story
                   </span>
-                </a>
+                </button>
               </motion.div>
 
             </div>
 
-            {/* Location tag (right-aligned on desktop) — CTA moved to left column */}
+            {/* Location & Trust Markers (Right-aligned on desktop) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.68, ease: "easeOut" }}
-              className="hidden md:flex flex-col items-end gap-4"
+              className="hidden md:flex flex-col items-end gap-3.5 pointer-events-auto"
             >
-              <div className="text-right font-mono text-[9px] uppercase tracking-[0.25em] text-white/50 pointer-events-auto">
-                <span className="text-[#E52E2D] font-bold block mb-1">Available Worldwide</span>
+              <div className="text-right font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">
+                <span className="text-[#E52E2D] font-bold block mb-1 tracking-[0.3em]">Available Worldwide</span>
                 <span>Based in Paris &amp; Mumbai</span>
+              </div>
+
+              <div className="flex flex-col items-end gap-1.5 pt-3 border-t border-white/10">
+                <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-white/70 bg-white/5 px-3 py-1 rounded-xs border border-white/10">
+                  <Sparkles size={10} className="text-[#E52E2D]" />
+                  <span>500+ Editorial Brides</span>
+                </div>
+                <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-white/50">
+                  <Award size={10} className="text-[#E52E2D]" />
+                  <span>Vogue &amp; Elle Featured</span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -366,6 +389,95 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           </motion.div>
         </div>
       </section>
+
+      {/* Luxury Cinematic Story Film Modal */}
+      <AnimatePresence>
+        {isVideoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 md:p-12 pointer-events-auto"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVideoOpen(false)}
+              className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-full border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer z-20 shadow-lg"
+              aria-label="Close Story Video"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Video / Editorial Reel Container */}
+            <div className="relative w-full max-w-5xl aspect-video bg-[#0a0a0a] rounded-sm border border-white/15 overflow-hidden flex flex-col justify-between p-6 md:p-10 shadow-[0_25px_80px_rgba(0,0,0,0.95)]">
+              {/* Background Editorial Visuals */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src="/gallery/frame2.png"
+                  alt="Couture Story Presentation"
+                  fill
+                  unoptimized
+                  className="object-cover opacity-35 filter brightness-90 scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent" />
+              </div>
+
+              {/* Modal Header */}
+              <div className="relative z-10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="w-8 h-px bg-[#E52E2D]" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
+                    Couture Film // Editorial Vision
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/50 hidden sm:inline">
+                  Paris • London • Mumbai
+                </span>
+              </div>
+
+              {/* Center Editorial Quote */}
+              <div className="relative z-10 my-auto max-w-2xl">
+                <span
+                  className="text-2xl sm:text-4xl md:text-5xl text-white uppercase font-serif leading-tight tracking-tight block mb-4"
+                  style={{ fontFamily: 'var(--font-cormorant), serif' }}
+                >
+                  "Elevating natural grace into timeless editorial perfection."
+                </span>
+                <p className="font-mono text-xs text-white/70 tracking-widest uppercase flex items-center gap-2">
+                  <span className="w-4 h-px bg-[#E52E2D]" />
+                  Master Artist &amp; Visionary Founder
+                </p>
+              </div>
+
+              {/* Modal Footer Controls */}
+              <div className="relative z-10 flex items-center justify-between pt-6 border-t border-white/15">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setIsMuted(!isMuted)}
+                    className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                  </button>
+                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/50">
+                    {isMuted ? 'Ambient Soundtrack Muted' : 'Ambient Audio Active'}
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setIsVideoOpen(false);
+                    onBookClick?.();
+                  }}
+                  className="px-6 py-2.5 bg-[#E52E2D] text-white font-mono text-[9px] uppercase tracking-[0.3em] font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:bg-[#c01f1f] transition-all cursor-pointer"
+                >
+                  Reserve Your Session
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
