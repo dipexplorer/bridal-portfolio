@@ -14,6 +14,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
   const scrollRevealRef = useRef<HTMLDivElement>(null);
   const bgPhotoRef = useRef<HTMLDivElement>(null);
   const textContentRef = useRef<HTMLDivElement>(null);
+  const afterTextContentRef = useRef<HTMLDivElement>(null);
 
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -146,6 +147,20 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             duration: 0.3,
           },
           0
+        );
+      }
+
+      if (afterTextContentRef.current) {
+        gsap.set(afterTextContentRef.current, { opacity: 0, y: 30 });
+        tl.to(
+          afterTextContentRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            ease: "power2.out",
+            duration: 0.5,
+          },
+          0.35
         );
       }
     }, trackRef);
@@ -387,6 +402,84 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             </span>
             <div className="w-px h-8 bg-linear-to-b from-white/30 to-transparent" />
           </motion.div>
+        </div>
+
+        {/* Phase 2: Post-Transform Editorial Overlay (Appears as scroll reveals full makeup) */}
+        <div
+          ref={afterTextContentRef}
+          className="absolute inset-0 z-40 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 pb-12 md:pb-20 pt-28 flex flex-col justify-between pointer-events-none opacity-0"
+        >
+          {/* Top Banner / Editorial Headline */}
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pointer-events-auto">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="w-10 sm:w-12 h-0.5 bg-[#E52E2D] shadow-[0_0_10px_rgba(229,46,45,0.8)]" />
+                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
+                  Editorial Reveal // Couture Finish
+                </span>
+              </div>
+              <h2
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase font-serif leading-tight tracking-tight drop-shadow-2xl"
+                style={{ fontFamily: "var(--font-cormorant), serif" }}
+              >
+                Sculpted Perfection
+              </h2>
+              <p className="font-mono text-[10px] sm:text-xs tracking-[0.28em] text-white/75 uppercase mt-2 font-light">
+                High-Definition Artistry &amp; Luminous Velvet Skin
+              </p>
+            </div>
+
+            {/* Top Right Quick Action Badge */}
+            <button
+              onClick={onBookClick}
+              className="self-start px-7 py-3 rounded-full bg-black/60 backdrop-blur-md border border-[#E52E2D]/60 text-white font-mono text-[9px] uppercase tracking-[0.3em] font-bold hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer shadow-[0_0_25px_rgba(229,46,45,0.4)]"
+            >
+              Reserve This Look
+            </button>
+          </div>
+
+          {/* Middle: Feature Hotspots / Editorial Callout Badges */}
+          <div className="hidden md:grid grid-cols-2 gap-12 w-full my-auto pointer-events-auto">
+            {/* Left Feature Callout */}
+            <div className="flex flex-col items-start gap-1.5 p-4 rounded-xs bg-black/50 backdrop-blur-md border border-white/15 max-w-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
+                <Sparkles size={11} /> Graphic Eyeliner Artistry
+              </span>
+              <p className="text-xs text-white/80 font-light leading-relaxed">
+                Custom winged contouring with carbon black pigment for high-fashion runway editorial looks.
+              </p>
+            </div>
+
+            {/* Right Feature Callout */}
+            <div className="flex flex-col items-end text-right gap-1.5 p-4 rounded-xs bg-black/50 backdrop-blur-md border border-white/15 max-w-sm ml-auto shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
+                <Sparkles size={11} /> Luminous Glass Skin
+              </span>
+              <p className="text-xs text-white/80 font-light leading-relaxed">
+                Hydrating couture base with sculpted highlights and deep berry matte velvet lips.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Bar / Explore Navigation */}
+          <div className="flex items-center justify-between pt-6 border-t border-white/15 pointer-events-auto">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E52E2D] shadow-[0_0_12px_rgba(229,46,45,1)] animate-ping" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/80 font-medium">
+                Transform Complete — High Fashion Couture
+              </span>
+            </div>
+
+            <a
+              href="#about"
+              className="flex items-center gap-2.5 group font-mono text-[9px] uppercase tracking-[0.3em] text-white/70 hover:text-white transition-colors"
+            >
+              <span>Explore Artist Profile</span>
+              <span className="w-7 h-7 rounded-full border border-white/30 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] flex items-center justify-center transition-all">
+                ↓
+              </span>
+            </a>
+          </div>
         </div>
       </section>
 
