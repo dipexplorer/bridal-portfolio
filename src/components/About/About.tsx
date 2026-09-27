@@ -15,7 +15,7 @@ const btsGallery = [
   {
     id: 'blush-craft',
     subtitle: 'Behind The Scenes // Blush Craft',
-    src: '/gallery/bride_hd.png',
+    src: '/gallery/3_women_hd.png',
     alt: 'Bridal Couture Application',
   },
   {
