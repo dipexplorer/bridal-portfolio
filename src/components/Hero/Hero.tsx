@@ -506,7 +506,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             </button>
 
             {/* Video / Editorial Reel Container */}
-            <div className="relative w-full max-w-5xl aspect-video bg-[#0a0a0a] rounded-sm border border-white/15 overflow-hidden flex flex-col justify-between p-6 md:p-10 shadow-[0_25px_80px_rgba(0,0,0,0.95)]">
+            <div className="relative w-full max-w-5xl aspect-video bg-charcoal rounded-sm border border-white/15 overflow-hidden flex flex-col justify-between p-6 md:p-10 shadow-[0_25px_80px_rgba(0,0,0,0.95)]">
               {/* Background Editorial Visuals */}
               <div className="absolute inset-0 z-0">
                 <Image

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --font-serif: var(--font-bodoni);
   --font-bodoni: var(--font-bodoni);
   --font-italiana: var(--font-italiana);
