@@ -1,15 +1,62 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const btsGallery = [
+  {
+    id: 'studio-session',
+    subtitle: 'Behind The Scenes // Studio Session',
+    src: '/gallery/Two women enjoying a makeup session.png',
+    alt: 'Luxe Studio Session with Client',
+  },
+  {
+    id: 'blush-craft',
+    subtitle: 'Behind The Scenes // Blush Craft',
+    src: '/gallery/bride_hd.png',
+    alt: 'Bridal Couture Application',
+  },
+  {
+    id: 'lip-precision',
+    subtitle: 'Behind The Scenes // Lip Precision',
+    src: '/gallery/bride_lips_touch.png',
+    alt: 'Precision Lip Touch Up',
+  },
+  {
+    id: 'backstage-prep',
+    subtitle: 'Behind The Scenes // Backstage Prep',
+    src: '/gallery/bride_finishing_ready.png',
+    alt: 'Backstage Runway Masterclass Prep',
+  },
+];
 
 export default function About() {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % btsGallery.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handlePrev = () => {
+    setActiveImageIndex((prev) => (prev - 1 + btsGallery.length) % btsGallery.length);
+  };
+
+  const handleNext = () => {
+    setActiveImageIndex((prev) => (prev + 1) % btsGallery.length);
+  };
+
   const couturePillars = [
     'Haute Couture Bridal',
     'Fashion Week Editorial',
     'Red Carpet Artistry',
   ];
+
+  const currentItem = btsGallery[activeImageIndex];
 
   return (
     <section
@@ -31,7 +78,7 @@ export default function About() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* Left Column: Dual-Layer Interactive Portrait Card */}
+          {/* Left Column: Auto-Looping BTS Slider Portrait Card */}
           <div className="lg:col-span-5 relative">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -46,37 +93,70 @@ export default function About() {
               <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#E52E2D] z-20" />
 
               <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10 rounded-xs">
-                {/* BTS Photo Base */}
-                <Image
-                  src="/gallery/behide_the_scene.png"
-                  alt="Luxe Studio Behind the Scenes"
-                  fill
-                  unoptimized
-                  className="object-cover grayscale group-hover:opacity-0 transition-opacity duration-700 ease-out"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                  priority
-                />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentItem.id}
+                    initial={{ opacity: 0, scale: 1.03 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={currentItem.src}
+                      alt={currentItem.alt}
+                      fill
+                      unoptimized
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 40vw"
+                      priority
+                    />
+                  </motion.div>
+                </AnimatePresence>
 
-                {/* Editorial Photo Reveal on Hover */}
-                <Image
-                  src="/gallery/frame2.png"
-                  alt="Luxe Editorial Campaign Result"
-                  fill
-                  unoptimized
-                  className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out scale-100 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
+                {/* Subtle vignette gradient */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
 
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                {/* Slider Arrow Controls */}
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-80 hover:opacity-100 cursor-pointer"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-80 hover:opacity-100 cursor-pointer"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={18} />
+                </button>
 
-                {/* Badge tags on image */}
+                {/* Subtitle Badge Overlay */}
                 <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/70 border border-white/20 bg-black/40 backdrop-blur-md px-3 py-1.5">
-                    Studio Archives
+                  <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/90 border border-white/20 bg-black/60 backdrop-blur-md px-3.5 py-1.5">
+                    {currentItem.subtitle}
                   </span>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] bg-[#E52E2D]/10 border border-[#E52E2D]/30 backdrop-blur-md px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    Editorial Result
+                  <span className="font-mono text-[9px] font-bold text-[#E52E2D] bg-black/60 border border-[#E52E2D]/30 backdrop-blur-md px-2.5 py-1">
+                    0{activeImageIndex + 1} / 0{btsGallery.length}
                   </span>
+                </div>
+
+                {/* Slide Indicator Dots */}
+                <div className="absolute bottom-2.5 left-6 right-6 z-20 flex items-center justify-center gap-2">
+                  {btsGallery.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
+                        activeImageIndex === idx
+                          ? 'w-6 bg-[#E52E2D]'
+                          : 'w-2 bg-white/30 hover:bg-white/70'
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>
