@@ -1,16 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Check, Diamond, ArrowRight, ShieldCheck } from 'lucide-react';
 
 interface ServiceCard {
   id: string;
+  category: 'bridal' | 'editorial' | 'redcarpet';
   tier: string;
   name: string;
   price: string;
   priceNote: string;
   tagline: string;
   description: string;
+  highlights: string[];
   features: string[];
   isSignature?: boolean;
 }
@@ -18,51 +21,58 @@ interface ServiceCard {
 const servicesData: ServiceCard[] = [
   {
     id: '1',
+    category: 'editorial',
     tier: 'I',
     name: 'Editorial Couture',
     price: '₹25,000',
     priceNote: 'per session',
-    tagline: 'For the Lens',
-    description: 'High-fashion runway and editorial styling designed for photography, campaigns, and print.',
+    tagline: 'For Photography & Runway',
+    description: 'High-fashion runway and editorial styling designed for photography, campaigns, and print media.',
+    highlights: ['On-Set Touch-ups (3 hrs)', 'Digital Look Consultation'],
     features: [
-      'HD Base & Custom Contouring',
-      'Editorial Lash Architecture',
-      'Lip Sculpting & Lining',
-      'On-Set Touch-ups (3 hrs)',
-      'Digital Look Consultation',
+      'HD Base & Custom Facial Contouring',
+      'Editorial Lash Architecture & Placement',
+      'Couture Lip Sculpting & Lining',
+      'High-Definition Camera-Ready Prep',
+      'Full Digital Moodboard & Consultation',
     ],
   },
   {
     id: '2',
+    category: 'bridal',
     tier: 'II',
     name: 'Couture Bride',
     price: '₹45,000',
     priceNote: 'per ceremony',
-    tagline: 'The Signature',
-    description: 'The ultimate luxury signature bridal look — crafted for your most important day.',
+    tagline: 'The Signature Bridal Experience',
+    description: 'The ultimate luxury signature bridal look — bespoke, water-resistant, and crafted for your most important day.',
+    highlights: ['Full Pre-wedding Trial Included', 'Venue Assistance (6 hrs)'],
     features: [
-      'Luxury Hydrating Prep Treatment',
+      'Luxury Hydrating Skin Prep Treatment',
       'Airbrush HD Water-resistant Base',
-      'Bridal Veil & Jewellery Draping',
-      'Full Pre-wedding Trial',
-      'Venue Day Assistance (6 hrs)',
+      'Bridal Dupatta & Jewellery Draping',
+      'Full Pre-wedding Trial & Consultation',
+      'On-Venue Touch-up Assistance (6 hrs)',
+      'Touch-up Kit for Evening Ceremony',
     ],
     isSignature: true,
   },
   {
     id: '3',
+    category: 'redcarpet',
     tier: 'III',
     name: 'Red Carpet Glam',
     price: '₹18,000',
     priceNote: 'per event',
-    tagline: 'The Evening',
-    description: 'Glamour styling for high-end events, cocktail soirées, and award evenings.',
+    tagline: 'Evening & Gala Styling',
+    description: 'Glamour styling for high-end galas, cocktail soirées, award evenings, and private red-carpet appearances.',
+    highlights: ['Premium Silk Faux Lashes', 'Hair Consultation Included'],
     features: [
       'Flawless Radiant Glam Base',
-      'Custom Eye Look',
-      'Couture Lip Tint',
-      'Premium Silk Faux Lashes',
-      'Hair Styling Consultation',
+      'Custom Eye Look & Metallic Shimmer',
+      'Couture Lip Tint & Plumping Finish',
+      'Premium Silk Faux Lashes Included',
+      'Complimentary Hair Styling Consultation',
     ],
   },
 ];
@@ -72,58 +82,110 @@ interface ServicesProps {
 }
 
 export default function Services({ onBookClick }: ServicesProps) {
-  return (
-    <section className="bg-[#060606] py-32 border-t border-white/5" id="services">
-      <div className="max-w-7xl mx-auto px-6 md:px-16">
+  const [activeCategory, setActiveCategory] = useState<'all' | 'bridal' | 'editorial' | 'redcarpet'>('all');
 
+  const filteredServices =
+    activeCategory === 'all'
+      ? servicesData
+      : servicesData.filter((s) => s.category === activeCategory);
+
+  return (
+    <section className="relative bg-[#060606] py-32 lg:py-48 border-t border-white/5 overflow-hidden" id="services">
+      {/* Background Glows */}
+      <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[#E52E2D]/2 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/1 blur-[140px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+        
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-24 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-8">
           <div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-6 flex items-center gap-3 font-bold">
-              <span className="w-5 h-px bg-[#E52E2D]" />
-              Rates &amp; Services
+            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-4 flex items-center gap-3 font-bold">
+              <span className="w-6 h-px bg-[#E52E2D]" />
+              Rates &amp; Services // Bespoke Collections
             </span>
             <h2
-              className="text-5xl md:text-[5vw] text-white uppercase leading-[0.9] tracking-tight"
+              className="text-5xl sm:text-7xl lg:text-[5.5vw] text-white uppercase leading-[0.88] tracking-tight"
               style={{ fontFamily: 'var(--font-cormorant), serif' }}
             >
               Exclusive<br />
-              <span className="italic font-extralight text-white/35">Packages</span>
+              <span className="italic font-light text-white/40 font-serif lowercase">Packages</span>
             </h2>
           </div>
           <p
-            className="text-[13px] text-white/35 leading-[1.9] max-w-xs md:text-right"
+            className="text-sm md:text-base text-white/50 leading-relaxed max-w-md lg:text-right font-light"
             style={{ fontFamily: 'var(--font-inter)' }}
           >
-            Each session is a curated collaboration — bespoke to your vision, uncompromising in craft.
+            Each session is a curated collaboration — bespoke to your facial architecture, uncompromising in craft and longevity.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {servicesData.map((service, i) => (
-            <ServiceTile
-              key={service.id}
-              service={service}
-              index={i}
-              onBook={() => onBookClick(service.name)}
-            />
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap justify-start lg:justify-center gap-3 mb-16">
+          {[
+            { id: 'all', label: 'All Experiences' },
+            { id: 'bridal', label: 'Bridal Couture' },
+            { id: 'editorial', label: 'Editorial & Runway' },
+            { id: 'redcarpet', label: 'Red Carpet & VIP' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveCategory(tab.id as any)}
+              className={`font-mono text-[9px] uppercase tracking-[0.25em] px-5 py-2.5 transition-all duration-300 rounded-full border cursor-pointer ${
+                activeCategory === tab.id
+                  ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
+                  : 'bg-white/[0.02] text-white/60 border-white/10 hover:border-white/30 hover:text-white'
+              }`}
+            >
+              {tab.label}
+            </button>
           ))}
         </div>
 
-        {/* Footer note */}
-        <div className="mt-14 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-[11px] text-white/25 font-mono tracking-wide">
-            * Pricing is indicative. Final quote provided after consultation.
-          </p>
+        {/* Service Cards Grid */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          <AnimatePresence mode="popLayout">
+            {filteredServices.map((service, i) => (
+              <ServiceTile
+                key={service.id}
+                service={service}
+                index={i}
+                onBook={() => onBookClick(service.name)}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Concierge Consultation Guarantee Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="p-8 md:p-10 bg-white/[0.015] border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+        >
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 rounded-full bg-[#E52E2D]/10 border border-[#E52E2D]/30 flex items-center justify-center shrink-0 mt-1">
+              <ShieldCheck size={20} className="text-[#E52E2D]" />
+            </div>
+            <div>
+              <h4 className="text-white font-serif text-lg md:text-xl font-bold mb-1" style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+                Bespoke Concierge Guarantee
+              </h4>
+              <p className="text-xs md:text-sm text-white/50 font-light leading-relaxed max-w-2xl" style={{ fontFamily: 'var(--font-inter)' }}>
+                * Pricing is indicative. Every booking includes a 1-on-1 skin prep consultation, custom lash architecture, and bespoke look design. Final quotes provided after initial consultation.
+              </p>
+            </div>
+          </div>
+
           <button
             onClick={() => onBookClick('')}
-            className="group text-[11px] font-mono uppercase tracking-[0.3em] text-white/40 hover:text-[#E52E2D] transition-colors duration-300 flex items-center gap-2"
+            className="group font-mono text-[9px] uppercase tracking-[0.3em] text-white/70 hover:text-white border border-white/20 hover:border-[#E52E2D] px-6 py-3.5 transition-all duration-300 shrink-0 flex items-center gap-2 cursor-pointer"
           >
-            Custom inquiry
-            <span className="group-hover:translate-x-1 transition-transform duration-200 inline-block">→</span>
+            Custom Inquiry
+            <ArrowRight size={12} className="group-hover:translate-x-1 text-[#E52E2D] transition-transform duration-200" />
           </button>
-        </div>
+        </motion.div>
 
       </div>
     </section>
@@ -139,54 +201,52 @@ function ServiceTile({
   index: number;
   onBook: () => void;
 }) {
-  const [priceRevealed, setPriceRevealed] = useState(false);
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`relative flex flex-col border transition-colors duration-500 ${
+      layout
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.55, delay: index * 0.1 }}
+      className={`group relative flex flex-col border transition-all duration-500 rounded-xs overflow-hidden ${
         service.isSignature
-          ? 'border-[#E52E2D]/30 bg-[#0c0c0c] hover:border-[#E52E2D]/60'
-          : 'border-white/[0.07] bg-[#080808] hover:border-white/[0.14]'
+          ? 'border-[#E52E2D]/50 bg-[#0d0d0d] shadow-[0_0_40px_rgba(229,46,45,0.12)] hover:border-[#E52E2D]'
+          : 'border-white/10 bg-[#0a0a0a] hover:border-white/25 hover:bg-[#0e0e0e]'
       }`}
     >
-      {/* Signature top accent bar */}
+      {/* Signature top accent bar & ribbon */}
       {service.isSignature && (
-        <div className="h-[2px] w-full bg-linear-to-r from-[#E52E2D] via-[#ff6b6b] to-[#E52E2D]" />
+        <>
+          <div className="h-1 w-full bg-linear-to-r from-[#E52E2D] via-[#ff5555] to-[#E52E2D]" />
+          <div className="bg-[#E52E2D] text-white font-mono text-[8px] uppercase tracking-[0.25em] py-1 px-4 text-center font-bold flex items-center justify-center gap-1.5">
+            <Sparkles size={10} />
+            Flagship Bridal Experience
+          </div>
+        </>
       )}
 
-      {/* Inner padding */}
-      <div className="p-10 flex flex-col flex-1 gap-0">
-
-        {/* Top meta row */}
-        <div className="flex items-center justify-between mb-8">
-          <span className={`font-mono text-[9px] uppercase tracking-[0.4em] ${
-            service.isSignature ? 'text-[#E52E2D]' : 'text-white/25'
-          }`}>
-            {service.tagline}
-          </span>
-          {service.isSignature && (
-            <span className="font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 border border-[#E52E2D]/40 text-[#E52E2D]">
-              Signature
-            </span>
-          )}
-        </div>
-
-        {/* Ghost tier numeral */}
+      {/* Card Content Container */}
+      <div className="p-8 md:p-10 flex flex-col flex-1 relative">
+        
+        {/* Ghost Tier Numeral */}
         <div
-          className="absolute top-8 right-8 text-[7rem] leading-none font-serif select-none pointer-events-none"
+          className="absolute top-6 right-6 text-6xl md:text-7xl leading-none font-serif select-none pointer-events-none opacity-10 group-hover:opacity-20 transition-opacity"
           style={{
             fontFamily: 'var(--font-cormorant), serif',
-            color: service.isSignature ? 'rgba(229,46,45,0.04)' : 'rgba(255,255,255,0.03)',
+            color: service.isSignature ? '#E52E2D' : '#ffffff',
           }}
         >
           {service.tier}
         </div>
 
-        {/* Name */}
+        {/* Tagline */}
+        <span className={`font-mono text-[9px] uppercase tracking-[0.35em] mb-3 block ${
+          service.isSignature ? 'text-[#E52E2D] font-bold' : 'text-white/40'
+        }`}>
+          {service.tagline}
+        </span>
+
+        {/* Title */}
         <h3
           className="text-3xl text-white uppercase leading-tight mb-4 tracking-tight"
           style={{ fontFamily: 'var(--font-cormorant), serif' }}
@@ -196,68 +256,68 @@ function ServiceTile({
 
         {/* Description */}
         <p
-          className="text-[13px] text-white/35 leading-[1.85] mb-9"
+          className="text-xs md:text-sm text-white/50 leading-relaxed mb-6 font-light"
           style={{ fontFamily: 'var(--font-inter)' }}
         >
           {service.description}
         </p>
 
-        {/* Hairline divider */}
-        <div className={`h-px mb-9 ${service.isSignature ? 'bg-[#E52E2D]/15' : 'bg-white/6'}`} />
+        {/* Pricing Block */}
+        <div className="mb-6 p-4 bg-white/[0.02] border border-white/5 flex items-baseline justify-between rounded-xs">
+          <div>
+            <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/30 block mb-0.5">
+              Investment
+            </span>
+            <span
+              className={`text-3xl md:text-4xl font-serif font-bold tracking-tight ${
+                service.isSignature ? 'text-[#E52E2D]' : 'text-white'
+              }`}
+              style={{ fontFamily: 'var(--font-cormorant), serif' }}
+            >
+              {service.price}
+            </span>
+          </div>
+          <span className="font-mono text-[9px] uppercase tracking-wider text-white/40">
+            {service.priceNote}
+          </span>
+        </div>
 
-        {/* Features */}
-        <ul className="space-y-3.5 mb-10 flex-1">
+        {/* Highlight Badges */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {service.highlights.map((h, idx) => (
+            <span
+              key={idx}
+              className="font-mono text-[8px] uppercase tracking-wider px-2.5 py-1 bg-white/[0.03] border border-white/10 text-white/70 rounded-full"
+            >
+              {h}
+            </span>
+          ))}
+        </div>
+
+        {/* Hairline Divider */}
+        <div className={`h-px mb-6 ${service.isSignature ? 'bg-[#E52E2D]/20' : 'bg-white/10'}`} />
+
+        {/* Feature List */}
+        <ul className="space-y-3 mb-8 flex-1">
           {service.features.map((feat, idx) => (
             <li
               key={idx}
-              className="flex items-start gap-3 text-[13px] text-white/50 font-light leading-snug"
+              className="flex items-start gap-3 text-xs md:text-sm text-white/70 font-light leading-snug"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
-              <span className={`mt-1.5 w-[5px] h-[5px] rounded-full shrink-0 ${
-                service.isSignature ? 'bg-[#E52E2D]/70' : 'bg-white/20'
-              }`} />
+              <Diamond size={10} className={`mt-1 shrink-0 ${service.isSignature ? 'text-[#E52E2D]' : 'text-white/40'}`} fill={service.isSignature ? '#E52E2D' : 'transparent'} />
               {feat}
             </li>
           ))}
         </ul>
 
-        {/* Price — blur-reveal interaction */}
-        <div className="mb-9">
-          <p className="font-mono text-[9px] uppercase tracking-[0.35em] text-white/20 mb-3">
-            Investment
-          </p>
-          <div
-            className="relative inline-flex items-baseline gap-2 cursor-pointer group"
-            onClick={() => setPriceRevealed(true)}
-            onMouseEnter={() => setPriceRevealed(true)}
-            onMouseLeave={() => setPriceRevealed(false)}
-          >
-            <span
-              className={`text-4xl font-serif transition-all duration-500 select-none ${
-                service.isSignature ? 'text-[#E52E2D]' : 'text-white'
-              } ${!priceRevealed ? 'blur-[10px] opacity-40' : 'blur-0 opacity-100'}`}
-              style={{ fontFamily: 'var(--font-cormorant), serif' }}
-            >
-              {service.price}
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider text-white/20">
-              {service.priceNote}
-            </span>
-            {!priceRevealed && (
-              <span className="absolute inset-0 flex items-center justify-start font-mono text-[9px] uppercase tracking-[0.3em] text-white/25 pl-0.5 pointer-events-none">
-                hover to reveal
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* CTA */}
+        {/* CTA Button */}
         <button
           onClick={onBook}
-          className={`w-full py-4 font-mono text-[9px] uppercase tracking-[0.35em] transition-all duration-400 border ${
+          className={`w-full py-4 font-mono text-[9px] uppercase tracking-[0.35em] transition-all duration-400 border cursor-pointer ${
             service.isSignature
-              ? 'bg-[#E52E2D] border-[#E52E2D] text-white hover:bg-transparent hover:text-[#E52E2D]'
-              : 'bg-transparent border-white/10 text-white/40 hover:border-white/30 hover:text-white/80'
+              ? 'bg-[#E52E2D] border-[#E52E2D] text-white hover:bg-transparent hover:text-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.3)]'
+              : 'bg-transparent border-white/20 text-white/80 hover:border-[#E52E2D] hover:text-white hover:bg-[#E52E2D]/10'
           }`}
         >
           Reserve Session
@@ -267,3 +327,4 @@ function ServiceTile({
     </motion.div>
   );
 }
+
