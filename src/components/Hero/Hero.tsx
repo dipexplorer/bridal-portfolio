@@ -275,17 +275,20 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 transition={{ duration: 0.7, delay: 0.05, ease: "easeOut" }}
                 className="flex items-center gap-3.5 mb-5 md:mb-6 pointer-events-auto"
               >
-                <div className="w-10 sm:w-12 h-0.5 bg-[#E52E2D] shadow-[0_0_10px_rgba(229,46,45,0.8)] shrink-0" />
-                <span className="font-mono text-xs sm:text-sm uppercase tracking-[0.35em] text-white/80 font-medium">
+                <div className="w-10 sm:w-12 h-0.5 bg-[#E52E2D] shadow-[0_0_12px_rgba(229,46,45,0.9)] shrink-0" />
+                <span
+                  className="text-xs sm:text-sm uppercase tracking-[0.38em] text-white/90 font-semibold"
+                  style={{ fontFamily: "var(--font-cinzel), serif" }}
+                >
                   Bridal&nbsp;<span className="text-[#E52E2D] font-bold">|</span>&nbsp;Fashion&nbsp;<span className="text-[#E52E2D] font-bold">|</span>&nbsp;Editorial
                 </span>
               </motion.div>
 
-              {/* TIER 2: LUXE Wordmark */}
+              {/* TIER 2: LUXE Wordmark (Vogue High-Fashion Serifs) */}
               <div className="flex items-start overflow-hidden py-1">
                 <h1
-                  className="flex text-7xl sm:text-8xl md:text-[9vw] lg:text-[10vw] leading-[0.85] tracking-tighter uppercase font-serif text-white drop-shadow-xl pointer-events-auto"
-                  style={{ fontFamily: "var(--font-cormorant), serif" }}
+                  className="flex text-7xl sm:text-8xl md:text-[9.5vw] lg:text-[10.5vw] leading-[0.82] tracking-tight uppercase font-serif text-white drop-shadow-[0_15px_40px_rgba(0,0,0,0.9)] pointer-events-auto font-medium"
+                  style={{ fontFamily: "var(--font-bodoni), serif" }}
                 >
                   {wordmarkLetters.map((letter, index) => (
                     <span key={index} className="inline-block overflow-hidden">
@@ -308,27 +311,28 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                  className="w-2.5 h-2.5 md:w-3 md:h-3 lg:w-4 lg:h-4 bg-[#E52E2D] mt-3 md:mt-4 lg:mt-6 ml-1.5 shadow-[0_0_15px_rgba(229,46,45,0.6)]"
+                  className="w-2.5 h-2.5 md:w-3 md:h-3 lg:w-4 lg:h-4 bg-[#E52E2D] mt-3 md:mt-4 lg:mt-6 ml-1.5 shadow-[0_0_15px_rgba(229,46,45,0.8)]"
                 />
               </div>
 
-              {/* TIER 3: Secondary Tagline */}
+              {/* TIER 3: Secondary Tagline (Italiana High-Fashion Serif Display) */}
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.42, ease: "easeOut" }}
-                className="mt-7 md:mt-9 lg:mt-10 font-mono text-lg sm:text-xl md:text-2xl tracking-[0.28em] uppercase text-white/70 pointer-events-auto leading-snug font-light"
+                className="mt-7 md:mt-9 lg:mt-10 text-xl sm:text-2xl md:text-3xl lg:text-[28px] tracking-[0.28em] uppercase text-white/80 pointer-events-auto leading-snug font-light"
+                style={{ fontFamily: "var(--font-italiana), serif" }}
               >
-                Timeless Beauty,&nbsp;<span className="font-bold text-white tracking-[0.28em] drop-shadow-md">Modern Luxury</span>
+                Timeless Beauty,&nbsp;<span className="font-bold text-white tracking-[0.3em] drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">Modern Luxury</span>
               </motion.p>
 
-              {/* TIER 4: Body Copy */}
+              {/* TIER 4: Body Copy (Plus Jakarta Sans Geometric Precision) */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                className="mt-6 md:mt-8 max-w-md sm:max-w-lg text-white/80 text-sm sm:text-base leading-[1.85] font-normal pointer-events-auto"
-                style={{ fontFamily: "var(--font-inter)" }}
+                className="mt-6 md:mt-8 max-w-md sm:max-w-lg text-white/85 text-sm sm:text-base leading-[1.85] font-light pointer-events-auto tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta), sans-serif" }}
               >
                 Mastering the art of high-fashion and editorial bridal artistry. Elevating natural beauty through a lens of modern luxury.
               </motion.p>

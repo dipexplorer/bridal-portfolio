@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-serif: var(--font-cormorant);
-  --font-sans: var(--font-inter);
+  --font-serif: var(--font-bodoni);
+  --font-bodoni: var(--font-bodoni);
+  --font-italiana: var(--font-italiana);
+  --font-cinzel: var(--font-cinzel);
+  --font-cormorant: var(--font-cormorant);
+  --font-sans: var(--font-jakarta);
 
   /* High-Fashion Editorial Palette */
   --color-gold: #E52E2D; /* Bold Red */
