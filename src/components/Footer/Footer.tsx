@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="relative bg-[#060606] border-t border-white/10 pt-20 pb-36 md:pb-16 px-6 md:px-12 lg:px-20 overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#E52E2D]/2 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-white/[0.01] blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-white/1 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

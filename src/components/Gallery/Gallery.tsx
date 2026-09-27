@@ -311,7 +311,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative max-w-5xl w-full max-h-[92vh] overflow-y-auto bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row gap-0 rounded-xs shadow-2xl"
+              className="relative max-w-5xl w-full max-h-[92vh] overflow-y-auto bg-charcoal border border-white/10 flex flex-col md:flex-row gap-0 rounded-xs shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image panel */}
