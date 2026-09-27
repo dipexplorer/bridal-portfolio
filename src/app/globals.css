@@ -26,11 +26,6 @@ body {
   color: #ffffff;
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
-  cursor: none;
-}
-
-* {
-  cursor: none !important;
 }
 
 /* Selection */
