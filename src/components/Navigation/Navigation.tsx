@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, Phone, Calendar, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, Calendar, ArrowRight, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navigation({ onBookClick }: { onBookClick?: () => void }) {
@@ -31,34 +31,49 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center justify-between px-5 md:px-12 py-4 md:py-5 ${
           scrolled
-            ? "bg-[#060606]/95 backdrop-blur-md border-b border-white/10 md:top-3 md:left-1/2 md:-translate-x-1/2 md:w-[90%] md:max-w-6xl md:rounded-full md:border-[#E52E2D]/20 md:py-3.5 shadow-2xl"
-            : "bg-linear-to-b from-[#060606]/80 to-transparent"
+            ? "bg-[#060606]/90 backdrop-blur-xl border-b border-white/10 md:top-4 md:left-1/2 md:-translate-x-1/2 md:w-[92%] md:max-w-6xl md:rounded-full md:border-white/15 md:py-3 md:px-8 shadow-[0_15px_50px_rgba(0,0,0,0.9)]"
+            : "bg-linear-to-b from-[#060606]/90 via-[#060606]/50 to-transparent border-b border-white/5"
         }`}
       >
-        {/* Brand Logo */}
+        {/* Brand Logo & Subtitle */}
         <a
           href="#home"
-          className="font-serif italic text-xl sm:text-2xl tracking-[0.3em] font-light flex items-center gap-2 min-h-[44px]"
-          style={{
-            background: "linear-gradient(135deg, #E52E2D 0%, #ff4d4d 60%, #ffffff 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
+          className="group flex items-center gap-3 min-h-[44px]"
         >
-          LUXE
+          <span
+            className="font-serif italic text-2xl sm:text-3xl tracking-[0.35em] font-medium transition-transform duration-300 group-hover:scale-105"
+            style={{
+              background: "linear-gradient(135deg, #ffffff 0%, #E52E2D 50%, #ff6b6b 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              fontFamily: "var(--font-cormorant), serif",
+            }}
+          >
+            LUXE
+          </span>
+          <span className="hidden sm:inline-block w-px h-4 bg-white/20" />
+          <span className="hidden sm:flex flex-col">
+            <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/50 group-hover:text-[#E52E2D] transition-colors">
+              Couture Artistry
+            </span>
+            <span className="font-mono text-[7px] uppercase tracking-[0.3em] text-[#E52E2D] font-semibold">
+              Paris • Mumbai
+            </span>
+          </span>
         </a>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {menuItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-[10px] tracking-[0.25em] text-[#ffffff]/70 hover:text-[#E52E2D] uppercase transition-colors duration-300 relative group font-mono py-2"
+              className="text-[10px] tracking-[0.25em] text-white/70 hover:text-white uppercase transition-colors duration-300 relative group font-mono py-2 flex items-center gap-1.5"
             >
-              {item.name}
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-[#E52E2D] transition-all duration-300 group-hover:w-full" />
+              <span className="w-1 h-1 rounded-full bg-[#E52E2D] opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100" />
+              <span>{item.name}</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-linear-to-r from-[#E52E2D] to-[#ff5555] transition-all duration-300 group-hover:w-full rounded-full" />
             </a>
           ))}
         </div>
@@ -67,16 +82,18 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         <div className="hidden md:block">
           <button
             onClick={onBookClick}
-            className="px-6 py-2.5 rounded-full border border-[#E52E2D] text-[10px] tracking-[0.25em] text-white hover:bg-[#E52E2D] uppercase transition-all duration-300 font-mono font-bold shadow-[0_0_15px_rgba(229,46,45,0.3)] cursor-pointer"
+            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden"
           >
-            Book Session
+            <Sparkles size={13} className="text-white/90 group-hover:rotate-12 transition-transform duration-300" />
+            <span>Book Session</span>
+            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out pointer-events-none" />
           </button>
         </div>
 
         {/* Mobile Hamburger Trigger - Minimum 44x44px Tap Target */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white hover:text-[#E52E2D] focus:outline-none w-11 h-11 border border-white/10 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-md transition-colors cursor-pointer"
+          className="md:hidden text-white hover:text-[#E52E2D] focus:outline-none w-11 h-11 border border-white/15 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-md transition-all cursor-pointer hover:border-[#E52E2D]/50 shadow-lg"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X size={20} className="text-[#E52E2D]" /> : <Menu size={20} />}
