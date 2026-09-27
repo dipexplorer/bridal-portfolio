@@ -82,11 +82,11 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         <div className="hidden md:block">
           <button
             onClick={onBookClick}
-            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden"
+            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-rose-gold text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden"
           >
             <Sparkles size={13} className="text-white/90 group-hover:rotate-12 transition-transform duration-300" />
             <span>Book Session</span>
-            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
           </button>
         </div>
 
