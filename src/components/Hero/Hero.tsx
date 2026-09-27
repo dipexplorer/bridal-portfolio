@@ -44,7 +44,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
     }
   };
 
-  // Phase 2: GSAP ScrollTrigger timeline for scroll-driven before-to-after makeup transform
+  // Phase 2: GSAP ScrollTrigger timeline for continuous scroll-driven before-to-after makeup transform
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -58,7 +58,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           end: "bottom bottom",
           pin: heroRef.current,
           pinSpacing: false,
-          scrub: 1,
+          scrub: 0.5,
           onUpdate: (self) => {
             const isScrolled = self.progress > 0.001;
             isScrolledRef.current = isScrolled;
@@ -86,11 +86,11 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
         },
       });
 
-      // 1. Expand scroll reveal mask iris from 0px to 150vmax across full scrub duration (0 -> 1)
+      // 1. Expand scroll reveal mask iris from 0px to 70vmax (exact viewport corner distance) across full scrub duration (0 -> 1)
       tl.to(
         scrollRevealRef.current,
         {
-          "--scroll-radius": "150vmax",
+          "--scroll-radius": "70vmax",
           ease: "none",
           duration: 1,
         },
@@ -102,10 +102,24 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
         tl.to(
           bgPhotoRef.current,
           {
-            y: -60,
+            y: -70,
             scale: 1.05,
             ease: "none",
             duration: 1,
+          },
+          0
+        );
+      }
+
+      // 3. Hero text fade out & upward glide smoothly over the first 30% of scroll progress (0 -> 0.3)
+      if (textContentRef.current) {
+        tl.to(
+          textContentRef.current,
+          {
+            opacity: 0,
+            y: -50,
+            ease: "power1.out",
+            duration: 0.3,
           },
           0
         );
@@ -118,7 +132,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
   const wordmarkLetters = ["L", "U", "X", "E"];
 
   return (
-    <div ref={trackRef} className="relative h-[250vh] w-full bg-charcoal">
+    <div ref={trackRef} className="relative h-[160vh] w-full bg-charcoal">
       <section
         ref={heroRef}
         id="home"
@@ -316,6 +330,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
     </div>
   );
 }
+
 
 
 
