@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
@@ -128,17 +128,17 @@ export default function Gallery() {
   const activeItem = activeItemIndex !== null ? filteredItems[activeItemIndex] : null;
 
   return (
-    <section className="bg-[#060606] py-32 border-t border-white/5 relative overflow-hidden" id="gallery">
+    <section className="bg-[#060606] py-24 md:py-32 border-t border-white/5 relative overflow-hidden" id="gallery">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#E52E2D]/2 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/1 blur-[170px] rounded-full pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-5 md:px-12 relative z-10">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 md:mb-16 gap-6 md:gap-8">
           <div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-4 flex items-center gap-3 font-bold">
+            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-3 flex items-center gap-3 font-bold">
               <span className="w-6 h-px bg-[#E52E2D]" />
               01 // The Collection
             </span>
@@ -151,13 +151,13 @@ export default function Gallery() {
             </h2>
           </div>
 
-          {/* Category Filter Tabs */}
-          <div className="flex flex-wrap gap-2.5 items-center">
+          {/* Category Filter Tabs - Horizontally Scrollable on Mobile */}
+          <div className="flex overflow-x-auto no-scrollbar gap-2.5 items-center pb-2 md:pb-0 whitespace-nowrap">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-mono text-[9px] uppercase tracking-[0.25em] px-4 py-2 transition-all duration-300 rounded-full border cursor-pointer ${
+                className={`font-mono text-[9px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
                   activeCategory === cat
                     ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
                     : 'bg-white/[0.02] text-white/50 border-white/10 hover:border-white/30 hover:text-white'
@@ -169,8 +169,55 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Dynamic Aspect-Ratio Editorial Masonry Layout */}
-        <motion.div layout className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5 space-y-5">
+        {/* Mobile Horizontal Snap Carousel (md:hidden) */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 no-scrollbar md:hidden -mx-5 px-5">
+          {filteredItems.map((item, i) => (
+            <div
+              key={item.id}
+              onClick={() => setActiveItemIndex(i)}
+              className="w-[85vw] max-w-[320px] shrink-0 snap-center relative aspect-3/4 rounded-xs border border-white/10 bg-[#0f0f0f] overflow-hidden group cursor-pointer"
+            >
+              <Image
+                src={item.src}
+                alt={item.title}
+                fill
+                unoptimized
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                <span className="font-mono text-[9px] text-white/50 tracking-widest bg-black/60 px-2 py-0.5 border border-white/10">
+                  {item.index}
+                </span>
+                <span className="font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 bg-[#E52E2D] text-white font-bold">
+                  {item.category}
+                </span>
+              </div>
+
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                <div>
+                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-[#E52E2D] block mb-0.5 font-bold">
+                    Tap to Expand
+                  </span>
+                  <h3
+                    className="text-white text-xl uppercase leading-tight"
+                    style={{ fontFamily: 'var(--font-cormorant), serif' }}
+                  >
+                    {item.title}
+                  </h3>
+                </div>
+
+                <div className="w-8 h-8 rounded-full border border-white/30 bg-black/60 flex items-center justify-center text-white">
+                  <ArrowUpRight size={14} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop/Tablet Responsive Aspect-Ratio Masonry Grid (hidden on small mobile) */}
+        <motion.div layout className="hidden md:columns-2 lg:columns-3 xl:columns-4 md:gap-5 md:space-y-5">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, i) => (
               <motion.div
@@ -188,7 +235,6 @@ export default function Gallery() {
                   onMouseEnter={() => setHoveredId(item.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
-                  {/* Image */}
                   <Image
                     src={item.src}
                     alt={item.title}
@@ -200,10 +246,8 @@ export default function Gallery() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   />
 
-                  {/* Gradient overlays */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                  {/* Top Header info */}
                   <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
                     <span className="font-mono text-[9px] text-white/40 tracking-widest bg-black/40 backdrop-blur-xs px-2 py-0.5 border border-white/10">
                       {item.index}
@@ -213,7 +257,6 @@ export default function Gallery() {
                     </span>
                   </div>
 
-                  {/* Bottom title & arrow hint */}
                   <div className="absolute bottom-0 left-0 right-0 z-20 p-5 flex items-end justify-between translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
                     <div>
                       <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] block mb-1 font-bold">
@@ -237,16 +280,16 @@ export default function Gallery() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Footer row */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="font-mono text-[10px] text-white/30 uppercase tracking-[0.25em] text-center sm:text-left flex items-center gap-2">
+        {/* Footer info row */}
+        <div className="mt-10 md:mt-14 pt-6 md:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <p className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em] text-center sm:text-left flex items-center gap-2">
             <Sparkles size={12} className="text-[#E52E2D]" />
-            Click any image to view full high-definition details
+            Swipe or tap any image for full detail view
           </p>
-          <div className="flex items-center gap-6 font-mono text-[9px] text-white/40 uppercase tracking-[0.25em]">
+          <div className="flex items-center gap-4 font-mono text-[9px] text-white/40 uppercase tracking-[0.2em]">
             <span>Total Works: 0{filteredItems.length}</span>
             <span className="text-white/20">|</span>
-            <span className="text-[#E52E2D]">Paris • London • Mumbai</span>
+            <span className="text-[#E52E2D]">Paris • Mumbai</span>
           </div>
         </div>
 
@@ -260,7 +303,7 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8"
             onClick={() => setActiveItemIndex(null)}
           >
             <motion.div
@@ -268,32 +311,31 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative max-w-5xl w-full bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row gap-0 overflow-hidden rounded-xs shadow-[0_0_60px_rgba(0,0,0,0.9)] max-h-[90vh]"
+              className="relative max-w-5xl w-full max-h-[92vh] overflow-y-auto bg-[#0a0a0a] border border-white/10 flex flex-col md:flex-row gap-0 rounded-xs shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Image panel with Navigation Arrows */}
-              <div className="relative w-full md:w-[60%] aspect-3/4 md:aspect-auto md:min-h-[75vh] bg-[#050505] flex items-center justify-center">
+              {/* Image panel */}
+              <div className="relative w-full md:w-[60%] aspect-3/4 md:aspect-auto md:min-h-[70vh] bg-[#050505] flex items-center justify-center">
                 <Image
                   src={activeItem.src}
                   alt={activeItem.title}
                   fill
                   unoptimized
-                  className="object-contain p-4"
-                  sizes="80vw"
+                  className="object-contain p-2"
+                  sizes="100vw"
                   priority
                 />
 
-                {/* Lightbox Prev/Next Buttons */}
                 <button
                   onClick={handlePrevLightbox}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNextLightbox}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer"
                   aria-label="Next image"
                 >
                   <ChevronRight size={20} />
@@ -301,50 +343,49 @@ export default function Gallery() {
               </div>
 
               {/* Info panel */}
-              <div className="w-full md:w-[40%] bg-[#0d0d0d] border-t md:border-t-0 md:border-l border-white/10 flex flex-col justify-between p-8 md:p-10 relative">
+              <div className="w-full md:w-[40%] bg-[#0d0d0d] border-t md:border-t-0 md:border-l border-white/10 flex flex-col justify-between p-6 sm:p-8 md:p-10 relative">
                 
-                {/* Close Button */}
                 <button
                   onClick={() => setActiveItemIndex(null)}
-                  className="absolute top-6 right-6 w-9 h-9 border border-white/10 hover:border-[#E52E2D] rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer"
+                  className="absolute top-5 right-5 w-10 h-10 border border-white/20 hover:border-[#E52E2D] rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
                   aria-label="Close modal"
                 >
                   <X size={18} />
                 </button>
 
-                <div>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-4 block font-bold">
+                <div className="pt-2 md:pt-0">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-3 block font-bold">
                     {activeItem.index} // {activeItem.category}
                   </span>
                   <h3
-                    className="text-4xl lg:text-5xl text-white uppercase leading-tight mb-6"
+                    className="text-3xl sm:text-4xl text-white uppercase leading-tight mb-4"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     {activeItem.title}
                   </h3>
-                  <div className="w-12 h-px bg-[#E52E2D] mb-6" />
+                  <div className="w-10 h-px bg-[#E52E2D] mb-4" />
                   <p
-                    className="text-xs md:text-sm text-white/60 leading-relaxed font-light mb-8"
+                    className="text-xs sm:text-sm text-white/60 leading-relaxed font-light mb-6"
                     style={{ fontFamily: 'var(--font-inter)' }}
                   >
                     {activeItem.description}
                   </p>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xs flex items-center justify-between">
-                    <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/40">
+                <div className="space-y-3 mt-4">
+                  <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xs flex items-center justify-between font-mono text-[9px]">
+                    <span className="text-white/40 uppercase tracking-widest">
                       Studio Location
                     </span>
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-white/80">
-                      Paris • London • Mumbai
+                    <span className="text-white/80 uppercase tracking-widest">
+                      Paris • Mumbai
                     </span>
                   </div>
 
                   <a
                     href="#booking"
                     onClick={() => setActiveItemIndex(null)}
-                    className="w-full py-3.5 bg-[#E52E2D] hover:bg-transparent border border-[#E52E2D] text-white text-center font-mono text-[9px] uppercase tracking-[0.35em] transition-all duration-300 block"
+                    className="w-full py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white text-center font-mono text-[9px] uppercase tracking-[0.3em] font-bold block"
                   >
                     Inquire For Session
                   </a>

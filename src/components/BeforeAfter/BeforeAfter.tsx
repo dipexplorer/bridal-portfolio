@@ -8,7 +8,6 @@ export default function BeforeAfter() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
-  // All motion values and transforms at the TOP LEVEL — no hooks inside JSX
   const sliderPosition = useMotionValue(50);
   const clipPathStyle = useTransform(sliderPosition, (val) => `inset(0 ${100 - val}% 0 0)`);
   const sliderLeft = useTransform(sliderPosition, (val) => `${val}%`);
@@ -21,7 +20,7 @@ export default function BeforeAfter() {
     sliderPosition.set(newPosition);
   }, [sliderPosition]);
 
-  // Pointer Events API — works for both mouse and touch in one unified system
+  // Pointer & Touch Events Unified Support
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     isDragging.current = true;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -38,49 +37,57 @@ export default function BeforeAfter() {
     isDragging.current = false;
   }, []);
 
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (e.touches && e.touches[0]) {
+      updatePosition(e.touches[0].clientX);
+    }
+  }, [updatePosition]);
+
   return (
-    <section className="py-24 px-6 bg-charcoal border-t border-white/10" id="before-after">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+    <section className="py-20 md:py-32 px-5 md:px-12 bg-[#060606] border-t border-white/5" id="before-after">
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
         {/* Text Content */}
         <div className="lg:w-1/3 w-full text-left shrink-0">
           <span
-            className="font-mono text-[9px] uppercase tracking-widest text-[#E52E2D] mb-6 block font-bold"
+            className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-4 block font-bold"
             style={{ fontFamily: 'var(--font-inter)' }}
           >
             [ The Transformation ]
           </span>
           <h2
-            className="text-4xl sm:text-5xl lg:text-[3.5vw] text-white uppercase mb-6 leading-tight"
+            className="text-4xl sm:text-5xl lg:text-[3.5vw] text-white uppercase mb-4 leading-tight"
             style={{ fontFamily: 'var(--font-cormorant), serif' }}
           >
             The Art of<br />
-            <span className="italic font-light text-white/50">Refinement</span>
+            <span className="italic font-extralight text-white/40 font-serif lowercase">Refinement</span>
           </h2>
           <p
-            className="text-sm text-white/60 leading-relaxed mb-8"
+            className="text-xs sm:text-sm text-white/60 leading-relaxed mb-6 font-light"
             style={{ fontFamily: 'var(--font-inter)' }}
           >
-            Makeup isn't about hiding; it's about amplifying. Drag to see how we elevate natural beauty into high-fashion editorial perfection using advanced contouring, color theory, and skin-prep techniques.
+            Makeup isn&apos;t about hiding; it&apos;s about amplifying. Touch or drag to see how we elevate natural beauty into high-fashion editorial perfection using advanced contouring and skin-prep techniques.
           </p>
-          <div className="flex items-center gap-4 text-[#E52E2D] text-xs tracking-widest uppercase font-semibold">
-            <span>Before</span>
+          <div className="flex items-center gap-4 text-[#E52E2D] text-[10px] tracking-[0.25em] uppercase font-mono font-semibold">
+            <span>Bare Canvas</span>
             <div className="flex-1 h-px bg-[#E52E2D]/30" />
-            <span>After</span>
+            <span>Couture Finish</span>
           </div>
         </div>
 
-        {/* Slider Container */}
+        {/* Responsive Touch-Enabled Slider Container */}
         <div
           ref={containerRef}
-          className="lg:w-2/3 w-full aspect-4/5 sm:aspect-video relative overflow-hidden select-none touch-none cursor-ew-resize"
+          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-xs border border-white/10 cursor-ew-resize"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
           onPointerCancel={handlePointerUp}
+          onTouchStart={(e) => updatePosition(e.touches[0].clientX)}
+          onTouchMove={handleTouchMove}
         >
-          {/* Base Image — After (always visible underneath) */}
+          {/* Base Image — After */}
           <Image
             src="/gallery/prada_editorial_campaign_v2.png"
             alt="After Makeup"
@@ -90,11 +97,11 @@ export default function BeforeAfter() {
             className="object-cover object-center pointer-events-none select-none"
             sizes="(max-width: 1024px) 100vw, 66vw"
           />
-          <div className="absolute top-4 right-4 z-30 px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-[9px] uppercase tracking-widest text-white border border-white/20 pointer-events-none">
+          <div className="absolute top-4 right-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[8px] uppercase font-mono tracking-widest text-white border border-white/20 pointer-events-none">
             After
           </div>
 
-          {/* Overlay Image — Before (clipped by slider position) */}
+          {/* Overlay Image — Before */}
           <motion.div
             className="absolute inset-0 z-10 will-change-[clip-path]"
             style={{ clipPath: clipPathStyle }}
@@ -108,20 +115,20 @@ export default function BeforeAfter() {
               className="object-cover object-center pointer-events-none select-none"
               sizes="(max-width: 1024px) 100vw, 66vw"
             />
-            <div className="absolute top-4 left-4 z-30 px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-[9px] uppercase tracking-widest text-white/70 border border-white/20 pointer-events-none">
+            <div className="absolute top-4 left-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[8px] uppercase font-mono tracking-widest text-white/70 border border-white/20 pointer-events-none">
               Before
             </div>
           </motion.div>
 
-          {/* Slider Line & Handle */}
+          {/* Slider Handle */}
           <motion.div
-            className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-[0_0_12px_rgba(229,46,45,0.9)] will-change-[left] pointer-events-none"
+            className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-[0_0_15px_rgba(229,46,45,0.9)] will-change-[left] pointer-events-none"
             style={{ left: sliderLeft }}
           >
-            <div className="w-10 h-10 rounded-full border-2 border-[#E52E2D] bg-charcoal flex items-center justify-center shadow-2xl shrink-0">
+            <div className="w-11 h-11 rounded-full border-2 border-[#E52E2D] bg-[#060606] flex items-center justify-center shadow-2xl shrink-0">
               <div className="flex gap-1">
-                <div className="w-[2px] h-3 bg-white/60 rounded-full" />
-                <div className="w-[2px] h-3 bg-white/60 rounded-full" />
+                <div className="w-[2px] h-3 bg-white/70 rounded-full" />
+                <div className="w-[2px] h-3 bg-white/70 rounded-full" />
               </div>
             </div>
           </motion.div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -34,6 +34,7 @@ const btsGallery = [
 
 export default function About() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,6 +51,23 @@ export default function About() {
     setActiveImageIndex((prev) => (prev + 1) % btsGallery.length);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX.current - touchEndX;
+
+    if (diffX > 50) {
+      handleNext();
+    } else if (diffX < -50) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+  };
+
   const couturePillars = [
     'Haute Couture Bridal',
     'Fashion Week Editorial',
@@ -60,7 +78,7 @@ export default function About() {
 
   return (
     <section
-      className="relative bg-[#060606] py-32 lg:py-48 border-t border-white/5 overflow-hidden"
+      className="relative bg-[#060606] py-24 lg:py-48 border-t border-white/5 overflow-hidden"
       id="about"
     >
       {/* Ambient background glows */}
@@ -69,23 +87,25 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Eyebrow Header */}
-        <div className="mb-12 md:mb-16">
+        <div className="mb-10 md:mb-16">
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] font-bold flex items-center gap-3">
             <span className="w-6 h-px bg-[#E52E2D]" />
             The Artist // Est. 2014
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
           
-          {/* Left Column: Auto-Looping BTS Slider Portrait Card */}
+          {/* Left Column: Auto-Looping & Swipeable BTS Slider Card */}
           <div className="lg:col-span-5 relative">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative aspect-3/4 w-full max-w-md mx-auto lg:max-w-none group"
+              className="relative aspect-3/4 w-full max-w-md mx-auto lg:max-w-none group touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               {/* Outer decorative wireframe offset */}
               <div className="absolute -inset-3 md:-inset-5 border border-white/10 transition-transform duration-700 group-hover:-inset-2 md:group-hover:-inset-4 z-0" />
@@ -114,31 +134,30 @@ export default function About() {
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Subtle vignette gradient */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
 
-                {/* Slider Arrow Controls */}
+                {/* Slider Arrow Controls - Minimum 44x44px Touch Target */}
                 <button
                   onClick={handlePrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-80 hover:opacity-100 cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft size={18} />
+                  <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 opacity-80 hover:opacity-100 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
                   aria-label="Next image"
                 >
-                  <ChevronRight size={18} />
+                  <ChevronRight size={20} />
                 </button>
 
                 {/* Subtitle Badge Overlay */}
                 <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/90 border border-white/20 bg-black/60 backdrop-blur-md px-3.5 py-1.5">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/90 border border-white/20 bg-black/70 backdrop-blur-md px-3 py-1.5 truncate max-w-[200px]">
                     {currentItem.subtitle}
                   </span>
-                  <span className="font-mono text-[9px] font-bold text-[#E52E2D] bg-black/60 border border-[#E52E2D]/30 backdrop-blur-md px-2.5 py-1">
+                  <span className="font-mono text-[9px] font-bold text-[#E52E2D] bg-black/70 border border-[#E52E2D]/30 backdrop-blur-md px-2.5 py-1 shrink-0">
                     0{activeImageIndex + 1} / 0{btsGallery.length}
                   </span>
                 </div>
@@ -149,10 +168,10 @@ export default function About() {
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
+                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                         activeImageIndex === idx
-                          ? 'w-6 bg-[#E52E2D]'
-                          : 'w-2 bg-white/30 hover:bg-white/70'
+                          ? 'w-7 bg-[#E52E2D]'
+                          : 'w-2 bg-white/40 hover:bg-white/70'
                       }`}
                       aria-label={`Go to slide ${idx + 1}`}
                     />
@@ -171,7 +190,7 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               {/* Title & Signature */}
-              <div className="flex flex-col mb-8">
+              <div className="flex flex-col mb-6">
                 <h2
                   className="text-5xl sm:text-7xl lg:text-[5.5vw] text-white uppercase leading-[0.88] tracking-tight"
                   style={{ fontFamily: 'var(--font-cormorant), serif' }}
@@ -186,12 +205,12 @@ export default function About() {
                 </span>
               </div>
 
-              {/* Couture Pillars Tag Bar */}
-              <div className="flex flex-wrap gap-2.5 mb-10">
+              {/* Horizontally Scrollable Couture Pillars Row on Mobile */}
+              <div className="flex overflow-x-auto no-scrollbar gap-2.5 mb-8 pb-1 whitespace-nowrap">
                 {couturePillars.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 border border-white/10 bg-white/[0.03] px-3.5 py-1.5 rounded-full hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300"
+                    className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 border border-white/10 bg-white/[0.03] px-4 py-2 rounded-full hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300 shrink-0"
                   >
                     {tag}
                   </span>
@@ -199,9 +218,9 @@ export default function About() {
               </div>
 
               {/* High-Fashion Editorial Pull Quote Block */}
-              <div className="relative border-l-2 border-[#E52E2D] pl-6 my-8 py-1 bg-white/[0.015]">
+              <div className="relative border-l-2 border-[#E52E2D] pl-5 my-6 py-1 bg-white/[0.015]">
                 <p
-                  className="text-lg md:text-xl lg:text-2xl text-white/95 font-serif italic leading-relaxed"
+                  className="text-base sm:text-xl lg:text-2xl text-white/95 font-serif italic leading-relaxed"
                   style={{ fontFamily: 'var(--font-cormorant), serif' }}
                 >
                   &ldquo;Artistry is not about altering features, but sculpting the light that naturally radiates from within.&rdquo;
@@ -209,9 +228,9 @@ export default function About() {
               </div>
 
               {/* Narrative Story */}
-              <div className="space-y-5 max-w-xl">
+              <div className="space-y-4 max-w-xl">
                 <p
-                  className="text-sm md:text-base text-white/75 leading-relaxed font-light"
+                  className="text-xs sm:text-base text-white/75 leading-relaxed font-light"
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   <span
@@ -224,7 +243,7 @@ export default function About() {
                   Blending soft luxury textures with striking structural highlights, her signature style is focused on clean, radiant, and timeless elegance.
                 </p>
                 <p
-                  className="text-[13px] md:text-sm text-white/50 leading-[1.8] font-light"
+                  className="text-xs sm:text-sm text-white/50 leading-[1.8] font-light"
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   She works closely with each client to sculpt a look that feels uniquely couture. Having worked behind the scenes on fashion runways and high-end bridal campaigns, Luxe brings a refined editorial perspective to real-world luxury makeup.
@@ -232,40 +251,40 @@ export default function About() {
               </div>
 
               {/* Glassmorphism Metric Cards */}
-              <div className="mt-14 pt-10 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="group relative p-5 bg-white/[0.02] border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-xs">
+              <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-3 gap-3 sm:gap-6">
+                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-xs">
                   <div
-                    className="text-4xl lg:text-5xl font-serif text-[#E52E2D] tracking-tight mb-1"
+                    className="text-3xl sm:text-5xl font-serif text-[#E52E2D] tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     10+
                   </div>
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors">
-                    Years of Mastery
+                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
+                    Years Mastery
                   </div>
                 </div>
 
-                <div className="group relative p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
                   <div
-                    className="text-4xl lg:text-5xl font-serif text-white tracking-tight mb-1"
+                    className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     200+
                   </div>
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors">
+                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
                     Couture Brides
                   </div>
                 </div>
 
-                <div className="group relative p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
                   <div
-                    className="text-4xl lg:text-5xl font-serif text-white tracking-tight mb-1"
+                    className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     03
                   </div>
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors">
-                    Global Campaigns
+                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
+                    Global Hubs
                   </div>
                 </div>
               </div>
@@ -276,4 +295,3 @@ export default function About() {
     </section>
   );
 }
-
