@@ -217,7 +217,7 @@ export default function Gallery() {
         </div>
 
         {/* Desktop/Tablet Responsive Aspect-Ratio Masonry Grid (hidden on small mobile) */}
-        <motion.div layout className="hidden md:columns-2 lg:columns-3 xl:columns-4 md:gap-5 md:space-y-5">
+        <motion.div layout className="hidden md:block md:columns-2 lg:columns-3 xl:columns-4 md:gap-5 md:space-y-5">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, i) => (
               <motion.div
