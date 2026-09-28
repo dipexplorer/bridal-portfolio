@@ -141,7 +141,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {[
             { id: "all", label: "All Verdicts" },
             { id: "bride", label: "Couture Brides" },
@@ -151,10 +151,10 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`font-mono text-[9px] uppercase tracking-[0.25em] px-5 py-2.5 transition-all duration-300 rounded-full border ${
+              className={`font-mono text-[9px] uppercase tracking-[0.25em] px-5 py-2.5 transition-all duration-300 rounded-full border cursor-pointer ${
                 activeTab === tab.id
                   ? "bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.4)]"
-                  : "bg-white/[0.02] text-white/60 border-white/10 hover:border-white/30 hover:text-white"
+                  : "bg-white/2 text-white/60 border-white/10 hover:border-white/30 hover:text-white"
               }`}
             >
               {tab.label}
@@ -162,78 +162,105 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
           ))}
         </div>
 
-        {/* Reviews Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-          <AnimatePresence mode="popLayout">
-            {filteredReviews.map((review) => (
-              <motion.div
-                key={review.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5 }}
-                className="group relative p-8 md:p-10 border border-white/10 bg-[#0d0d0d] hover:bg-[#121212] hover:border-[#E52E2D]/40 transition-all duration-500 flex flex-col justify-between rounded-xs"
-              >
-                {/* Corner bracket accents */}
-                <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-white/20 group-hover:border-[#E52E2D] transition-colors" />
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-white/20 group-hover:border-[#E52E2D] transition-colors" />
+        {/* Automated Infinite Horizontal Scroll Container + Drag Manual Control */}
+        <div className="relative w-full overflow-x-auto overflow-y-hidden mb-16 py-6 group/slider scrollbar-none cursor-grab active:cursor-grabbing">
+          {/* Subtle Side Fade Gradients for Luxury Seamless Look */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-r from-[#060606] via-[#060606]/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-l from-[#060606] via-[#060606]/80 to-transparent z-20 pointer-events-none" />
 
-                {/* Oversized Quote Watermark */}
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex gap-6 w-max"
+          >
+            {/* Animated Marquee Row (Duplicated for Seamless Infinite Loop + Drag) */}
+            <motion.div
+              className="flex gap-6 shrink-0"
+              drag="x"
+              dragConstraints={{ left: -1000, right: 0 }}
+              dragElastic={0.05}
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: Math.max(35, filteredReviews.length * 15),
+                  ease: "linear",
+                },
+              }}
+              style={{
+                willChange: "transform",
+              }}
+              whileHover={{ animationPlayState: "paused" }}
+            >
+              {/* Combine twice to guarantee seamless infinite scrolling */}
+              {[...filteredReviews, ...filteredReviews].map((review, idx) => (
                 <div
-                  className="absolute top-4 right-6 text-6xl text-white/[0.03] group-hover:text-[#E52E2D]/10 font-serif transition-colors pointer-events-none select-none"
-                  style={{ fontFamily: "var(--font-cormorant), serif" }}
+                  key={`${review.id}-${idx}`}
+                  className="group relative w-[320px] sm:w-[380px] md:w-[440px] p-8 md:p-10 border border-white/10 bg-[#0d0d0d] hover:bg-[#121212] hover:border-[#E52E2D]/40 transition-all duration-500 flex flex-col justify-between rounded-xs shrink-0 select-none"
                 >
-                  &ldquo;
-                </div>
+                  {/* Corner bracket accents */}
+                  <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-white/20 group-hover:border-[#E52E2D] transition-colors" />
+                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-white/20 group-hover:border-[#E52E2D] transition-colors" />
 
-                <div>
-                  {/* Rating Stars & Verified Badge */}
-                  <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="flex gap-1">
-                      {Array.from({ length: 5 }).map((_, idx) => (
-                        <Star
-                          key={idx}
-                          size={13}
-                          fill="#E52E2D"
-                          stroke="#E52E2D"
-                          strokeWidth={1}
-                        />
-                      ))}
-                    </div>
-
-                    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#E52E2D] bg-[#E52E2D]/10 border border-[#E52E2D]/20 px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                      <CheckCircle2 size={10} />
-                      {review.verifiedBadge}
-                    </span>
-                  </div>
-
-                  {/* Quote Body */}
-                  <p
-                    className="text-base md:text-lg text-white/85 leading-relaxed italic mb-8"
+                  {/* Oversized Quote Watermark */}
+                  <div
+                    className="absolute top-4 right-6 text-6xl text-white/3 group-hover:text-[#E52E2D]/10 font-serif transition-colors pointer-events-none select-none"
                     style={{ fontFamily: "var(--font-cormorant), serif" }}
                   >
-                    &ldquo;{review.quote}&rdquo;
-                  </p>
-                </div>
+                    &ldquo;
+                  </div>
 
-                {/* Author Info & Location */}
-                <div className="border-t border-white/10 pt-6 mt-auto flex flex-col">
-                  <span
-                    className="text-xs uppercase tracking-widest text-white font-bold mb-1 group-hover:text-[#E52E2D] transition-colors"
-                    style={{ fontFamily: "var(--font-inter)" }}
-                  >
-                    {review.author}
-                  </span>
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
-                    <span>{review.role}</span>
-                    <span className="font-mono text-white/30">{review.location}</span>
+                  <div>
+                    {/* Rating Stars & Verified Badge */}
+                    <div className="flex items-center justify-between gap-4 mb-6">
+                      <div className="flex gap-1">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            size={13}
+                            fill="#E52E2D"
+                            stroke="#E52E2D"
+                            strokeWidth={1}
+                          />
+                        ))}
+                      </div>
+
+                      <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#E52E2D] bg-[#E52E2D]/10 border border-[#E52E2D]/20 px-2.5 py-1 rounded-full flex items-center gap-1.5 whitespace-nowrap">
+                        <CheckCircle2 size={10} />
+                        {review.verifiedBadge}
+                      </span>
+                    </div>
+
+                    {/* Quote Body */}
+                    <p
+                      className="text-base md:text-lg text-white/85 leading-relaxed italic mb-8"
+                      style={{ fontFamily: "var(--font-cormorant), serif" }}
+                    >
+                      &ldquo;{review.quote}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Author Info & Location */}
+                  <div className="border-t border-white/10 pt-6 mt-auto flex flex-col">
+                    <span
+                      className="text-xs uppercase tracking-widest text-white font-bold mb-1 group-hover:text-[#E52E2D] transition-colors"
+                      style={{ fontFamily: "var(--font-inter)" }}
+                    >
+                      {review.author}
+                    </span>
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
+                      <span>{review.role}</span>
+                      <span className="font-mono text-white/30">{review.location}</span>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
 
         {/* Central Call to Action Block */}
         <motion.div
@@ -241,7 +268,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mx-auto max-w-2xl text-center p-10 bg-white/[0.015] border border-white/10 relative overflow-hidden"
+          className="mx-auto max-w-2xl text-center p-10 bg-white/1.5 border border-white/10 relative overflow-hidden"
         >
           <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#E52E2D]/10 blur-xl rounded-full pointer-events-none" />
 
