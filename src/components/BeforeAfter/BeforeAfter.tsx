@@ -61,7 +61,7 @@ export default function BeforeAfter() {
             style={{ fontFamily: 'var(--font-cormorant), serif' }}
           >
             The Art of<br />
-            <span className="italic font-extralight text-white/40 font-serif lowercase">Refinement</span>
+            <span className="italic font-extralight text-white/50 font-serif lowercase">Refinement</span>
           </h2>
           <p
             className="text-xs sm:text-sm text-white/60 leading-relaxed mb-6 font-light"
@@ -82,7 +82,8 @@ export default function BeforeAfter() {
           role="slider"
           aria-label="Drag to compare before and after makeup look"
           aria-valuenow={50}
-          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-xs border border-white/10 cursor-grab active:cursor-grabbing"
+          tabIndex={0}
+          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-none border border-white/10 cursor-grab active:cursor-grabbing focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -101,7 +102,7 @@ export default function BeforeAfter() {
             className="object-cover object-center pointer-events-none select-none"
             sizes="(max-width: 1024px) 100vw, 66vw"
           />
-          <div className="absolute top-4 right-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[11px] uppercase font-mono tracking-widest text-white border border-white/20 pointer-events-none">
+          <div className="absolute top-4 right-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-none text-[11px] uppercase font-mono tracking-widest text-white border border-white/20 pointer-events-none">
             After
           </div>
 
@@ -119,18 +120,18 @@ export default function BeforeAfter() {
               className="object-cover object-center pointer-events-none select-none"
               sizes="(max-width: 1024px) 100vw, 66vw"
             />
-            <div className="absolute top-4 left-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[11px] uppercase font-mono tracking-widest text-white/90 border border-white/20 pointer-events-none">
+            <div className="absolute top-4 left-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-none text-[11px] uppercase font-mono tracking-widest text-white/90 border border-white/20 pointer-events-none">
               Before
             </div>
           </motion.div>
 
           {/* Slider Handle with Left/Right Chevrons */}
           <motion.div
-            className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-[0_0_15px_rgba(229,46,45,0.9)] will-change-[left] pointer-events-none"
+            className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-lg shadow-[#E52E2D]/90 will-change-[left] pointer-events-none"
             style={{ left: sliderLeft }}
           >
             <div
-              className="w-10 h-10 md:w-11 md:h-11 rounded-full border-2 border-[#E52E2D] bg-[#060606] flex items-center justify-between px-1 md:px-1.5 shadow-[0_0_20px_rgba(229,46,45,0.6)] shrink-0 text-white"
+              className="w-10 h-10 md:w-11 md:h-11 rounded-none border-2 border-[#E52E2D] bg-[#060606] flex items-center justify-between px-1 md:px-1.5 shadow-lg shadow-[#E52E2D]/60 shrink-0 text-white"
               aria-hidden="true"
             >
               <ChevronLeft size={14} className="text-white/90" />

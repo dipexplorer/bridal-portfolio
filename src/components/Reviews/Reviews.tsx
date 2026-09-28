@@ -110,7 +110,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
         {/* Section Header */}
         <div className="mb-16 text-center">
           <span
-            className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-4 font-bold flex items-center justify-center gap-3"
+            className="font-mono text-[10px] uppercase tracking-[0.45em] text-[#E52E2D] mb-4 font-bold flex items-center justify-center gap-3"
           >
             <span className="w-5 h-px bg-[#E52E2D]" />
             The Verdict // Client &amp; Press Acclaim
@@ -120,13 +120,13 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
             className="text-5xl sm:text-7xl lg:text-[5.5vw] uppercase text-white leading-none tracking-tight"
             style={{ fontFamily: "var(--font-cormorant), serif" }}
           >
-            Client <span className="italic font-light text-white/40 font-serif lowercase">Love</span>
+            Client <span className="italic font-light text-white/50 font-serif lowercase">Love</span>
           </h2>
         </div>
 
         {/* Press & Media Publication Strip */}
         <div className="mb-16 pb-12 border-b border-white/5 flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60 hover:opacity-100 transition-opacity duration-500">
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30 mr-4 hidden md:block">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mr-4 hidden md:block">
             Featured In
           </span>
           {pressPublications.map((pub, idx) => (
@@ -151,9 +151,9 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`font-mono text-[9px] uppercase tracking-[0.25em] px-5 py-2.5 transition-all duration-300 rounded-full border cursor-pointer ${
+              className={`font-mono text-[10px] uppercase tracking-[0.25em] px-5 py-2.5 transition-all duration-300 rounded-none border cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 ${
                 activeTab === tab.id
-                  ? "bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.4)]"
+                  ? "bg-[#E52E2D] text-white border-[#E52E2D] shadow-lg shadow-[#E52E2D]/40"
                   : "bg-white/2 text-white/60 border-white/10 hover:border-white/30 hover:text-white"
               }`}
             >
@@ -199,7 +199,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
               {[...filteredReviews, ...filteredReviews].map((review, idx) => (
                 <div
                   key={`${review.id}-${idx}`}
-                  className="group relative w-[320px] sm:w-[380px] md:w-[440px] p-8 md:p-10 border border-white/10 bg-[#0d0d0d] hover:bg-[#121212] hover:border-[#E52E2D]/40 transition-all duration-500 flex flex-col justify-between rounded-xs shrink-0 select-none"
+                  className="group relative w-[320px] sm:w-[380px] md:w-[440px] p-8 md:p-10 border border-white/10 bg-[#0d0d0d] hover:bg-[#121212] hover:border-[#E52E2D]/40 transition-all duration-500 flex flex-col justify-between rounded-none shrink-0 select-none"
                 >
                   {/* Corner bracket accents */}
                   <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-white/20 group-hover:border-[#E52E2D] transition-colors" />
@@ -228,7 +228,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
                         ))}
                       </div>
 
-                      <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-[#E52E2D] bg-[#E52E2D]/10 border border-[#E52E2D]/20 px-2.5 py-1 rounded-full flex items-center gap-1.5 whitespace-nowrap">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E52E2D] bg-[#E52E2D]/10 border border-[#E52E2D]/20 px-2.5 py-1 rounded-none flex items-center gap-1.5 whitespace-nowrap">
                         <CheckCircle2 size={10} />
                         {review.verifiedBadge}
                       </span>
@@ -251,9 +251,9 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
                     >
                       {review.author}
                     </span>
-                    <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/50">
                       <span>{review.role}</span>
-                      <span className="font-mono text-white/30">{review.location}</span>
+                      <span className="font-mono text-white/50">{review.location}</span>
                     </div>
                   </div>
                 </div>
@@ -281,9 +281,9 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
 
           <button
             onClick={onBookClick}
-            className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-transparent border border-[#E52E2D] text-white overflow-hidden transition-all duration-500 hover:border-[#E52E2D] cursor-pointer"
+            className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-transparent border border-[#E52E2D] text-white overflow-hidden transition-all duration-500 hover:border-[#E52E2D] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
           >
-            <span className="relative z-10 font-mono text-[9px] uppercase tracking-[0.35em] group-hover:text-white transition-colors duration-300 flex items-center gap-2">
+            <span className="relative z-10 font-mono text-[10px] uppercase tracking-[0.35em] group-hover:text-white transition-colors duration-300 flex items-center gap-2">
               <Sparkles size={12} className="text-[#E52E2D] group-hover:text-white transition-colors" />
               Reserve Your Transformation
             </span>

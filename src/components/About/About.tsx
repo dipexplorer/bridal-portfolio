@@ -88,7 +88,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Eyebrow Header */}
         <div className="mb-10 md:mb-16">
-          <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] font-bold flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#E52E2D] font-bold flex items-center gap-3">
             <span className="w-6 h-px bg-[#E52E2D]" />
             The Artist // Est. 2014
           </span>
@@ -112,7 +112,7 @@ export default function About() {
               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#E52E2D] z-20" />
               <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#E52E2D] z-20" />
 
-              <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10 rounded-xs">
+              <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden z-10 rounded-none">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentItem.id}
@@ -139,14 +139,14 @@ export default function About() {
                 {/* Slider Arrow Controls - Minimum 44x44px Touch Target */}
                 <button
                   onClick={handlePrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-none bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-none bg-black/60 hover:bg-[#E52E2D] border border-white/20 hover:border-[#E52E2D] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   aria-label="Next image"
                 >
                   <ChevronRight size={20} />
@@ -154,10 +154,10 @@ export default function About() {
 
                 {/* Subtitle Badge Overlay */}
                 <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
-                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/90 border border-white/20 bg-black/70 backdrop-blur-md px-3 py-1.5 truncate max-w-[200px]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/90 border border-white/20 bg-black/70 backdrop-blur-md px-3 py-1.5 truncate max-w-[200px]">
                     {currentItem.subtitle}
                   </span>
-                  <span className="font-mono text-[9px] font-bold text-[#E52E2D] bg-black/70 border border-[#E52E2D]/30 backdrop-blur-md px-2.5 py-1 shrink-0">
+                  <span className="font-mono text-[10px] font-bold text-[#E52E2D] bg-black/70 border border-[#E52E2D]/30 backdrop-blur-md px-2.5 py-1 shrink-0">
                     0{activeImageIndex + 1} / 0{btsGallery.length}
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export default function About() {
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      className={`h-1.5 rounded-none transition-all duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 ${
                         activeImageIndex === idx
                           ? 'w-7 bg-[#E52E2D]'
                           : 'w-2 bg-white/40 hover:bg-white/70'
@@ -210,7 +210,7 @@ export default function About() {
                 {couturePillars.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 border border-white/10 bg-white/3 px-4 py-2 rounded-full hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300 shrink-0"
+                    className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70 border border-white/10 bg-white/3 px-4 py-2 rounded-none hover:border-[#E52E2D]/50 hover:text-white transition-colors duration-300 shrink-0"
                   >
                     {tag}
                   </span>
@@ -252,38 +252,38 @@ export default function About() {
 
               {/* Glassmorphism Metric Cards */}
               <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-3 gap-3 sm:gap-6">
-                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-[#E52E2D]/40 transition-all duration-500 rounded-none">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-[#E52E2D] tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     10+
                   </div>
-                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
+                  <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50">
                     Years Mastery
                   </div>
                 </div>
 
-                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-none">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     200+
                   </div>
-                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
+                  <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50">
                     Couture Brides
                   </div>
                 </div>
 
-                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-xs">
+                <div className="group relative p-3 sm:p-5 bg-white/2 border border-white/5 hover:border-white/20 transition-all duration-500 rounded-none">
                   <div
                     className="text-3xl sm:text-5xl font-serif text-white tracking-tight mb-1"
                     style={{ fontFamily: 'var(--font-cormorant), serif' }}
                   >
                     03
                   </div>
-                  <div className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40">
+                  <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50">
                     Global Hubs
                   </div>
                 </div>

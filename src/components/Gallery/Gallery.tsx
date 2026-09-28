@@ -157,9 +157,9 @@ export default function Gallery() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-mono text-[11px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
+                className={`font-mono text-[11px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-none border cursor-pointer shrink-0 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 ${
                   activeCategory === cat
-                    ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
+                    ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-lg shadow-[#E52E2D]/40'
                     : 'bg-white/2 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
                 }`}
               >
@@ -175,7 +175,9 @@ export default function Gallery() {
             <div
               key={item.id}
               onClick={() => setActiveItemIndex(i)}
-              className="w-[85vw] max-w-[320px] shrink-0 snap-center relative aspect-3/4 rounded-xs border border-white/10 bg-[#0f0f0f] overflow-hidden group cursor-pointer"
+              tabIndex={0}
+              role="button"
+              className="w-[85vw] max-w-[320px] shrink-0 snap-center relative aspect-3/4 rounded-none border border-white/10 bg-[#0f0f0f] overflow-hidden group cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
             >
               <Image
                 src={item.src}
@@ -208,7 +210,7 @@ export default function Gallery() {
                   </h3>
                 </div>
 
-                <div className="w-8 h-8 rounded-full border border-white/30 bg-black/60 flex items-center justify-center text-white">
+                <div className="w-8 h-8 rounded-none border border-white/30 bg-black/60 flex items-center justify-center text-white">
                   <ArrowUpRight size={14} />
                 </div>
               </div>
@@ -230,7 +232,9 @@ export default function Gallery() {
                 className="break-inside-avoid block mb-5"
               >
                 <div
-                  className={`relative w-full ${item.aspect} overflow-hidden group cursor-pointer bg-[#0f0f0f] border border-white/10 hover:border-[#E52E2D]/50 transition-all duration-500 rounded-xs`}
+                  role="button"
+                  tabIndex={0}
+                  className={`relative w-full ${item.aspect} overflow-hidden group cursor-pointer bg-[#0f0f0f] border border-white/10 hover:border-[#E52E2D]/50 transition-all duration-500 rounded-none focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4`}
                   onClick={() => setActiveItemIndex(i)}
                   onMouseEnter={() => setHoveredId(item.id)}
                   onMouseLeave={() => setHoveredId(null)}
@@ -270,7 +274,7 @@ export default function Gallery() {
                       </h3>
                     </div>
 
-                    <div className="w-8 h-8 border border-white/20 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white/70 group-hover:border-[#E52E2D] group-hover:bg-[#E52E2D] group-hover:text-white transition-all duration-300 shrink-0">
+                    <div className="w-8 h-8 border border-white/20 bg-black/40 backdrop-blur-md rounded-none flex items-center justify-center text-white/70 group-hover:border-[#E52E2D] group-hover:bg-[#E52E2D] group-hover:text-white transition-all duration-300 shrink-0">
                       <ArrowUpRight size={15} />
                     </div>
                   </div>
@@ -311,7 +315,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative max-w-5xl w-full max-h-[92vh] overflow-y-auto bg-charcoal border border-white/10 flex flex-col md:flex-row gap-0 rounded-xs shadow-2xl"
+              className="relative max-w-5xl w-full max-h-[92vh] overflow-y-auto bg-charcoal border border-white/10 flex flex-col md:flex-row gap-0 rounded-none shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image panel */}
@@ -328,14 +332,14 @@ export default function Gallery() {
 
                 <button
                   onClick={handlePrevLightbox}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-none bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNextLightbox}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-none bg-black/60 hover:bg-[#E52E2D] border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   aria-label="Next image"
                 >
                   <ChevronRight size={20} />
@@ -347,14 +351,14 @@ export default function Gallery() {
                 
                 <button
                   onClick={() => setActiveItemIndex(null)}
-                  className="absolute top-5 right-5 w-10 h-10 border border-white/20 hover:border-[#E52E2D] rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+                  className="absolute top-5 right-5 w-10 h-10 border border-white/20 hover:border-[#E52E2D] rounded-none flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   aria-label="Close modal"
                 >
                   <X size={18} />
                 </button>
 
                 <div className="pt-2 md:pt-0">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-3 block font-bold">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#E52E2D] mb-3 block font-bold">
                     {activeItem.index} // {activeItem.category}
                   </span>
                   <h3
@@ -373,8 +377,8 @@ export default function Gallery() {
                 </div>
 
                 <div className="space-y-3 mt-4">
-                  <div className="p-3 bg-white/2 border border-white/5 rounded-xs flex items-center justify-between font-mono text-[9px]">
-                    <span className="text-white/40 uppercase tracking-widest">
+                  <div className="p-3 bg-white/2 border border-white/5 rounded-none flex items-center justify-between font-mono text-[10px]">
+                    <span className="text-white/50 uppercase tracking-widest">
                       Studio Location
                     </span>
                     <span className="text-white/80 uppercase tracking-widest">
@@ -385,7 +389,7 @@ export default function Gallery() {
                   <a
                     href="#booking"
                     onClick={() => setActiveItemIndex(null)}
-                    className="w-full py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white text-center font-mono text-[9px] uppercase tracking-[0.3em] font-bold block"
+                    className="w-full py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white text-center font-mono text-[10px] uppercase tracking-[0.3em] font-bold block focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                   >
                     Inquire For Session
                   </a>

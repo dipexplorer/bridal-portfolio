@@ -420,7 +420,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
                 className="mt-6 md:mt-8 max-w-md sm:max-w-lg text-white/85 text-sm sm:text-base leading-[1.85] font-light pointer-events-auto tracking-wide"
-                style={{ fontFamily: "var(--font-jakarta), sans-serif" }}
+                style={{ fontFamily: "var(--font-inter)" }}
               >
                 Mastering the art of high-fashion and editorial bridal artistry. Elevating natural beauty through a lens of modern luxury.
               </motion.p>
@@ -435,7 +435,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 {/* Primary CTA */}
                 <button
                   onClick={onBookClick}
-                  className="min-h-[48px] px-7 md:px-8 py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-[#c01f1f] hover:border-[#c01f1f] flex items-center justify-center cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.35)] hover:shadow-[0_0_30px_rgba(229,46,45,0.6)]"
+                  className="min-h-[48px] px-7 md:px-8 py-3.5 rounded-none bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-[#c01f1f] hover:border-[#c01f1f] flex items-center justify-center cursor-pointer shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/60 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                 >
                   Reserve a Session
                 </button>
@@ -443,10 +443,10 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 {/* Secondary CTA: Watch Our Story */}
                 <button
                   onClick={() => setIsVideoOpen(true)}
-                  className="flex items-center gap-3 group min-h-[48px] px-1 cursor-pointer"
+                  className="flex items-center gap-3 group min-h-[48px] px-1 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4"
                   aria-label="Watch Our Story"
                 >
-                  <span className="w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/30 flex items-center justify-center text-white/80 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] group-hover:shadow-[0_0_14px_rgba(229,46,45,0.4)] transition-all duration-300 shrink-0">
+                  <span className="w-10 h-10 md:w-11 md:h-11 rounded-none border border-white/30 flex items-center justify-center text-white/80 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] group-hover:shadow-lg group-hover:shadow-[#E52E2D]/40 transition-all duration-300 shrink-0">
                     <Play size={13} className="ml-0.5" fill="currentColor" />
                   </span>
                   <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/80 group-hover:text-white transition-colors duration-300">
@@ -524,7 +524,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             {/* Top Right Quick Action Badge */}
             <button
               onClick={onBookClick}
-              className="self-start px-7 py-3 rounded-full bg-black/60 backdrop-blur-md border border-[#E52E2D]/60 text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer shadow-[0_0_25px_rgba(229,46,45,0.4)]"
+              className="self-start px-7 py-3 rounded-none bg-black/60 backdrop-blur-md border border-[#E52E2D]/60 text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer shadow-lg shadow-[#E52E2D]/40 focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
             >
               Reserve This Look
             </button>
@@ -564,10 +564,10 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
             <a
               href="#about"
-              className="flex items-center gap-2.5 group font-mono text-[11px] uppercase tracking-[0.3em] text-white/80 hover:text-white transition-colors"
+              className="flex items-center gap-2.5 group font-mono text-[11px] uppercase tracking-[0.3em] text-white/80 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4"
             >
               <span>Explore Artist Profile</span>
-              <span className="w-7 h-7 rounded-full border border-white/30 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] flex items-center justify-center transition-all">
+              <span className="w-7 h-7 rounded-none border border-white/30 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] flex items-center justify-center transition-all">
                 ↓
               </span>
             </a>
@@ -587,7 +587,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             {/* Close Button */}
             <button
               onClick={() => setIsVideoOpen(false)}
-              className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-full border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer z-20 shadow-lg"
+              className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-none border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer z-20 shadow-lg focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
               aria-label="Close Story Video"
             >
               <X size={20} />
@@ -639,7 +639,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setIsMuted(!isMuted)}
-                    className="w-9 h-9 rounded-full border border-white/20 bg-white/5 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                    className="w-9 h-9 rounded-none border border-white/20 bg-white/5 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   >
                     {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
                   </button>
@@ -653,7 +653,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                     setIsVideoOpen(false);
                     onBookClick?.();
                   }}
-                  className="px-6 py-2.5 bg-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:bg-[#c01f1f] transition-all cursor-pointer"
+                  className="px-6 py-2.5 rounded-none bg-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold shadow-lg shadow-[#E52E2D]/40 hover:bg-[#c01f1f] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                 >
                   Reserve Your Session
                 </button>

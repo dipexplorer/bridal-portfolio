@@ -101,7 +101,7 @@ export default function Services({ onBookClick }: ServicesProps) {
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 lg:mb-16 gap-6 lg:gap-8">
           <div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-3 flex items-center gap-3 font-bold">
+            <span className="font-mono text-[10px] uppercase tracking-[0.45em] text-[#E52E2D] mb-3 flex items-center gap-3 font-bold">
               <span className="w-6 h-px bg-[#E52E2D]" />
               Rates &amp; Services // Bespoke Collections
             </span>
@@ -110,7 +110,7 @@ export default function Services({ onBookClick }: ServicesProps) {
               style={{ fontFamily: 'var(--font-cormorant), serif' }}
             >
               Exclusive<br />
-              <span className="italic font-light text-white/40 font-serif lowercase">Packages</span>
+              <span className="italic font-light text-white/50 font-serif lowercase">Packages</span>
             </h2>
           </div>
           <p
@@ -132,9 +132,9 @@ export default function Services({ onBookClick }: ServicesProps) {
             <button
               key={tab.id}
               onClick={() => setActiveCategory(tab.id as any)}
-              className={`font-mono text-[9px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
+              className={`font-mono text-[10px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-none border cursor-pointer shrink-0 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 ${
                 activeCategory === tab.id
-                  ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
+                  ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-lg shadow-[#E52E2D]/40'
                   : 'bg-white/2 text-white/60 border-white/10 hover:border-white/30 hover:text-white'
               }`}
             >
@@ -163,7 +163,7 @@ export default function Services({ onBookClick }: ServicesProps) {
           {filteredServices.map((_, idx) => (
             <div
               key={idx}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-none transition-all duration-300 ${
                 activeSlide === idx ? 'w-6 bg-[#E52E2D]' : 'w-2 bg-white/20'
               }`}
             />
@@ -179,7 +179,7 @@ export default function Services({ onBookClick }: ServicesProps) {
           className="p-6 md:p-10 bg-white/1.5 border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
         >
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-[#E52E2D]/10 border border-[#E52E2D]/30 flex items-center justify-center shrink-0 mt-1">
+            <div className="w-10 h-10 rounded-none bg-[#E52E2D]/10 border border-[#E52E2D]/30 flex items-center justify-center shrink-0 mt-1">
               <ShieldCheck size={20} className="text-[#E52E2D]" />
             </div>
             <div>
@@ -194,7 +194,7 @@ export default function Services({ onBookClick }: ServicesProps) {
 
           <button
             onClick={() => onBookClick('')}
-            className="w-full sm:w-auto group font-mono text-[9px] uppercase tracking-[0.3em] text-white hover:text-white bg-[#E52E2D] md:bg-transparent border border-[#E52E2D] md:border-white/20 hover:border-[#E52E2D] px-6 py-4 transition-all duration-300 shrink-0 flex items-center justify-center gap-2 cursor-pointer min-h-[48px]"
+            className="w-full sm:w-auto group font-mono text-[10px] uppercase tracking-[0.3em] text-white hover:text-white bg-[#E52E2D] md:bg-transparent border border-[#E52E2D] md:border-white/20 hover:border-[#E52E2D] px-6 py-4 transition-all duration-300 shrink-0 flex items-center justify-center gap-2 cursor-pointer min-h-[48px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
           >
             Custom Inquiry
             <ArrowRight size={14} className="group-hover:translate-x-1 text-white md:text-[#E52E2D] transition-transform duration-200" />
@@ -222,9 +222,9 @@ function ServiceTile({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.55, delay: index * 0.1 }}
-      className={`group relative flex flex-col border transition-all duration-500 rounded-xs overflow-hidden h-full ${
+      className={`group relative flex flex-col border transition-all duration-500 rounded-none overflow-hidden h-full ${
         service.isSignature
-          ? 'border-[#E52E2D]/50 bg-[#0d0d0d] shadow-[0_0_30px_rgba(229,46,45,0.15)] hover:border-[#E52E2D]'
+          ? 'border-[#E52E2D]/50 bg-[#0d0d0d] shadow-xl shadow-[#E52E2D]/20 hover:border-[#E52E2D]'
           : 'border-white/10 bg-[#060606] hover:border-white/25 hover:bg-[#0e0e0e]'
       }`}
     >
@@ -232,7 +232,7 @@ function ServiceTile({
       {service.isSignature && (
         <>
           <div className="h-1 w-full bg-linear-to-r from-[#E52E2D] via-[#ff5555] to-[#E52E2D]" />
-          <div className="bg-[#E52E2D] text-white font-mono text-[8px] uppercase tracking-[0.25em] py-1.5 px-4 text-center font-bold flex items-center justify-center gap-1.5">
+          <div className="bg-[#E52E2D] text-white font-mono text-[10px] uppercase tracking-[0.25em] py-1.5 px-4 text-center font-bold flex items-center justify-center gap-1.5">
             <Sparkles size={10} />
             Flagship Bridal Experience
           </div>
@@ -254,8 +254,8 @@ function ServiceTile({
         </div>
 
         {/* Tagline */}
-        <span className={`font-mono text-[9px] uppercase tracking-[0.3em] mb-2 block ${
-          service.isSignature ? 'text-[#E52E2D] font-bold' : 'text-white/40'
+        <span className={`font-mono text-[10px] uppercase tracking-[0.3em] mb-2 block ${
+          service.isSignature ? 'text-[#E52E2D] font-bold' : 'text-white/50'
         }`}>
           {service.tagline}
         </span>
@@ -277,9 +277,9 @@ function ServiceTile({
         </p>
 
         {/* Pricing Block */}
-        <div className="mb-6 p-4 bg-white/2 border border-white/5 flex items-baseline justify-between rounded-xs">
+        <div className="mb-6 p-4 bg-white/2 border border-white/5 flex items-baseline justify-between rounded-none">
           <div>
-            <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/40 block mb-0.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 block mb-0.5">
               Investment
             </span>
             <span
@@ -291,7 +291,7 @@ function ServiceTile({
               {service.price}
             </span>
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-white/40">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">
             {service.priceNote}
           </span>
         </div>
@@ -301,7 +301,7 @@ function ServiceTile({
           {service.highlights.map((h, idx) => (
             <span
               key={idx}
-              className="font-mono text-[8px] uppercase tracking-wider px-2.5 py-1 bg-white/3 border border-white/10 text-white/70 rounded-full"
+              className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 bg-white/3 border border-white/10 text-white/70 rounded-none"
             >
               {h}
             </span>
@@ -319,7 +319,7 @@ function ServiceTile({
               className="flex items-start gap-3 text-xs sm:text-sm text-white/70 font-light leading-snug"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
-              <Diamond size={10} className={`mt-1 shrink-0 ${service.isSignature ? 'text-[#E52E2D]' : 'text-white/40'}`} fill={service.isSignature ? '#E52E2D' : 'transparent'} />
+              <Diamond size={10} className={`mt-1 shrink-0 ${service.isSignature ? 'text-[#E52E2D]' : 'text-white/50'}`} fill={service.isSignature ? '#E52E2D' : 'transparent'} />
               {feat}
             </li>
           ))}
@@ -328,9 +328,9 @@ function ServiceTile({
         {/* CTA Button - Minimum 44px height */}
         <button
           onClick={onBook}
-          className={`w-full py-4 font-mono text-[9px] uppercase tracking-[0.35em] transition-all duration-400 border cursor-pointer font-bold min-h-[48px] ${
+          className={`w-full py-4 font-mono text-[10px] uppercase tracking-[0.35em] transition-all duration-400 border cursor-pointer font-bold min-h-[48px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 ${
             service.isSignature
-              ? 'bg-[#E52E2D] border-[#E52E2D] text-white hover:bg-transparent hover:text-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.3)]'
+              ? 'bg-[#E52E2D] border-[#E52E2D] text-white hover:bg-transparent hover:text-[#E52E2D] shadow-lg shadow-[#E52E2D]/30'
               : 'bg-transparent border-white/20 text-white/80 hover:border-[#E52E2D] hover:text-white hover:bg-[#E52E2D]/10'
           }`}
         >

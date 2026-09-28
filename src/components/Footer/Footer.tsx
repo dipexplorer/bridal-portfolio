@@ -33,10 +33,10 @@ export default function Footer() {
                 >
                   LUXE
                 </h3>
-                <span className="w-2 h-2 rounded-full bg-[#E52E2D] shadow-[0_0_10px_rgba(229,46,45,0.8)]" />
+                <span className="w-2 h-2 rounded-none bg-[#E52E2D] shadow-[0_0_10px_rgba(229,46,45,0.8)]" />
               </div>
 
-              <p className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] font-bold mb-6">
+              <p className="font-mono text-[10px] uppercase tracking-[0.45em] text-[#E52E2D] font-bold mb-6">
                 Bridal &amp; Editorial Artistry
               </p>
 
@@ -51,7 +51,7 @@ export default function Footer() {
 
                 <a
                   href="tel:+919833322110"
-                  className="inline-flex items-center gap-2.5 font-mono text-xs text-white/80 hover:text-[#E52E2D] transition-colors min-h-[44px]"
+                  className="inline-flex items-center gap-2.5 font-mono text-xs text-white/80 hover:text-[#E52E2D] transition-colors min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                 >
                   <Phone size={14} className="text-[#E52E2D]" />
                   <span>+91 98333 22110</span>
@@ -60,9 +60,9 @@ export default function Footer() {
             </div>
 
             {/* Quick Status Pill */}
-            <div className="mt-8 inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white/2 border border-white/10 w-fit">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/70">
+            <div className="mt-8 inline-flex items-center gap-2.5 px-3.5 py-2 rounded-none bg-white/2 border border-white/10 w-fit">
+              <span className="w-2 h-2 rounded-none bg-emerald-500 animate-pulse" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
                 Accepting 2026/27 Bookings
               </span>
             </div>
@@ -87,7 +87,7 @@ export default function Footer() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="group flex items-center gap-2 text-xs uppercase tracking-wider text-white/60 hover:text-white transition-colors duration-300 min-h-[44px] font-mono"
+                  className="group flex items-center gap-2 text-xs uppercase tracking-wider text-white/60 hover:text-white transition-colors duration-300 min-h-[44px] font-mono focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                 >
                   <span className="text-[#E52E2D] opacity-0 group-hover:opacity-100 transition-opacity">
                     –
@@ -118,7 +118,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-[9px] uppercase tracking-wider text-white/80 hover:text-white bg-white/3 hover:bg-[#E52E2D]/20 border border-white/10 hover:border-[#E52E2D] px-4 py-2.5 rounded-full flex items-center gap-2 min-h-[44px] transition-all duration-300"
+                    className="font-mono text-[10px] uppercase tracking-wider text-white/80 hover:text-white bg-white/3 hover:bg-[#E52E2D]/20 border border-white/10 hover:border-[#E52E2D] px-4 py-2.5 rounded-none flex items-center gap-2 min-h-[44px] transition-all duration-300 focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
                   >
                     <Icon size={14} className="text-[#E52E2D]" />
                     {link.label}
@@ -128,14 +128,14 @@ export default function Footer() {
               })}
             </div>
 
-            <div className="mt-4 p-4 rounded-xs bg-white/2 border border-white/5 space-y-1">
-              <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/40 block">
+            <div className="mt-4 p-4 rounded-none bg-white/2 border border-white/5 space-y-1">
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50 block">
                 Studio Protocol
               </span>
-              <p className="font-mono text-[9px] uppercase tracking-wider text-white/80">
+              <p className="font-mono text-[10px] uppercase tracking-wider text-white/80">
                 7 Days / Week · 9:00 AM – 9:00 PM
               </p>
-              <p className="text-[10px] text-white/40 font-light">
+              <p className="text-[10px] text-white/50 font-light">
                 Private sessions by appointment only.
               </p>
             </div>
@@ -148,19 +148,19 @@ export default function Footer() {
 
         {/* Bottom Bar Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <p className="font-mono text-[9px] tracking-widest uppercase text-white/40">
+          <p className="font-mono text-[10px] tracking-widest uppercase text-white/50">
             &copy; {new Date().getFullYear()} LUXE BRIDAL ARTISTRY. All Rights Reserved.
           </p>
 
           <div className="flex items-center gap-6">
-            <span className="font-mono text-[9px] tracking-widest uppercase text-[#E52E2D]">
+            <span className="font-mono text-[10px] tracking-widest uppercase text-[#E52E2D]">
               Paris • London • Mumbai
             </span>
 
             {/* Back to Top Button */}
             <button
               onClick={scrollToTop}
-              className="w-10 h-10 rounded-full border border-white/20 bg-white/3 hover:bg-[#E52E2D] hover:border-[#E52E2D] text-white flex items-center justify-center transition-all duration-300 cursor-pointer min-h-[44px]"
+              className="w-10 h-10 rounded-none border border-white/20 bg-white/3 hover:bg-[#E52E2D] hover:border-[#E52E2D] text-white flex items-center justify-center transition-all duration-300 cursor-pointer min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2"
               title="Back to Top"
               aria-label="Back to Top"
             >

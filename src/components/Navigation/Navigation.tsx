@@ -31,7 +31,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center justify-between px-5 md:px-12 py-4 md:py-5 ${
           scrolled
-            ? "bg-[#060606]/90 backdrop-blur-xl border-b border-white/10 md:top-4 md:left-1/2 md:-translate-x-1/2 md:w-[92%] md:max-w-6xl md:rounded-full md:border-white/15 md:py-3 md:px-8 shadow-[0_15px_50px_rgba(0,0,0,0.9)]"
+            ? "bg-[#060606]/90 backdrop-blur-xl border-b border-white/10 md:top-4 md:left-1/2 md:-translate-x-1/2 md:w-[92%] md:max-w-6xl md:rounded-none md:border-white/15 md:py-3 md:px-8 shadow-2xl shadow-black/90"
             : "bg-linear-to-b from-[#060606]/90 via-[#060606]/50 to-transparent border-b border-white/5"
         }`}
       >
@@ -54,10 +54,10 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
           </span>
           <span className="hidden sm:inline-block w-px h-4 bg-white/20" />
           <span className="hidden sm:flex flex-col">
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 group-hover:text-[#E52E2D] transition-colors">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/70 group-hover:text-[#E52E2D] transition-colors">
               Couture Artistry
             </span>
-            <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] font-semibold">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#E52E2D] font-semibold">
               Paris • Mumbai
             </span>
           </span>
@@ -82,7 +82,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         <div className="hidden md:block">
           <button
             onClick={onBookClick}
-            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            className="group relative px-6 py-2.5 rounded-none bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/70 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             <Sparkles size={13} className="text-white/90 group-hover:rotate-12 transition-transform duration-300" />
             <span>Book Session</span>
@@ -93,7 +93,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         {/* Mobile Hamburger Trigger - Minimum 44x44px Tap Target */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white hover:text-[#E52E2D] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 w-11 h-11 border border-white/15 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-md transition-all cursor-pointer hover:border-[#E52E2D]/50 shadow-lg"
+          className="md:hidden text-white hover:text-[#E52E2D] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 w-11 h-11 border border-white/15 rounded-none flex items-center justify-center bg-black/50 backdrop-blur-md transition-all cursor-pointer hover:border-[#E52E2D]/50 shadow-lg"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X size={20} className="text-[#E52E2D]" /> : <Menu size={20} />}
@@ -130,7 +130,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
-                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-xs border border-transparent hover:border-white/10 hover:bg-white/2 text-2xl tracking-[0.15em] text-white/90 hover:text-white uppercase font-serif transition-all focus-visible:outline-2 focus-visible:outline-[#E52E2D]"
+                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-none border border-transparent hover:border-white/10 hover:bg-white/2 text-2xl tracking-[0.15em] text-white/90 hover:text-white uppercase font-serif transition-all focus-visible:outline-2 focus-visible:outline-[#E52E2D]"
                   style={{ fontFamily: "var(--font-cormorant), serif" }}
                 >
                   <span className="flex items-center gap-3">
@@ -151,7 +151,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   setIsOpen(false);
                   onBookClick?.();
                 }}
-                className="w-full py-4 rounded-xs bg-[#E52E2D] hover:bg-[#C01F1F] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.4)] transition-colors"
+                className="w-full py-4 rounded-none bg-[#E52E2D] hover:bg-[#C01F1F] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#E52E2D]/40 transition-colors"
               >
                 <Calendar size={14} />
                 Reserve Session
@@ -160,7 +160,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
               <a
                 href="tel:+919833322110"
                 onClick={() => setIsOpen(false)}
-                className="w-full py-3.5 rounded-xs bg-white/5 border border-white/10 text-white/90 font-mono text-[10px] uppercase tracking-[0.25em] flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+                className="w-full py-3.5 rounded-none bg-white/5 border border-white/10 text-white/90 font-mono text-[10px] uppercase tracking-[0.25em] flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
               >
                 <Phone size={13} className="text-[#E52E2D]" /> Direct Concierge (+91 98333 22110)
               </a>

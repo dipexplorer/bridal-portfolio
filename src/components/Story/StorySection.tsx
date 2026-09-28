@@ -42,7 +42,7 @@ export default function StorySection() {
       {/* Vertical Section Marker - Left Edge */}
       <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4 z-20">
         <div className="w-px h-16 bg-white/20" />
-        <span className="text-[10px] tracking-[0.4em] text-white/30 rotate-90 whitespace-nowrap font-mono">
+        <span className="text-[10px] tracking-[0.4em] text-white/50 rotate-90 whitespace-nowrap font-mono">
           05 / STORY
         </span>
         <div className="w-px h-16 bg-white/20" />
@@ -58,7 +58,7 @@ export default function StorySection() {
           className="max-w-xl lg:max-w-2xl"
         >
           {/* Eyebrow */}
-          <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-6 md:mb-8 font-bold flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#E52E2D] mb-6 md:mb-8 font-bold flex items-center gap-3">
             <span className="w-6 h-px bg-[#E52E2D]" />
             The Craft // Philosophy
           </span>
@@ -70,7 +70,7 @@ export default function StorySection() {
           >
             From a<br />
             Single<br />
-            <span className="italic font-extralight text-white/40 font-serif lowercase">
+            <span className="italic font-extralight text-white/50 font-serif lowercase">
               Stroke
             </span>
           </h2>
@@ -104,11 +104,11 @@ export default function StorySection() {
 
           {/* Feature Badge Strip */}
           <div className="mt-10 flex flex-wrap gap-4 pt-8 border-t border-white/10">
-            <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
               <Sparkles size={12} className="text-[#E52E2D]" />
               Signature Aesthetics
             </div>
-            <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.25em] text-white/40">
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/50">
               High-Definition Precision
             </div>
           </div>
