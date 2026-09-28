@@ -20,61 +20,108 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  const rafIdRef = useRef<number | null>(null);
+  const cursorBubbleRef = useRef<HTMLDivElement>(null);
+
+  const mousePosRef = useRef({
+    targetX: -500,
+    targetY: -500,
+    currentX: -500,
+    currentY: -500,
+    tailX: -500,
+    tailY: -500,
+    tail2X: -500,
+    tail2Y: -500,
+  });
   const isScrolledRef = useRef<boolean>(false);
 
-  // Mouse movement handler for idle cursor reveal lens
+  // Inertia Physics Loop for smooth floating cursor lens + magnetic snap + fluid bubble tail
+  useEffect(() => {
+    let animId: number;
+
+    const updatePhysics = () => {
+      if (!isScrolledRef.current) {
+        // Main lens lerp
+        const lerpFactor = 0.095;
+        mousePosRef.current.currentX += (mousePosRef.current.targetX - mousePosRef.current.currentX) * lerpFactor;
+        mousePosRef.current.currentY += (mousePosRef.current.targetY - mousePosRef.current.currentY) * lerpFactor;
+
+        // Tail bubble 1 lerp (smooth trailing lag)
+        mousePosRef.current.tailX += (mousePosRef.current.currentX - mousePosRef.current.tailX) * 0.12;
+        mousePosRef.current.tailY += (mousePosRef.current.currentY - mousePosRef.current.tailY) * 0.12;
+
+        // Tail bubble 2 lerp (secondary echo lag)
+        mousePosRef.current.tail2X += (mousePosRef.current.tailX - mousePosRef.current.tail2X) * 0.15;
+        mousePosRef.current.tail2Y += (mousePosRef.current.tailY - mousePosRef.current.tail2Y) * 0.15;
+
+        if (cursorRevealRef.current) {
+          cursorRevealRef.current.style.setProperty("--mouse-x", `${mousePosRef.current.currentX}px`);
+          cursorRevealRef.current.style.setProperty("--mouse-y", `${mousePosRef.current.currentY}px`);
+        }
+
+        if (cursorBubbleRef.current) {
+          cursorBubbleRef.current.style.setProperty("--bubble-x", `${mousePosRef.current.tailX}px`);
+          cursorBubbleRef.current.style.setProperty("--bubble-y", `${mousePosRef.current.tailY}px`);
+          cursorBubbleRef.current.style.setProperty("--bubble2-x", `${mousePosRef.current.tail2X}px`);
+          cursorBubbleRef.current.style.setProperty("--bubble2-y", `${mousePosRef.current.tail2Y}px`);
+        }
+      }
+      animId = requestAnimationFrame(updatePhysics);
+    };
+
+    animId = requestAnimationFrame(updatePhysics);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  // Mouse movement handler updating target physics coordinates
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isScrolledRef.current) return;
-    if (!cursorRevealRef.current || !heroRef.current) return;
+    if (!heroRef.current) return;
 
     const rect = heroRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
 
-    if (rafIdRef.current !== null) return;
+    // Magnetic snap towards LUXE title when cursor is close to text bounds
+    if (textContentRef.current) {
+      const textRect = textContentRef.current.getBoundingClientRect();
+      const textCenterX = textRect.left - rect.left + textRect.width / 2;
+      const textCenterY = textRect.top - rect.top + textRect.height / 3;
+      const dist = Math.hypot(x - textCenterX, y - textCenterY);
 
-    rafIdRef.current = requestAnimationFrame(() => {
-      if (cursorRevealRef.current && !isScrolledRef.current) {
-        cursorRevealRef.current.style.setProperty("--mouse-x", `${x}px`);
-        cursorRevealRef.current.style.setProperty("--mouse-y", `${y}px`);
+      if (dist < 320) {
+        x += (textCenterX - x) * 0.18;
+        y += (textCenterY - y) * 0.18;
       }
-      rafIdRef.current = null;
-    });
+    }
+
+    mousePosRef.current.targetX = x;
+    mousePosRef.current.targetY = y;
   };
 
   // Touch event support for mobile drag-to-reveal
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (isScrolledRef.current) return;
-    if (!cursorRevealRef.current || !heroRef.current) return;
+    if (!heroRef.current) return;
 
     const touch = e.touches[0];
     const rect = heroRef.current.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-
-    if (cursorRevealRef.current && !isScrolledRef.current) {
-      cursorRevealRef.current.style.setProperty("--mouse-x", `${x}px`);
-      cursorRevealRef.current.style.setProperty("--mouse-y", `${y}px`);
-    }
+    mousePosRef.current.targetX = touch.clientX - rect.left;
+    mousePosRef.current.targetY = touch.clientY - rect.top;
   };
 
   const handleMouseLeave = () => {
-    if (cursorRevealRef.current && !isScrolledRef.current) {
-      cursorRevealRef.current.style.setProperty("--mouse-x", `-500px`);
-      cursorRevealRef.current.style.setProperty("--mouse-y", `-500px`);
-    }
+    mousePosRef.current.targetX = -500;
+    mousePosRef.current.targetY = -500;
   };
 
-  // Initial automatic slow reveal lens position for mobile on load
+  // Initial automatic position for initial lens load
   useEffect(() => {
-    if (cursorRevealRef.current) {
-      // Default to center of screen for mobile touch initialization
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      cursorRevealRef.current.style.setProperty("--mouse-x", `${width * 0.5}px`);
-      cursorRevealRef.current.style.setProperty("--mouse-y", `${height * 0.4}px`);
-    }
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    mousePosRef.current.targetX = width * 0.5;
+    mousePosRef.current.targetY = height * 0.4;
+    mousePosRef.current.currentX = width * 0.5;
+    mousePosRef.current.currentY = height * 0.4;
   }, []);
 
   // GSAP ScrollTrigger timeline for continuous scroll-driven before-to-after makeup transform
@@ -231,6 +278,27 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             />
           </div>
 
+          {/* Fluid Kinetic Bubble Tail Trail Elements */}
+          <div
+            ref={cursorBubbleRef}
+            className="absolute inset-0 w-full h-full z-35 pointer-events-none transition-opacity duration-300"
+          >
+            {/* Primary Glowing Red Bubble Tail */}
+            <div
+              className="absolute w-28 h-28 -ml-14 -mt-14 rounded-full border-2 border-[#E52E2D] bg-[#E52E2D]/20 backdrop-blur-md shadow-[0_0_40px_rgba(229,46,45,0.7)] transition-transform duration-75 ease-out"
+              style={{
+                transform: "translate3d(var(--bubble-x, -500px), var(--bubble-y, -500px), 0) scale(0.9)",
+              }}
+            />
+            {/* Secondary White Glass Echo Bubble Tail */}
+            <div
+              className="absolute w-16 h-16 -ml-8 -mt-8 rounded-full border border-white/60 bg-white/15 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.4)] transition-transform duration-100 ease-out"
+              style={{
+                transform: "translate3d(var(--bubble2-x, -500px), var(--bubble2-y, -500px), 0) scale(0.7)",
+              }}
+            />
+          </div>
+
           {/* Layer 2: Phase 2 Scroll Reveal Layer */}
           <div
             ref={scrollRevealRef}
@@ -297,8 +365,8 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 </span>
               </motion.div>
 
-              {/* TIER 2: LUXE Wordmark (Vogue High-Fashion Serifs) */}
-              <div className="flex items-start overflow-hidden py-1">
+              {/* TIER 2: LUXE Wordmark (Vogue High-Fashion Serifs + Kinetic Color Inversion) */}
+              <div className="flex items-start overflow-hidden py-1 mix-blend-difference">
                 <h1
                   className="flex text-7xl sm:text-8xl md:text-[9.5vw] lg:text-[10.5vw] leading-[0.82] tracking-tight uppercase font-serif text-white drop-shadow-[0_15px_40px_rgba(0,0,0,0.9)] pointer-events-auto font-medium"
                   style={{ fontFamily: "var(--font-bodoni), serif" }}
@@ -306,7 +374,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   {wordmarkLetters.map((letter, index) => (
                     <span key={index} className="inline-block overflow-hidden">
                       <motion.span
-                        className="inline-block"
+                        className="inline-block hover:text-[#E52E2D] transition-colors duration-300"
                         initial={{ y: "100%" }}
                         animate={{ y: 0 }}
                         transition={{
