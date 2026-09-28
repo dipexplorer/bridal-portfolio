@@ -83,7 +83,7 @@ export default function BeforeAfter() {
           aria-label="Drag to compare before and after makeup look"
           aria-valuenow={50}
           tabIndex={0}
-          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-none border border-white/10 cursor-grab active:cursor-grabbing focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4"
+          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-none border border-white/10 cursor-grab focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}

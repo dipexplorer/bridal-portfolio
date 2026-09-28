@@ -163,7 +163,7 @@ export default function Reviews({ onBookClick }: { onBookClick?: () => void }) {
         </div>
 
         {/* Automated Infinite Horizontal Scroll Container + Drag Manual Control */}
-        <div className="relative w-full overflow-x-auto overflow-y-hidden mb-16 py-6 group/slider scrollbar-none cursor-grab active:cursor-grabbing">
+        <div className="relative w-full overflow-x-auto overflow-y-hidden mb-16 py-6 group/slider scrollbar-none cursor-grab">
           {/* Subtle Side Fade Gradients for Luxury Seamless Look */}
           <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-r from-[#060606] via-[#060606]/80 to-transparent z-20 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-l from-[#060606] via-[#060606]/80 to-transparent z-20 pointer-events-none" />

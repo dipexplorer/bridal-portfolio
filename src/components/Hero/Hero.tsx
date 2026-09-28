@@ -62,7 +62,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           cursorBubbleRef.current.style.setProperty("--bubble-x", `${mousePosRef.current.tailX}px`);
           cursorBubbleRef.current.style.setProperty("--bubble-y", `${mousePosRef.current.tailY}px`);
           cursorBubbleRef.current.style.setProperty("--bubble2-x", `${mousePosRef.current.tail2X}px`);
-          cursorBubbleRef.current.style.setProperty("--bubble2-y", `${mousePosRef.current.tail22Y || mousePosRef.current.tail2Y}px`);
+          cursorBubbleRef.current.style.setProperty("--bubble2-y", `${mousePosRef.current.tail2Y}px`);
         }
       }
       animId = requestAnimationFrame(updatePhysics);
@@ -435,7 +435,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 {/* Primary CTA */}
                 <button
                   onClick={onBookClick}
-                  className="min-h-[48px] px-7 md:px-8 py-3.5 rounded-none bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-[#c01f1f] hover:border-[#c01f1f] flex items-center justify-center cursor-pointer shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/60 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                  className="min-h-[48px] px-7 md:px-8 py-3.5 rounded-none bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-accent-hover hover:border-accent-hover flex items-center justify-center cursor-pointer shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/60 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                 >
                   Reserve a Session
                 </button>
@@ -653,7 +653,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                     setIsVideoOpen(false);
                     onBookClick?.();
                   }}
-                  className="px-6 py-2.5 rounded-none bg-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold shadow-lg shadow-[#E52E2D]/40 hover:bg-[#c01f1f] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                  className="px-6 py-2.5 rounded-none bg-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold shadow-lg shadow-[#E52E2D]/40 hover:bg-accent-hover transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                 >
                   Reserve Your Session
                 </button>

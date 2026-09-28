@@ -82,7 +82,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         <div className="hidden md:block">
           <button
             onClick={onBookClick}
-            className="group relative px-6 py-2.5 rounded-none bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/70 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            className="group relative px-6 py-2.5 rounded-none bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-rose-gold text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-lg shadow-[#E52E2D]/40 hover:shadow-xl hover:shadow-[#E52E2D]/70 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             <Sparkles size={13} className="text-white/90 group-hover:rotate-12 transition-transform duration-300" />
             <span>Book Session</span>
@@ -151,7 +151,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   setIsOpen(false);
                   onBookClick?.();
                 }}
-                className="w-full py-4 rounded-none bg-[#E52E2D] hover:bg-[#C01F1F] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#E52E2D]/40 transition-colors"
+                className="w-full py-4 rounded-none bg-[#E52E2D] hover:bg-accent-hover text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#E52E2D]/40 transition-colors"
               >
                 <Calendar size={14} />
                 Reserve Session
