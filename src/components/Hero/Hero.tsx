@@ -40,18 +40,18 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
     const updatePhysics = () => {
       if (!isScrolledRef.current) {
-        // Main lens lerp
-        const lerpFactor = 0.095;
+        // Main lens lerp (faster, springier response)
+        const lerpFactor = 0.15;
         mousePosRef.current.currentX += (mousePosRef.current.targetX - mousePosRef.current.currentX) * lerpFactor;
         mousePosRef.current.currentY += (mousePosRef.current.targetY - mousePosRef.current.currentY) * lerpFactor;
 
-        // Tail bubble 1 lerp (smooth trailing lag)
-        mousePosRef.current.tailX += (mousePosRef.current.currentX - mousePosRef.current.tailX) * 0.12;
-        mousePosRef.current.tailY += (mousePosRef.current.currentY - mousePosRef.current.tailY) * 0.12;
+        // Tail bubble 1 lerp (liquid fluid drag)
+        mousePosRef.current.tailX += (mousePosRef.current.currentX - mousePosRef.current.tailX) * 0.25;
+        mousePosRef.current.tailY += (mousePosRef.current.currentY - mousePosRef.current.tailY) * 0.25;
 
         // Tail bubble 2 lerp (secondary echo lag)
-        mousePosRef.current.tail2X += (mousePosRef.current.tailX - mousePosRef.current.tail2X) * 0.15;
-        mousePosRef.current.tail2Y += (mousePosRef.current.tailY - mousePosRef.current.tail2Y) * 0.15;
+        mousePosRef.current.tail2X += (mousePosRef.current.tailX - mousePosRef.current.tail2X) * 0.20;
+        mousePosRef.current.tail2Y += (mousePosRef.current.tailY - mousePosRef.current.tail2Y) * 0.20;
 
         if (cursorRevealRef.current) {
           cursorRevealRef.current.style.setProperty("--mouse-x", `${mousePosRef.current.currentX}px`);
@@ -88,9 +88,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
       const textCenterY = textRect.top - rect.top + textRect.height / 3;
       const dist = Math.hypot(x - textCenterX, y - textCenterY);
 
-      if (dist < 320) {
-        x += (textCenterX - x) * 0.18;
-        y += (textCenterY - y) * 0.18;
+      if (dist < 400) {
+        x += (textCenterX - x) * 0.25;
+        y += (textCenterY - y) * 0.25;
       }
     }
 
@@ -267,9 +267,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             className="absolute inset-0 w-full h-full z-10 transition-opacity duration-300"
             style={{
               maskImage:
-                "radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 40%), black 0%, black 40%, rgba(0,0,0,0.65) 70%, transparent 100%)",
+                "radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 40%), black 0%, black 35%, rgba(0,0,0,0.6) 65%, transparent 100%)",
               WebkitMaskImage:
-                "radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 40%), black 0%, black 40%, rgba(0,0,0,0.65) 70%, transparent 100%)",
+                "radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 40%), black 0%, black 35%, rgba(0,0,0,0.6) 65%, transparent 100%)",
               maskMode: "alpha",
               WebkitMaskMode: "alpha",
             } as React.CSSProperties}
@@ -290,18 +290,18 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             ref={cursorBubbleRef}
             className="absolute inset-0 w-full h-full z-15 pointer-events-none transition-opacity duration-300"
           >
-            {/* Primary Glowing Bubble Tail */}
+            {/* Primary Glowing Bubble Tail (Glass Inversion) */}
             <div
-              className="absolute w-24 h-24 -ml-12 -mt-12 rounded-full border border-[#E52E2D]/40 bg-[#E52E2D]/10 backdrop-blur-xs shadow-[0_0_30px_rgba(229,46,45,0.3)] transition-transform duration-75 ease-out"
+              className="absolute w-32 h-32 -ml-16 -mt-16 rounded-full border border-white/20 bg-white/5 backdrop-invert backdrop-blur-md mix-blend-exclusion shadow-[0_0_40px_rgba(255,255,255,0.25)] transition-transform duration-75 ease-out"
               style={{
-                transform: "translate3d(var(--bubble-x, -500px), var(--bubble-y, -500px), 0) scale(0.85)",
+                transform: "translate3d(var(--bubble-x, -500px), var(--bubble-y, -500px), 0) scale(1)",
               }}
             />
             {/* Secondary Echo Bubble Tail */}
             <div
-              className="absolute w-12 h-12 -ml-6 -mt-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-xs shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-transform duration-100 ease-out"
+              className="absolute w-16 h-16 -ml-8 -mt-8 rounded-full border border-[#E52E2D]/30 bg-[#E52E2D]/20 backdrop-blur-lg mix-blend-screen shadow-[0_0_25px_rgba(229,46,45,0.4)] transition-transform duration-100 ease-out"
               style={{
-                transform: "translate3d(var(--bubble2-x, -500px), var(--bubble2-y, -500px), 0) scale(0.65)",
+                transform: "translate3d(var(--bubble2-x, -500px), var(--bubble2-y, -500px), 0) scale(0.85)",
               }}
             />
           </div>
@@ -469,13 +469,13 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 <span>Based in Paris &amp; Mumbai</span>
               </div>
 
-              <div className="flex flex-col items-end gap-1.5 pt-3 border-t border-white/10">
-                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/90 bg-white/5 px-3 py-1 rounded-xs border border-white/10">
-                  <Sparkles size={10} className="text-[#E52E2D]" />
+              <div className="flex flex-col items-end gap-2 pt-3 border-t border-white/10 mt-1">
+                <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90 bg-white/5 px-3.5 py-1.5 rounded-none border border-white/10">
+                  <Sparkles size={11} className="text-[#E52E2D]" />
                   <span>500+ Editorial Brides</span>
                 </div>
-                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
-                  <Award size={10} className="text-[#E52E2D]" />
+                <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90 bg-white/5 px-3.5 py-1.5 rounded-none border border-white/10">
+                  <Award size={11} className="text-[#E52E2D]" />
                   <span>Vogue &amp; Elle Featured</span>
                 </div>
               </div>
