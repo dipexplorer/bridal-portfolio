@@ -72,7 +72,7 @@ export default function CustomCursor() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden" style={{ mixBlendMode: "difference" }}>
+    <div className="pointer-events-none fixed inset-0 z-100 overflow-hidden" style={{ mixBlendMode: "difference" }}>
       {/* Outer Spring Ring */}
       <motion.div
         className="absolute top-0 left-0 rounded-full border border-white bg-white/10"
