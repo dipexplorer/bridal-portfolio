@@ -8,22 +8,38 @@
   --font-cormorant: var(--font-cormorant);
   --font-sans: var(--font-jakarta);
   --radius-xs: 0.25rem;
+  --radius-card: 0.25rem;
+  --radius-pill: 9999px;
 
-  /* High-Fashion Editorial Palette */
+  /* High-Fashion Editorial Unified Token Scale */
   --color-gold: #E52E2D; /* Bold Red */
   --color-rose-gold: #ff4d4d; /* Bright Red */
   --color-copper: #800000; /* Deep Burgundy */
   
-  /* Layout colors */
-  --color-charcoal: #0a0a0a; /* Main Background */
-  --color-surface: #111111; /* Off-Black Surface */
+  --color-accent: #E52E2D;
+  --color-accent-hover: #C01F1F;
+  --color-accent-light: #FF4D4D;
+  --color-accent-muted: rgba(229, 46, 45, 0.15);
+
+  /* Layout & Surface Tokens */
+  --color-charcoal: #060606; /* Main Background Base */
+  --color-bg-base: #060606;
+  --color-surface: #0d0d0d; /* Off-Black Surface Card */
+  --color-surface-card: #0d0d0d;
+  --color-surface-elevated: #141414;
   --color-parchment: #ffffff; /* Contrast Surface */
   
-  /* Semantic mappings for components */
-  --color-accent: #E52E2D;
+  /* Semantic Text & Accessibility Tokens (WCAG AA Compliant) */
+  --color-text-main: #ffffff;
+  --color-text-sub: rgba(255, 255, 255, 0.85);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
   --color-text-primary: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.7);
-  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  --color-text-secondary: rgba(255, 255, 255, 0.85);
+  --color-text-tertiary: rgba(255, 255, 255, 0.65);
+
+  /* Borders & Glow Tokens */
+  --color-border-subtle: rgba(255, 255, 255, 0.10);
+  --color-border-accent: rgba(229, 46, 45, 0.40);
 }
 
 body {

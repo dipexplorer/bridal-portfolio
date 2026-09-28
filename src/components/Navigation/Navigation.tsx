@@ -38,7 +38,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         {/* Brand Logo & Subtitle */}
         <a
           href="#home"
-          className="group flex items-center gap-3 min-h-[44px]"
+          className="group flex items-center gap-3 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-4 rounded-xs"
         >
           <span
             className="font-serif italic text-2xl sm:text-3xl tracking-[0.35em] font-medium transition-transform duration-300 group-hover:scale-105"
@@ -54,10 +54,10 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
           </span>
           <span className="hidden sm:inline-block w-px h-4 bg-white/20" />
           <span className="hidden sm:flex flex-col">
-            <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/50 group-hover:text-[#E52E2D] transition-colors">
+            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 group-hover:text-[#E52E2D] transition-colors">
               Couture Artistry
             </span>
-            <span className="font-mono text-[7px] uppercase tracking-[0.3em] text-[#E52E2D] font-semibold">
+            <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] font-semibold">
               Paris • Mumbai
             </span>
           </span>
@@ -69,7 +69,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
             <a
               key={item.name}
               href={item.href}
-              className="text-[10px] tracking-[0.25em] text-white/70 hover:text-white uppercase transition-colors duration-300 relative group font-mono py-2 flex items-center gap-1.5"
+              className="text-[10px] tracking-[0.25em] text-white/70 hover:text-white uppercase transition-colors duration-300 relative group font-mono py-2 flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 rounded-xs"
             >
               <span className="w-1 h-1 rounded-full bg-[#E52E2D] opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100" />
               <span>{item.name}</span>
@@ -82,7 +82,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         <div className="hidden md:block">
           <button
             onClick={onBookClick}
-            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-rose-gold text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden"
+            className="group relative px-6 py-2.5 rounded-full bg-linear-to-r from-[#E52E2D] via-[#e52e2d] to-[#ff4d4d] text-white text-[10px] tracking-[0.25em] uppercase font-mono font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:shadow-[0_0_30px_rgba(229,46,45,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20 flex items-center gap-2 cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             <Sparkles size={13} className="text-white/90 group-hover:rotate-12 transition-transform duration-300" />
             <span>Book Session</span>
@@ -93,7 +93,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
         {/* Mobile Hamburger Trigger - Minimum 44x44px Tap Target */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white hover:text-[#E52E2D] focus:outline-none w-11 h-11 border border-white/15 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-md transition-all cursor-pointer hover:border-[#E52E2D]/50 shadow-lg"
+          className="md:hidden text-white hover:text-[#E52E2D] focus-visible:outline-2 focus-visible:outline-[#E52E2D] focus-visible:outline-offset-2 w-11 h-11 border border-white/15 rounded-full flex items-center justify-center bg-black/50 backdrop-blur-md transition-all cursor-pointer hover:border-[#E52E2D]/50 shadow-lg"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X size={20} className="text-[#E52E2D]" /> : <Menu size={20} />}
@@ -112,10 +112,10 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
           >
             {/* Header info line */}
             <div className="border-b border-white/10 pb-4 flex items-center justify-between">
-              <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#E52E2D]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#E52E2D] font-bold">
                 Navigation // Couture Studio
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-white/60">
                 Paris • Mumbai
               </span>
             </div>
@@ -130,11 +130,11 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
-                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-xs border border-transparent hover:border-white/10 hover:bg-white/2 text-2xl tracking-[0.15em] text-white/80 hover:text-white uppercase font-serif transition-all"
+                  className="group flex items-center justify-between min-h-[48px] px-4 py-3 rounded-xs border border-transparent hover:border-white/10 hover:bg-white/2 text-2xl tracking-[0.15em] text-white/90 hover:text-white uppercase font-serif transition-all focus-visible:outline-2 focus-visible:outline-[#E52E2D]"
                   style={{ fontFamily: "var(--font-cormorant), serif" }}
                 >
                   <span className="flex items-center gap-3">
-                    <span className="font-mono text-[10px] text-[#E52E2D] tracking-normal">
+                    <span className="font-mono text-[11px] text-[#E52E2D] tracking-normal font-bold">
                       0{idx + 1}
                     </span>
                     {item.name}
@@ -151,7 +151,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
                   setIsOpen(false);
                   onBookClick?.();
                 }}
-                className="w-full py-4 rounded-xs bg-[#E52E2D] text-white font-mono text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.4)]"
+                className="w-full py-4 rounded-xs bg-[#E52E2D] hover:bg-[#C01F1F] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.4)] transition-colors"
               >
                 <Calendar size={14} />
                 Reserve Session
@@ -160,7 +160,7 @@ export default function Navigation({ onBookClick }: { onBookClick?: () => void }
               <a
                 href="tel:+919833322110"
                 onClick={() => setIsOpen(false)}
-                className="w-full py-3.5 rounded-xs bg-white/3 border border-white/10 text-white/80 font-mono text-[9px] uppercase tracking-[0.25em] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xs bg-white/5 border border-white/10 text-white/90 font-mono text-[10px] uppercase tracking-[0.25em] flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
               >
                 <Phone size={13} className="text-[#E52E2D]" /> Direct Concierge (+91 98333 22110)
               </a>
