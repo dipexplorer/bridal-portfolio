@@ -62,7 +62,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           cursorBubbleRef.current.style.setProperty("--bubble-x", `${mousePosRef.current.tailX}px`);
           cursorBubbleRef.current.style.setProperty("--bubble-y", `${mousePosRef.current.tailY}px`);
           cursorBubbleRef.current.style.setProperty("--bubble2-x", `${mousePosRef.current.tail2X}px`);
-          cursorBubbleRef.current.style.setProperty("--bubble2-y", `${mousePosRef.current.tail2Y}px`);
+          cursorBubbleRef.current.style.setProperty("--bubble2-y", `${mousePosRef.current.tail22Y || mousePosRef.current.tail2Y}px`);
         }
       }
       animId = requestAnimationFrame(updatePhysics);
@@ -153,6 +153,10 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
               }
             }
 
+            if (cursorBubbleRef.current) {
+              cursorBubbleRef.current.style.opacity = isScrolled ? "0" : "1";
+            }
+
             if (chipRef.current) {
               chipRef.current.style.opacity = isScrolled ? "0" : "1";
               chipRef.current.style.pointerEvents = isScrolled ? "none" : "auto";
@@ -162,6 +166,9 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             isScrolledRef.current = false;
             if (cursorRevealRef.current) {
               cursorRevealRef.current.style.opacity = "1";
+            }
+            if (cursorBubbleRef.current) {
+              cursorBubbleRef.current.style.opacity = "1";
             }
             if (chipRef.current) {
               chipRef.current.style.opacity = "1";
@@ -281,20 +288,20 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           {/* Fluid Kinetic Bubble Tail Trail Elements */}
           <div
             ref={cursorBubbleRef}
-            className="absolute inset-0 w-full h-full z-35 pointer-events-none transition-opacity duration-300"
+            className="absolute inset-0 w-full h-full z-15 pointer-events-none transition-opacity duration-300"
           >
-            {/* Primary Glowing Red Bubble Tail */}
+            {/* Primary Glowing Bubble Tail */}
             <div
-              className="absolute w-28 h-28 -ml-14 -mt-14 rounded-full border-2 border-[#E52E2D] bg-[#E52E2D]/20 backdrop-blur-md shadow-[0_0_40px_rgba(229,46,45,0.7)] transition-transform duration-75 ease-out"
+              className="absolute w-24 h-24 -ml-12 -mt-12 rounded-full border border-[#E52E2D]/40 bg-[#E52E2D]/10 backdrop-blur-xs shadow-[0_0_30px_rgba(229,46,45,0.3)] transition-transform duration-75 ease-out"
               style={{
-                transform: "translate3d(var(--bubble-x, -500px), var(--bubble-y, -500px), 0) scale(0.9)",
+                transform: "translate3d(var(--bubble-x, -500px), var(--bubble-y, -500px), 0) scale(0.85)",
               }}
             />
-            {/* Secondary White Glass Echo Bubble Tail */}
+            {/* Secondary Echo Bubble Tail */}
             <div
-              className="absolute w-16 h-16 -ml-8 -mt-8 rounded-full border border-white/60 bg-white/15 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.4)] transition-transform duration-100 ease-out"
+              className="absolute w-12 h-12 -ml-6 -mt-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-xs shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-transform duration-100 ease-out"
               style={{
-                transform: "translate3d(var(--bubble2-x, -500px), var(--bubble2-y, -500px), 0) scale(0.7)",
+                transform: "translate3d(var(--bubble2-x, -500px), var(--bubble2-y, -500px), 0) scale(0.65)",
               }}
             />
           </div>
