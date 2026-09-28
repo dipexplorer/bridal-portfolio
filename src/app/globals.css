@@ -49,6 +49,12 @@ body {
   overflow-x: hidden;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 /* Selection */
 ::selection {
   background: rgba(229, 46, 45, 0.3);

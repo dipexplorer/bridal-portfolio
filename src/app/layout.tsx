@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Bodoni_Moda, Italiana, Cinzel, Plus_Jakarta_Sans, Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
+import CustomCursor from '@/components/CustomCursor/CustomCursor';
 
 const bodoni = Bodoni_Moda({
   subsets: ['latin'],
@@ -73,6 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodoni.variable} ${italiana.variable} ${cinzel.variable} ${jakarta.variable} ${cormorant.variable} ${inter.variable}`}>
       <body className="antialiased bg-charcoal overflow-x-hidden text-white">
+        <CustomCursor />
         {children}
       </body>
     </html>
