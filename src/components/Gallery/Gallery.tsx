@@ -22,7 +22,7 @@ const galleryData: GalleryItem[] = [
     title: 'High-Fashion Couture',
     category: 'Editorial',
     src: '/gallery/newpic1.png',
-    aspect: 'aspect-[3/4]',
+    aspect: 'aspect-square',
     description: 'Sculpted high-definition editorial features with dramatic contrast and refined finish for Paris Fashion Week.',
   },
   {
@@ -31,7 +31,7 @@ const galleryData: GalleryItem[] = [
     title: 'Royal Golden Crown',
     category: 'Bridal',
     src: '/gallery/bride_hd.png',
-    aspect: 'aspect-[3/4]',
+    aspect: 'aspect-[16/10]',
     description: 'Bespoke traditional bridal styling showcasing handcrafted gold jewelry, regal veil placement, and radiant couture skin.',
   },
   {
@@ -40,7 +40,7 @@ const galleryData: GalleryItem[] = [
     title: 'Monochrome Grace',
     category: 'Runway',
     src: '/gallery/newpic2.png',
-    aspect: 'aspect-[4/5]',
+    aspect: 'aspect-[3/4]',
     description: 'Minimalist editorial composition highlighting natural skin luminosity and structural highlights.',
   },
   {
@@ -67,7 +67,7 @@ const galleryData: GalleryItem[] = [
     title: 'Couture Radiance',
     category: 'Bridal',
     src: '/gallery/newpic5.png',
-    aspect: 'aspect-[16/10]',
+    aspect: 'aspect-square',
     description: 'Bespoke bridal glow designed for high-definition photography and long-wearing elegance.',
   },
   {
@@ -76,7 +76,7 @@ const galleryData: GalleryItem[] = [
     title: 'Avant-Garde Noir',
     category: 'Runway',
     src: '/gallery/newpic6.png',
-    aspect: 'aspect-square',
+    aspect: 'aspect-[3/4]',
     description: 'Striking runway concept with graphic liner and modern structural highlights for Milan shows.',
   },
   {
@@ -85,7 +85,7 @@ const galleryData: GalleryItem[] = [
     title: 'Prada Campaign Look',
     category: 'Editorial',
     src: '/gallery/prada_editorial_campaign_v2.png',
-    aspect: 'aspect-square',
+    aspect: 'aspect-[4/5]',
     description: 'Editorial campaign look blending soft matte textures with editorial lash architecture.',
   },
   {
@@ -94,7 +94,7 @@ const galleryData: GalleryItem[] = [
     title: 'Terracotta Tonal',
     category: 'Campaign',
     src: '/gallery/tonal terracottarust01.png',
-    aspect: 'aspect-[4/5]',
+    aspect: 'aspect-[3/4]',
     description: 'Warm terracotta tones sculpted across cheekbones for glowing editorial warmth.',
   },
 ];
@@ -138,7 +138,7 @@ export default function Gallery() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 md:mb-16 gap-6 md:gap-8">
           <div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#E52E2D] mb-3 flex items-center gap-3 font-bold">
+            <span className="font-mono text-[11px] uppercase tracking-[0.45em] text-[#E52E2D] mb-3 flex items-center gap-3 font-bold">
               <span className="w-6 h-px bg-[#E52E2D]" />
               01 // The Collection
             </span>
@@ -157,10 +157,10 @@ export default function Gallery() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-mono text-[9px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
+                className={`font-mono text-[11px] uppercase tracking-[0.2em] px-4 py-2.5 transition-all duration-300 rounded-full border cursor-pointer shrink-0 min-h-[44px] ${
                   activeCategory === cat
                     ? 'bg-[#E52E2D] text-white border-[#E52E2D] shadow-[0_0_20px_rgba(229,46,45,0.35)]'
-                    : 'bg-white/2 text-white/50 border-white/10 hover:border-white/30 hover:text-white'
+                    : 'bg-white/2 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
                 }`}
               >
                 {cat}
@@ -187,17 +187,17 @@ export default function Gallery() {
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
 
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                <span className="font-mono text-[9px] text-white/50 tracking-widest bg-black/60 px-2 py-0.5 border border-white/10">
+                <span className="font-mono text-[11px] text-white/80 tracking-widest bg-black/60 px-2 py-0.5 border border-white/10">
                   {item.index}
                 </span>
-                <span className="font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 bg-[#E52E2D] text-white font-bold">
+                <span className="font-mono text-[11px] uppercase tracking-widest px-2.5 py-1 bg-[#E52E2D] text-white font-bold">
                   {item.category}
                 </span>
               </div>
 
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                 <div>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-[#E52E2D] block mb-0.5 font-bold">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#E52E2D] block mb-0.5 font-bold">
                     Tap to Expand
                   </span>
                   <h3
@@ -217,7 +217,7 @@ export default function Gallery() {
         </div>
 
         {/* Desktop/Tablet Responsive Aspect-Ratio Masonry Grid (hidden on small mobile) */}
-        <motion.div layout className="hidden md:block md:columns-2 lg:columns-3 xl:columns-4 md:gap-5 md:space-y-5">
+        <motion.div layout className="hidden md:block md:columns-2 lg:columns-3 xl:columns-4 md:gap-5">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, i) => (
               <motion.div
@@ -227,7 +227,7 @@ export default function Gallery() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="break-inside-avoid block"
+                className="break-inside-avoid block mb-5"
               >
                 <div
                   className={`relative w-full ${item.aspect} overflow-hidden group cursor-pointer bg-[#0f0f0f] border border-white/10 hover:border-[#E52E2D]/50 transition-all duration-500 rounded-xs`}
@@ -249,17 +249,17 @@ export default function Gallery() {
                   <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
                   <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
-                    <span className="font-mono text-[9px] text-white/40 tracking-widest bg-black/40 backdrop-blur-xs px-2 py-0.5 border border-white/10">
+                    <span className="font-mono text-[11px] text-white/75 tracking-widest bg-black/40 backdrop-blur-xs px-2 py-0.5 border border-white/10">
                       {item.index}
                     </span>
-                    <span className="font-mono text-[8px] uppercase tracking-widest px-2.5 py-1 bg-black/60 text-[#E52E2D] backdrop-blur-md border border-[#E52E2D]/30 opacity-80 group-hover:opacity-100 transition-opacity">
+                    <span className="font-mono text-[11px] uppercase tracking-widest px-2.5 py-1 bg-black/60 text-[#E52E2D] backdrop-blur-md border border-[#E52E2D]/30 opacity-80 group-hover:opacity-100 transition-opacity">
                       {item.category}
                     </span>
                   </div>
 
                   <div className="absolute bottom-0 left-0 right-0 z-20 p-5 flex items-end justify-between translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
                     <div>
-                      <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-[#E52E2D] block mb-1 font-bold">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#E52E2D] block mb-1 font-bold">
                         Editorial Look
                       </span>
                       <h3
@@ -282,11 +282,11 @@ export default function Gallery() {
 
         {/* Footer info row */}
         <div className="mt-10 md:mt-14 pt-6 md:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
-          <p className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em] text-center sm:text-left flex items-center gap-2">
+          <p className="font-mono text-[11px] text-white/75 uppercase tracking-[0.2em] text-center sm:text-left flex items-center gap-2">
             <Sparkles size={12} className="text-[#E52E2D]" />
             Swipe or tap any image for full detail view
           </p>
-          <div className="flex items-center gap-4 font-mono text-[9px] text-white/40 uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-4 font-mono text-[11px] text-white/75 uppercase tracking-[0.2em]">
             <span>Total Works: 0{filteredItems.length}</span>
             <span className="text-white/20">|</span>
             <span className="text-[#E52E2D]">Paris • Mumbai</span>

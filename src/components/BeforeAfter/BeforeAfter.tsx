@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function BeforeAfter() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -50,7 +51,7 @@ export default function BeforeAfter() {
         {/* Text Content */}
         <div className="lg:w-1/3 w-full text-left shrink-0">
           <span
-            className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#E52E2D] mb-4 block font-bold"
+            className="font-mono text-[11px] uppercase tracking-[0.4em] text-[#E52E2D] mb-4 block font-bold"
             style={{ fontFamily: 'var(--font-inter)' }}
           >
             [ The Transformation ]
@@ -68,7 +69,7 @@ export default function BeforeAfter() {
           >
             Makeup isn&apos;t about hiding; it&apos;s about amplifying. Touch or drag to see how we elevate natural beauty into high-fashion editorial perfection using advanced contouring and skin-prep techniques.
           </p>
-          <div className="flex items-center gap-4 text-[#E52E2D] text-[10px] tracking-[0.25em] uppercase font-mono font-semibold">
+          <div className="flex items-center gap-4 text-[#E52E2D] text-[11px] tracking-[0.25em] uppercase font-mono font-semibold">
             <span>Bare Canvas</span>
             <div className="flex-1 h-px bg-[#E52E2D]/30" />
             <span>Couture Finish</span>
@@ -78,7 +79,10 @@ export default function BeforeAfter() {
         {/* Responsive Touch-Enabled Slider Container */}
         <div
           ref={containerRef}
-          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-xs border border-white/10 cursor-ew-resize"
+          role="slider"
+          aria-label="Drag to compare before and after makeup look"
+          aria-valuenow={50}
+          className="lg:w-2/3 w-full h-[360px] sm:h-[460px] md:aspect-video relative overflow-hidden select-none touch-none rounded-xs border border-white/10 cursor-grab active:cursor-grabbing"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -90,14 +94,14 @@ export default function BeforeAfter() {
           {/* Base Image — After */}
           <Image
             src="/gallery/prada_editorial_campaign_v2.png"
-            alt="After Makeup"
+            alt="After Makeup Look"
             fill
             unoptimized
             draggable={false}
             className="object-cover object-center pointer-events-none select-none"
             sizes="(max-width: 1024px) 100vw, 66vw"
           />
-          <div className="absolute top-4 right-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[8px] uppercase font-mono tracking-widest text-white border border-white/20 pointer-events-none">
+          <div className="absolute top-4 right-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[11px] uppercase font-mono tracking-widest text-white border border-white/20 pointer-events-none">
             After
           </div>
 
@@ -108,28 +112,29 @@ export default function BeforeAfter() {
           >
             <Image
               src="/gallery/rawcanvas_v2.png"
-              alt="Before Makeup"
+              alt="Before Makeup Look"
               fill
               unoptimized
               draggable={false}
               className="object-cover object-center pointer-events-none select-none"
               sizes="(max-width: 1024px) 100vw, 66vw"
             />
-            <div className="absolute top-4 left-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[8px] uppercase font-mono tracking-widest text-white/70 border border-white/20 pointer-events-none">
+            <div className="absolute top-4 left-4 z-30 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[11px] uppercase font-mono tracking-widest text-white/90 border border-white/20 pointer-events-none">
               Before
             </div>
           </motion.div>
 
-          {/* Slider Handle */}
+          {/* Slider Handle with Left/Right Chevrons */}
           <motion.div
             className="absolute top-0 bottom-0 w-[2px] bg-[#E52E2D] z-20 flex items-center justify-center shadow-[0_0_15px_rgba(229,46,45,0.9)] will-change-[left] pointer-events-none"
             style={{ left: sliderLeft }}
           >
-            <div className="w-11 h-11 rounded-full border-2 border-[#E52E2D] bg-[#060606] flex items-center justify-center shadow-2xl shrink-0">
-              <div className="flex gap-1">
-                <div className="w-[2px] h-3 bg-white/70 rounded-full" />
-                <div className="w-[2px] h-3 bg-white/70 rounded-full" />
-              </div>
+            <div
+              className="w-10 h-10 md:w-11 md:h-11 rounded-full border-2 border-[#E52E2D] bg-[#060606] flex items-center justify-between px-1 md:px-1.5 shadow-[0_0_20px_rgba(229,46,45,0.6)] shrink-0 text-white"
+              aria-hidden="true"
+            >
+              <ChevronLeft size={14} className="text-white/90" />
+              <ChevronRight size={14} className="text-white/90" />
             </div>
           </motion.div>
         </div>

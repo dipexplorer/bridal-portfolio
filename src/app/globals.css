@@ -7,6 +7,7 @@
   --font-cinzel: var(--font-cinzel);
   --font-cormorant: var(--font-cormorant);
   --font-sans: var(--font-jakarta);
+  --radius-xs: 0.25rem;
 
   /* High-Fashion Editorial Palette */
   --color-gold: #E52E2D; /* Bold Red */

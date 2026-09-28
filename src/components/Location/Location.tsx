@@ -105,18 +105,25 @@ export default function Location() {
 
         {/* Right Column: Mobile-Adapted Interactive Map */}
         <div
-          className="lg:col-span-7 h-[300px] sm:h-[380px] lg:h-auto rounded-xs overflow-hidden relative border border-white/10 bg-[#0f0f0f]"
+          className="lg:col-span-7 h-[300px] sm:h-[380px] lg:h-auto rounded-xs overflow-hidden relative border border-white/10 bg-[#0f0f0f] group"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.73359676755!2d72.81232811651813!3d19.07008130835158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8e123f8d27b%3A0x437996b49a236a78!2sBandra%20West%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
             width="100%"
             height="100%"
-            style={{ border: 0, filter: "grayscale(20%) contrast(100%)", minHeight: "300px" }}
+            style={{
+              border: 0,
+              filter: "invert(90%) hue-rotate(180deg) grayscale(35%) contrast(115%) opacity(0.85)",
+              minHeight: "300px"
+            }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="LUXE Bridal Studio Location Map"
           />
+
+          {/* Subtle edge-fade overlay into dark background */}
+          <div className="absolute inset-0 border border-white/10 pointer-events-none shadow-[inset_0_0_30px_rgba(6,6,6,0.9)]" />
         </div>
       </div>
     </section>

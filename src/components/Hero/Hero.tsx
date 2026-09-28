@@ -15,6 +15,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
   const bgPhotoRef = useRef<HTMLDivElement>(null);
   const textContentRef = useRef<HTMLDivElement>(null);
   const afterTextContentRef = useRef<HTMLDivElement>(null);
+  const chipRef = useRef<HTMLDivElement>(null);
 
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -104,11 +105,20 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 cursorRevealRef.current.style.opacity = "1";
               }
             }
+
+            if (chipRef.current) {
+              chipRef.current.style.opacity = isScrolled ? "0" : "1";
+              chipRef.current.style.pointerEvents = isScrolled ? "none" : "auto";
+            }
           },
           onLeaveBack: () => {
             isScrolledRef.current = false;
             if (cursorRevealRef.current) {
               cursorRevealRef.current.style.opacity = "1";
+            }
+            if (chipRef.current) {
+              chipRef.current.style.opacity = "1";
+              chipRef.current.style.pointerEvents = "auto";
             }
           },
         },
@@ -251,7 +261,10 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
         </div>
 
         {/* Top-Right Interactive Glassmorphism Lens Indicator Tag */}
-        <div className="absolute top-28 right-6 md:right-16 lg:right-24 z-40 hidden sm:flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-[9px] uppercase tracking-[0.25em] text-white/80 pointer-events-auto">
+        <div
+          ref={chipRef}
+          className="absolute top-28 right-6 md:right-16 lg:right-24 z-40 hidden sm:flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-[11px] uppercase tracking-[0.25em] text-white/90 pointer-events-auto transition-opacity duration-300"
+        >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E52E2D] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E52E2D]"></span>
@@ -347,7 +360,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                 {/* Primary CTA */}
                 <button
                   onClick={onBookClick}
-                  className="min-h-[48px] px-7 md:px-8 py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[9px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-[#c01f1f] hover:border-[#c01f1f] flex items-center justify-center cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.35)] hover:shadow-[0_0_30px_rgba(229,46,45,0.6)]"
+                  className="min-h-[48px] px-7 md:px-8 py-3.5 bg-[#E52E2D] border border-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.35em] transition-all duration-300 hover:bg-[#c01f1f] hover:border-[#c01f1f] flex items-center justify-center cursor-pointer shadow-[0_0_20px_rgba(229,46,45,0.35)] hover:shadow-[0_0_30px_rgba(229,46,45,0.6)]"
                 >
                   Reserve a Session
                 </button>
@@ -361,7 +374,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   <span className="w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/30 flex items-center justify-center text-white/80 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] group-hover:shadow-[0_0_14px_rgba(229,46,45,0.4)] transition-all duration-300 shrink-0">
                     <Play size={13} className="ml-0.5" fill="currentColor" />
                   </span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/60 group-hover:text-white/90 transition-colors duration-300">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/80 group-hover:text-white transition-colors duration-300">
                     Watch Our Story
                   </span>
                 </button>
@@ -376,17 +389,17 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
               transition={{ duration: 1, delay: 0.68, ease: "easeOut" }}
               className="hidden md:flex flex-col items-end gap-3.5 pointer-events-auto"
             >
-              <div className="text-right font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">
+              <div className="text-right font-mono text-[11px] uppercase tracking-[0.25em] text-white/80">
                 <span className="text-[#E52E2D] font-bold block mb-1 tracking-[0.3em]">Available Worldwide</span>
                 <span>Based in Paris &amp; Mumbai</span>
               </div>
 
               <div className="flex flex-col items-end gap-1.5 pt-3 border-t border-white/10">
-                <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-white/70 bg-white/5 px-3 py-1 rounded-xs border border-white/10">
+                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/90 bg-white/5 px-3 py-1 rounded-xs border border-white/10">
                   <Sparkles size={10} className="text-[#E52E2D]" />
                   <span>500+ Editorial Brides</span>
                 </div>
-                <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-white/50">
+                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
                   <Award size={10} className="text-[#E52E2D]" />
                   <span>Vogue &amp; Elle Featured</span>
                 </div>
@@ -401,7 +414,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             transition={{ duration: 1, delay: 0.8 }}
             className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-auto"
           >
-            <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-white/40 md:hidden">
+            <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/75 md:hidden">
               Touch to reveal makeup
             </span>
             <div className="w-px h-8 bg-linear-to-b from-white/30 to-transparent" />
@@ -418,7 +431,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             <div className="flex flex-col">
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-10 sm:w-12 h-0.5 bg-[#E52E2D] shadow-[0_0_10px_rgba(229,46,45,0.8)]" />
-                <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
+                <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
                   Editorial Reveal // Couture Finish
                 </span>
               </div>
@@ -428,7 +441,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
               >
                 Sculpted Perfection
               </h2>
-              <p className="font-mono text-[10px] sm:text-xs tracking-[0.28em] text-white/75 uppercase mt-2 font-light">
+              <p className="font-mono text-[11px] sm:text-xs tracking-[0.28em] text-white/85 uppercase mt-2 font-light">
                 High-Definition Artistry &amp; Luminous Velvet Skin
               </p>
             </div>
@@ -436,7 +449,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
             {/* Top Right Quick Action Badge */}
             <button
               onClick={onBookClick}
-              className="self-start px-7 py-3 rounded-full bg-black/60 backdrop-blur-md border border-[#E52E2D]/60 text-white font-mono text-[9px] uppercase tracking-[0.3em] font-bold hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer shadow-[0_0_25px_rgba(229,46,45,0.4)]"
+              className="self-start px-7 py-3 rounded-full bg-black/60 backdrop-blur-md border border-[#E52E2D]/60 text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-[#E52E2D] hover:border-[#E52E2D] transition-all cursor-pointer shadow-[0_0_25px_rgba(229,46,45,0.4)]"
             >
               Reserve This Look
             </button>
@@ -446,7 +459,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           <div className="hidden md:grid grid-cols-2 gap-12 w-full my-auto pointer-events-auto">
             {/* Left Feature Callout */}
             <div className="flex flex-col items-start gap-1.5 p-4 rounded-xs bg-black/50 backdrop-blur-md border border-white/15 max-w-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
                 <Sparkles size={11} /> Graphic Eyeliner Artistry
               </span>
               <p className="text-xs text-white/80 font-light leading-relaxed">
@@ -456,7 +469,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
 
             {/* Right Feature Callout */}
             <div className="flex flex-col items-end text-right gap-1.5 p-4 rounded-xs bg-black/50 backdrop-blur-md border border-white/15 max-w-sm ml-auto shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#E52E2D] font-bold flex items-center gap-2">
                 <Sparkles size={11} /> Luminous Glass Skin
               </span>
               <p className="text-xs text-white/80 font-light leading-relaxed">
@@ -469,14 +482,14 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
           <div className="flex items-center justify-between pt-6 border-t border-white/15 pointer-events-auto">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#E52E2D] shadow-[0_0_12px_rgba(229,46,45,1)] animate-ping" />
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/80 font-medium">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/85 font-medium">
                 Transform Complete — High Fashion Couture
               </span>
             </div>
 
             <a
               href="#about"
-              className="flex items-center gap-2.5 group font-mono text-[9px] uppercase tracking-[0.3em] text-white/70 hover:text-white transition-colors"
+              className="flex items-center gap-2.5 group font-mono text-[11px] uppercase tracking-[0.3em] text-white/80 hover:text-white transition-colors"
             >
               <span>Explore Artist Profile</span>
               <span className="w-7 h-7 rounded-full border border-white/30 group-hover:border-[#E52E2D] group-hover:text-[#E52E2D] flex items-center justify-center transition-all">
@@ -523,11 +536,11 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
               <div className="relative z-10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="w-8 h-px bg-[#E52E2D]" />
-                  <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-[#E52E2D] font-bold">
                     Couture Film // Editorial Vision
                   </span>
                 </div>
-                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/50 hidden sm:inline">
+                <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/75 hidden sm:inline">
                   Paris • London • Mumbai
                 </span>
               </div>
@@ -555,7 +568,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                   >
                     {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
                   </button>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-white/50">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/75">
                     {isMuted ? 'Ambient Soundtrack Muted' : 'Ambient Audio Active'}
                   </span>
                 </div>
@@ -565,7 +578,7 @@ export default function Hero({ onBookClick }: { onBookClick?: () => void }) {
                     setIsVideoOpen(false);
                     onBookClick?.();
                   }}
-                  className="px-6 py-2.5 bg-[#E52E2D] text-white font-mono text-[9px] uppercase tracking-[0.3em] font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:bg-[#c01f1f] transition-all cursor-pointer"
+                  className="px-6 py-2.5 bg-[#E52E2D] text-white font-mono text-[11px] uppercase tracking-[0.3em] font-bold shadow-[0_0_20px_rgba(229,46,45,0.4)] hover:bg-[#c01f1f] transition-all cursor-pointer"
                 >
                   Reserve Your Session
                 </button>
